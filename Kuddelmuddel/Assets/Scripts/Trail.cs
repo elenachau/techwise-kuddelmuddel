@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Swipe : MonoBehaviour
+public class Trail : MonoBehaviour
 {
     [SerializeField]
     private GameObject trail;
@@ -12,8 +12,6 @@ public class Swipe : MonoBehaviour
     {
         if (Input.touchCount > 0){ // Ignores multiple fingers tapped
             Touch touch = Input.GetTouch(0);
-            Debug.Log(touch.position);
-
             trail.SetActive(true);
             trail.transform.position = ConvScreenCoordsToWorld(touch.position);
         }
