@@ -3961,8 +3961,10 @@ GameObject:
   m_Component:
   - component: {fileID: 754927768}
   - component: {fileID: 754927767}
-  - component: {fileID: 754927770}
-  - component: {fileID: 754927769}
+  - component: {fileID: 754927771}
+  - component: {fileID: 754927774}
+  - component: {fileID: 754927773}
+  - component: {fileID: 754927772}
   m_Layer: 0
   m_Name: Touch Manager
   m_TagString: Untagged
@@ -3982,7 +3984,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8994511d473ce42dbb0058629dbed891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  mode: 2
+  trail: {fileID: 848477979}
+  tilemap: {fileID: 260099597}
 --- !u!4 &754927768
 Transform:
   m_ObjectHideFlags: 0
@@ -3998,7 +4002,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &754927769
+--- !u!114 &754927771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4007,13 +4011,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 754927766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c8f57ad216f43dd9ef9f2b4b9e7bb9, type: 3}
+  m_Script: {fileID: 11500000, guid: f9be8aa8fde2e4205ae8bfa6435e76ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTile: {fileID: 0}
+  lastCell: {x: 0, y: 0, z: 0}
+  lastWorldPt: {x: 0, y: 0}
+--- !u!114 &754927772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754927766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5128420a60e324ec18e38a86bb9431bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   xBounds: 5
   yBounds: 5
   scrollSensitivity: 0.01
---- !u!114 &754927770
+--- !u!114 &754927773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4022,11 +4041,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 754927766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f254f2600533441cac514ae2fce0e22, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cc654dfa51f54546852b4db3e7517b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weedPrefab: {fileID: 910837274}
   canvas: {fileID: 260099597}
+--- !u!114 &754927774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754927766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cdd8f2378c74b13a353f9da250b782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomScale: 0.01
+  maxCamSize: 10
+  minCamSize: 2
 --- !u!1 &839920926
 GameObject:
   m_ObjectHideFlags: 0
