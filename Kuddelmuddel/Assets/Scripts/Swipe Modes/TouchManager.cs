@@ -8,7 +8,7 @@ public class TouchManger : MonoBehaviour
 {
     private Navigation nv;
     private WeedMaker wm;
-    //public WeedEraser we;
+    private WeedEraser we;
     private PinchZoom pz;
     private TileGetter tg;
 
@@ -20,14 +20,28 @@ public class TouchManger : MonoBehaviour
         GameObject self = GameObject.Find("Touch Manager");
         nv = self.GetComponent<Navigation>();
         wm = self.GetComponent<WeedMaker>();
-        //we = self.GetComponent<WeedEraser>();
+        we = self.GetComponent<WeedEraser>();
         pz = self.GetComponent<PinchZoom>();
         tg = self.GetComponent<TileGetter>();
     }
 
     void Update()
     {
-        if(Input.touchCount > 0)
+        // DEBUG: Change modes
+        if(Input.GetKeyDown("1")){
+            mode = 3;
+            Debug.Log("Mode: Eraser"); }
+        else if(Input.GetKeyDown("2")){
+            mode = 2;
+            Debug.Log("Mode: Maker"); }
+        else if(Input.GetKeyDown("3")){
+            mode = 1;
+            Debug.Log("Mode: Zoom"); }
+        else if(Input.GetKeyDown("4")){
+            mode = 1;
+            Debug.Log("Mode: Navigate"); }
+
+        else if(Input.touchCount > 0)
         {
             tg.TouchUpdate(tilemap, Input.GetTouch(0).position);
             trail.SetActive(true);
@@ -38,14 +52,14 @@ public class TouchManger : MonoBehaviour
                     nv.NavUpdate();
                     break;
                 case 1:
-                    wm.MakerUpdate();
-                    break;
-                // case 3:
-                //     we.EraseUpdate();
-                //        break;
-                case 2:
                     pz.ZoomUpdate();
                     break;
+                case 2:
+                    wm.MakerUpdate();
+                    break;
+                case 3:
+                    we.EraseUpdate();
+                       break;
             }
         }
     }
