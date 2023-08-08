@@ -3984,7 +3984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8994511d473ce42dbb0058629dbed891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 2
+  mode: 1
   trail: {fileID: 848477979}
   tilemap: {fileID: 260099597}
 --- !u!4 &754927768
