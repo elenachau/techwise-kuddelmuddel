@@ -64,13 +64,6 @@ public class TouchManager : MonoBehaviour
                     we.EraseUpdate();
                        break;
             }
-
-            // DEBUG: Read/write weed data from touch
-            if (wlm.weedLocations.ContainsKey(tg.lastCell) && Input.GetTouch(0).phase == TouchPhase.Began) {
-                WeedData data = wlm.weedLocations[tg.lastCell].GetComponent<WeedData>();
-                print("You touched weed #" + data.testNum + ". myString = " + data.testString);
-                data.testString = "Touched";
-            }
         }
     }
 }
