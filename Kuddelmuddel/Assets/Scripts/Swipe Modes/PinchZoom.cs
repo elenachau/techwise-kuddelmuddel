@@ -19,10 +19,12 @@ public class PinchZoom : MonoBehaviour
             Touch touch = Input.GetTouch(0);
 
             if (anchored){
-                float currentDistance = Vector2.Distance(anchor, touch.position);
-                float newSize = Camera.main.orthographicSize + (zoomScale * (previousDistance - currentDistance));
-                Camera.main.orthographicSize = CheckCamZoom(Mathf.Abs(newSize));
-                previousDistance = currentDistance;
+                if (touch.phase == TouchPhase.Moved){
+                    float currentDistance = Vector2.Distance(anchor, touch.position);
+                    float newSize = Camera.main.orthographicSize + (zoomScale * (previousDistance - currentDistance));
+                    Camera.main.orthographicSize = CheckCamZoom(Mathf.Abs(newSize));
+                    previousDistance = currentDistance;
+                }
 
                 if (touch.phase == TouchPhase.Ended){
                     anchored = false;
