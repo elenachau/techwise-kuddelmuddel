@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TouchManger : MonoBehaviour
 {
-    public Navigation nv;
-    public WeedMaker wm;
+    private Navigation nv;
+    private WeedMaker wm;
     //public WeedEraser we;
     //public PinchZoom pz;
 
@@ -27,8 +27,10 @@ public class TouchManger : MonoBehaviour
             switch (mode){
                 case 0:
                     nv.NavUpdate();
+                    break;
                 case 1:
                     wm.MakerUpdate();
+                    break;
                 // case 2:
                 //     we.EraseUpdate();
                 // case 3:

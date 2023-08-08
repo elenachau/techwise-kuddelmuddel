@@ -12,7 +12,7 @@ public class Navigation : MonoBehaviour
     [SerializeField]
     float scrollSensitivity; // 0-1 scroll speed
 
-    void NavUpdate() {
+    public void NavUpdate() {
         Vector2 dPos = Input.GetTouch(0).deltaPosition;
         Camera cam = Camera.main;
 
