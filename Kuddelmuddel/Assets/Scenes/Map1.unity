@@ -3959,8 +3959,8 @@ GameObject:
   - component: {fileID: 754927771}
   - component: {fileID: 754927774}
   - component: {fileID: 754927773}
-  - component: {fileID: 754927772}
   - component: {fileID: 754927775}
+  - component: {fileID: 754927776}
   m_Layer: 0
   m_Name: Touch Manager
   m_TagString: Untagged
@@ -4013,18 +4013,7 @@ MonoBehaviour:
   lastTile: {fileID: 0}
   lastCell: {x: 0, y: 0, z: 0}
   lastWorldPt: {x: 0, y: 0}
---- !u!114 &754927772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754927766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5128420a60e324ec18e38a86bb9431bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  lastWeed: {fileID: 0}
 --- !u!114 &754927773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4067,6 +4056,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 2094327039}
+--- !u!114 &754927776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754927766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5128420a60e324ec18e38a86bb9431bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xBounds: 5
+  yBounds: 5
+  scrollSensitivity: 0.01
 --- !u!1 &839920926
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,6 +4265,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7380889301390715365, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
   m_PrefabInstance: {fileID: 1828335659937839314}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &910837276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910837274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 933df3edc8e2746ec8957cf761caf006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testNum: 0
+  testName: Default
 --- !u!1 &1620415831
 GameObject:
   m_ObjectHideFlags: 0
@@ -4680,7 +4698,10 @@ PrefabInstance:
     - {fileID: 9039288809467558132, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7380889301390715365, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 910837276}
   m_SourcePrefab: {fileID: 100100000, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

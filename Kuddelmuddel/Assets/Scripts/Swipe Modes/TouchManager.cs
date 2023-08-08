@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
-public class TouchManger : MonoBehaviour
+public class TouchManager : MonoBehaviour
 {
     private Navigation nv;
     private WeedMaker wm;
     private WeedEraser we;
     private PinchZoom pz;
     private TileGetter tg;
+    private WeedLocationManager wlm;
 
     [SerializeField] private int mode;
     [SerializeField] private GameObject trail;
@@ -23,24 +24,26 @@ public class TouchManger : MonoBehaviour
         we = self.GetComponent<WeedEraser>();
         pz = self.GetComponent<PinchZoom>();
         tg = self.GetComponent<TileGetter>();
+        wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
     }
 
     void Update()
     {
         // DEBUG: Change modes
-        if(Input.GetKeyDown("1")){
+        if(Input.GetKeyDown("4")){
             mode = 3;
             Debug.Log("Mode: Eraser"); }
-        else if(Input.GetKeyDown("2")){
+        else if(Input.GetKeyDown("3")){
             mode = 2;
             Debug.Log("Mode: Maker"); }
-        else if(Input.GetKeyDown("3")){
+        else if(Input.GetKeyDown("2")){
             mode = 1;
             Debug.Log("Mode: Zoom"); }
-        else if(Input.GetKeyDown("4")){
-            mode = 1;
+        else if(Input.GetKeyDown("1")){
+            mode = 0;
             Debug.Log("Mode: Navigate"); }
 
+        // Handle touch
         else if(Input.touchCount > 0)
         {
             tg.TouchUpdate(tilemap, Input.GetTouch(0).position);
@@ -60,6 +63,13 @@ public class TouchManger : MonoBehaviour
                 case 3:
                     we.EraseUpdate();
                        break;
+            }
+
+            // DEBUG: Read/write weed data from touch
+            if (wlm.weedLocations.ContainsKey(tg.lastCell) && Input.GetTouch(0).phase == TouchPhase.Began) {
+                WeedData data = wlm.weedLocations[tg.lastCell].GetComponent<WeedData>();
+                print("You touched weed #" + data.testNum + ". myString = " + data.testString);
+                data.testString = "Touched";
             }
         }
     }

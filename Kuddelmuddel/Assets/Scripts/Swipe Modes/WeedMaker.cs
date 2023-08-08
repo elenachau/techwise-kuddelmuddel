@@ -24,6 +24,7 @@ public class WeedMaker : MonoBehaviour
                 GameObject newWeed = Instantiate(weedPrefab, tg.lastWorldPt, Quaternion.identity);
                 newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
                 newWeed.name = "Weed" + wlm.weedLocations.Count;
+                newWeed.GetComponent<WeedData>().testNum = wlm.weedLocations.Count;
 
                 print("Added weed at " + tg.lastCell);
                 wlm.weedLocations.Add(tg.lastCell, newWeed);
