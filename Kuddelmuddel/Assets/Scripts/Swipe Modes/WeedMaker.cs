@@ -21,7 +21,7 @@ public class WeedMaker : MonoBehaviour
             tg.TouchUpdate(canvas, Input.GetTouch(0).position);
 
             if (!(wlm.weedLocations.ContainsKey(tg.lastCell))){
-                GameObject newWeed = Instantiate(weedPrefab, tg.lastWorldPt, Quaternion.identity);
+                GameObject newWeed = Instantiate(weedPrefab, canvas.CellToWorld(tg.lastCell), Quaternion.identity);
                 newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
                 newWeed.name = "Weed" + wlm.weedLocations.Count;
                 newWeed.GetComponent<WeedData>().testNum = wlm.weedLocations.Count;
