@@ -21,13 +21,18 @@ public class WeedMaker : MonoBehaviour
             tg.TouchUpdate(canvas, Input.GetTouch(0).position);
 
             if (!(wlm.weedLocations.ContainsKey(tg.lastCell))){
-                GameObject newWeed = Instantiate(weedPrefab, canvas.CellToWorld(tg.lastCell), Quaternion.identity);
-                newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
-                newWeed.name = "Weed" + wlm.weedLocations.Count;
-                newWeed.GetComponent<WeedData>().testNum = wlm.weedLocations.Count;
+                if (wlm.tileLocations.ContainsKey(tg.lastCell)){
+                    GameObject newWeed = Instantiate(weedPrefab, canvas.CellToWorld(tg.lastCell), Quaternion.identity);
+                    newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
+                    newWeed.name = "Weed" + tg.lastCell;
+                    newWeed.GetComponent<WeedData>().testNum = wlm.weedLocations.Count;
 
-                print("Added weed at " + tg.lastCell);
-                wlm.weedLocations.Add(tg.lastCell, newWeed);
+                    print("Added weed at " + tg.lastCell);
+                    wlm.weedLocations.Add(tg.lastCell, newWeed);
+                }
+                else{
+                    print("There is no tile to place that weed!");
+                }
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Began){
                 print("A weed already exists at " + tg.lastCell);
