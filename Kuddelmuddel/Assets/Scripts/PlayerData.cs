@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    [SerializeField] public int progression; // 0-100
+    [SerializeField] public int progression; // 0-100%
     [SerializeField] public string playerName;
     public int xBounds;
     public int yBounds;
