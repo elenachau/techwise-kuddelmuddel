@@ -13,14 +13,14 @@ public class Powerup : MonoBehaviour
     {
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
     }
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        Destroy(gameObject);
-        powerupEffect.ApplyEffect(collision.gameObject);
+    // public void OnTriggerEnter2D(Collider2D collision)
+    // {
+    //     Destroy(gameObject);
+    //     powerupEffect.ApplyEffect(collision.gameObject);
 
 
-        StartCoroutine(DisablePowerup(collision));
-    }
+    //     StartCoroutine(DisablePowerup(collision));
+    // }
 
     public void PowerUpAllWeeds()
     {   
@@ -36,11 +36,11 @@ public class Powerup : MonoBehaviour
         powerupEffect.DisableEffect(target.gameObject);
     }
 
-    public IEnumerator DisablePowerupCollision(Collider2D collision)
-    {
-        yield return new WaitForSeconds(powerupEffect.getDuration());
-        powerupEffect.DisableEffect(collision.gameObject);
-    }
+    // public IEnumerator DisablePowerupCollision(Collider2D collision)
+    // {
+    //     yield return new WaitForSeconds(powerupEffect.getDuration());
+    //     powerupEffect.DisableEffect(collision.gameObject);
+    // }
 
 
 
