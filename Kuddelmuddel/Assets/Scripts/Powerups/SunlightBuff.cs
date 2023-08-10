@@ -9,7 +9,6 @@ using UnityEngine;
 public class SunlightBuff : PowerupEffect
 {
 
-
     public float duration = 0;
     public float growthRateMultiplier = 0;
     public float spreadRateMultiplier = 0;
@@ -27,10 +26,8 @@ public class SunlightBuff : PowerupEffect
 
     public override void DisableEffect(GameObject target)
     {
-
         target.GetComponent<WeedData>().growthRate /= growthRateMultiplier;
-        target.GetComponent<WeedData>().spreadRate /= spreadRateMultiplier;
-        
+        target.GetComponent<WeedData>().spreadRate /= spreadRateMultiplier;  
     }
 
     public override float getDuration() { 
