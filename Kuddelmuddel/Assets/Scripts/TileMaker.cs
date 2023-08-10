@@ -15,10 +15,12 @@ public class TileMaker : MonoBehaviour
         pd = GameObject.Find("Player").GetComponent<PlayerData>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
         tilePrefab = GameObject.Find("TileObject");
+        Debug.Log("Started tile maker");
         MakeRandomGrid();
     }
 
     void MakeRandomGrid() { // random procedural generator
+        print(pd.xBounds + ", " + pd.yBounds);
         for (int i = pd.xBounds; i > -pd.xBounds; i--){
             for (int j = 2*pd.yBounds; j > -2*pd.yBounds; j--){
                 Vector3Int cell = new Vector3Int(i,j,0);

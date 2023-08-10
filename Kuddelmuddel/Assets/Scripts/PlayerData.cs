@@ -12,7 +12,7 @@ public class PlayerData : MonoBehaviour
     // User-defined settings (settings menu)
     [SerializeField] public float scrollSensitivity; // 0-1 scroll speed
 
-    void Start()
+    void Awake()
     {
         setBounds();
     }
