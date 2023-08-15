@@ -22,7 +22,7 @@ public class WeedUserTemplate : MonoBehaviour
 
             tg.TouchUpdate(tilemap, touch.position);
 
-            if (wlm.weedLocations.ContainsKey(tg.lastCell) && touch.phase == TouchPhase.Began) {
+            if (wlm.weedLocations.ContainsKey(tg.lastCell) && wlm.weedLocations[tg.lastCell].tag == "Weed" && touch.phase == TouchPhase.Began) {
                 GameObject clickedWeed = wlm.weedLocations[tg.lastCell];
                 WeedData data = clickedWeed.GetComponent<WeedData>();
 

@@ -25,8 +25,10 @@ public class Powerup : MonoBehaviour
     public void PowerUpAllWeeds()
     {   
         foreach (KeyValuePair<Vector3Int, GameObject> entry in wlm.weedLocations) {
-            powerupEffect.ApplyEffect(entry.Value);
-            StartCoroutine(DisablePowerupOnClick(entry.Value));
+            if (entry.Value.tag == "Weed"){
+                powerupEffect.ApplyEffect(entry.Value);
+                StartCoroutine(DisablePowerupOnClick(entry.Value));
+            }
         }
     }
 

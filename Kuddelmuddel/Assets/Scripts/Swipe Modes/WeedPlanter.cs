@@ -32,6 +32,8 @@ public class WeedPlanter : MonoBehaviour
                         pd.seedCount -= 1;
                         print("Added weed at " + tg.lastCell);
                         wlm.weedLocations.Add(tg.lastCell, newWeed);
+
+                        CheckChanges();
                     }
                     else{
                         print("You don't have enough seeds to plant a weed!");
@@ -42,8 +44,15 @@ public class WeedPlanter : MonoBehaviour
                 }
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Began){
-                print("A weed already exists at " + tg.lastCell);
+                print("That tile is occupied! " + tg.lastCell);
             }
         }
+    }
+
+    private void CheckChanges() {
+        // Destroy obstacle if surrounded on all sides
+            // Reward x seeds
+
+        // Progress map if all weeds placed
     }
 }
