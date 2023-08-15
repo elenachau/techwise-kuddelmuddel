@@ -598,9 +598,9 @@ GameObject:
   - component: {fileID: 754927767}
   - component: {fileID: 754927771}
   - component: {fileID: 754927774}
-  - component: {fileID: 754927773}
-  - component: {fileID: 754927775}
   - component: {fileID: 754927776}
+  - component: {fileID: 754927778}
+  - component: {fileID: 754927777}
   m_Layer: 0
   m_Name: Touch Manager
   m_TagString: Untagged
@@ -654,20 +654,6 @@ MonoBehaviour:
   lastCell: {x: 0, y: 0, z: 0}
   lastWorldPt: {x: 0, y: 0}
   lastWeed: {fileID: 0}
---- !u!114 &754927773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754927766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc654dfa51f54546852b4db3e7517b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weedPrefab: {fileID: 910837274}
-  canvas: {fileID: 260099597}
 --- !u!114 &754927774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,19 +666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97cdd8f2378c74b13a353f9da250b782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &754927775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754927766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3253a8a4ed5c4ba9ae8ca35e83c3dc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 2094327039}
 --- !u!114 &754927776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,6 +678,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5128420a60e324ec18e38a86bb9431bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &754927777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754927766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3897b58f319a14321934c9cce7336c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weedPrefab: {fileID: 910837274}
+  canvas: {fileID: 260099597}
+--- !u!114 &754927778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754927766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46004006320a74928a5e5d6a397d580b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 2094327039}
 --- !u!1 &772267715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,8 +1116,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progression: 0
   playerName: billy
+  weedSellValue: 2
+  startingSeedCount: 10
   xBounds: 0
   yBounds: 0
+  seedCount: 0
   scrollSensitivity: 0.01
 --- !u!4 &1508157525
 Transform:

@@ -7,8 +7,8 @@ using UnityEngine.Tilemaps;
 public class TouchManager : MonoBehaviour
 {
     private Navigation nv;
-    private WeedMaker wm;
-    private WeedEraser we;
+    private WeedPlanter wp;
+    private WeedHarvester wh;
     private PinchZoom pz;
     private TileGetter tg;
     private WeedLocationManager wlm;
@@ -20,8 +20,8 @@ public class TouchManager : MonoBehaviour
     void Start(){
         GameObject self = GameObject.Find("Touch Manager");
         nv = self.GetComponent<Navigation>();
-        wm = self.GetComponent<WeedMaker>();
-        we = self.GetComponent<WeedEraser>();
+        wp = self.GetComponent<WeedPlanter>();
+        wh = self.GetComponent<WeedHarvester>();
         pz = self.GetComponent<PinchZoom>();
         tg = self.GetComponent<TileGetter>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
@@ -32,10 +32,10 @@ public class TouchManager : MonoBehaviour
         // DEBUG: Change modes
         if(Input.GetKeyDown("4")){
             mode = 3;
-            Debug.Log("Mode: Eraser"); }
+            Debug.Log("Mode: Harvest"); }
         else if(Input.GetKeyDown("3")){
             mode = 2;
-            Debug.Log("Mode: Maker"); }
+            Debug.Log("Mode: Plant"); }
         else if(Input.GetKeyDown("2")){
             mode = 1;
             Debug.Log("Mode: Zoom"); }
@@ -58,10 +58,10 @@ public class TouchManager : MonoBehaviour
                     pz.ZoomUpdate();
                     break;
                 case 2:
-                    wm.MakerUpdate();
+                    wp.PlanterUpdate();
                     break;
                 case 3:
-                    we.EraseUpdate();
+                    wh.HarvesterUpdate();
                        break;
             }
         }

@@ -7,15 +7,16 @@ using UnityEngine.EventSystems;
 public class ShopManagerScript : MonoBehaviour
 {
     public int[,] shopItems = new int[5, 5];
-    public float coins;
-
     public Text CoinsTXT;
+    private PlayerData pd;
     //public NumberIncrementer numberIncrementer;
 
 
     void Start()
     {
-        CoinsTXT.text = "Coins:" + coins.ToString();
+        pd = GameObject.Find("Player").GetComponent<PlayerData>();
+
+        CoinsTXT.text = "Seeds:" + pd.seedCount.ToString();
         //numberIncrementer = GameObject.FindObjectOfType<NumberIncrementer>();
 
 
@@ -44,11 +45,11 @@ public class ShopManagerScript : MonoBehaviour
     {
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
 
-        if (coins >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
+        if (pd.seedCount >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
-            coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+            pd.seedCount -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
             shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++;
-            CoinsTXT.text = "Coins:" + coins.ToString();
+            CoinsTXT.text = "Seeds:" + pd.seedCount.ToString();
             ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
         }
 
