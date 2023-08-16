@@ -22,6 +22,6 @@ public class WeedData : MonoBehaviour
 
     private void OnDestroy() {
         wlm.weedLocations.Remove(location);
-        print("Destroyed weed at " + tg.lastCell);
+        print("Destroyed weed at " + location);
     }
 }
