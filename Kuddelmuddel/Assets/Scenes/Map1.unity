@@ -298,51 +298,6 @@ MonoBehaviour:
   - {fileID: 2032655338, guid: 203d5761aaaa9e2468f60983926a40eb, type: 3}
   - {fileID: 1727483446, guid: 203d5761aaaa9e2468f60983926a40eb, type: 3}
   numObstaclesToSpawn: 0
---- !u!1 &346867050
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 346867052}
-  - component: {fileID: 346867051}
-  m_Layer: 0
-  m_Name: WeedUser
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &346867051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 346867050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c84965fb825fa441db8886f97923284d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemap: {fileID: 2094327039}
---- !u!4 &346867052
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 346867050}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3181936, y: 1.9686784, z: -0.0105263}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &401564947 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 704347389371181070, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
@@ -521,7 +476,7 @@ Transform:
   m_GameObject: {fileID: 476729540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1000, y: 0, z: 0}
+  m_LocalPosition: {x: -100, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -565,10 +520,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1850289515
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 187ed0ddef46b1d48be502bdc6dc7c0d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1112,8 +1067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933df3edc8e2746ec8957cf761caf006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testNum: 0
-  testString: Default
   growthState: 0
   growthRate: 100
   spreadRate: 100
@@ -1122,6 +1075,7 @@ MonoBehaviour:
   isGrown: 0
   isGrowing: 1
   totalGrowth: 0
+  location: {x: 0, y: 0, z: 0}
 --- !u!1 &1095021809
 GameObject:
   m_ObjectHideFlags: 0
@@ -1823,6 +1777,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Weed
       objectReference: {fileID: 0}
+    - target: {fileID: 8091114417187337510, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 83c25f6b94c5ed7438f717cb02882307, type: 3}
     - target: {fileID: 8254816943620058204, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
       propertyPath: m_Size.x
       value: 1
@@ -1845,7 +1803,6 @@ SceneRoots:
   - {fileID: 848477981}
   - {fileID: 839920928}
   - {fileID: 754927768}
-  - {fileID: 346867052}
   - {fileID: 1685542316}
   - {fileID: 1650370357}
   - {fileID: 1508157525}

@@ -23,16 +23,12 @@ public class WeedHarvester : MonoBehaviour
 
             if (wlm.weedLocations.ContainsKey(tg.lastCell)){
                 if (wlm.weedLocations[tg.lastCell].tag == "Weed"){
-                    
                     Destroy(wlm.weedLocations[tg.lastCell]);
-                    wlm.weedLocations.Remove(tg.lastCell);
                     incWeedCount();
-                    print("Destroyed weed at " + tg.lastCell);
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Began){
                     print("That is not a weed!");
                 }
-
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Began){
                 print("A weed does not exist to destroy at " + tg.lastCell);

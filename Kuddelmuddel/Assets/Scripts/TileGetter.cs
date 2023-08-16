@@ -38,20 +38,22 @@ public class TileGetter : MonoBehaviour
         return surrounding;
     }
 
-    public List<GameObject> GetSurroundingWeeds(Vector3Int cell) {
-        List<GameObject> surroundingWeeds = new List<GameObject>();
-        surroundingWeeds.Clear();
+    public List<GameObject> GetSurroundingObjectsOfTag(Vector3Int cell, string tag = "any") {
+        List<GameObject> surroundingObjects = new List<GameObject>();
+        surroundingObjects.Clear();
         List<Vector3Int> surroundingCells = GetSurroundingCells(cell);
 
         foreach (Vector3Int sCell in surroundingCells) {
             if(wlm.weedLocations.ContainsKey(sCell)){
-                GameObject sWeed = wlm.weedLocations[sCell];
-                if (sWeed.tag == "Weed"){
-                    surroundingWeeds.Add(sWeed);
+                GameObject sObject = wlm.weedLocations[sCell];
+                if (tag != "any"){
+                    if (sObject.tag == tag){
+                        surroundingObjects.Add(sObject);
+                    }
                 }
             }
         }
 
-        return surroundingWeeds;
+        return surroundingObjects;
     }
 }

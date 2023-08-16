@@ -24,12 +24,12 @@ public class WeedPlanter : MonoBehaviour
 
             if (!(wlm.weedLocations.ContainsKey(tg.lastCell))){
                 if (wlm.tileLocations.ContainsKey(tg.lastCell)){
-                    if (tg.GetSurroundingWeeds(tg.lastCell).Count > 0 || wlm.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
+                    if (tg.GetSurroundingObjectsOfTag(tg.lastCell, "Weed").Count > 0 || wlm.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
                         if (pd.seedCount > 0){
                             GameObject newWeed = Instantiate(weedPrefab, canvas.CellToWorld(tg.lastCell), Quaternion.identity);
                             newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
                             newWeed.name = "Weed" + tg.lastCell;
-                            newWeed.GetComponent<WeedData>().testNum = wlm.weedLocations.Count;
+                            newWeed.GetComponent<WeedData>().location = tg.lastCell;
                             pd.seedCount -= 1;
                             print("Added weed at " + tg.lastCell);
                             wlm.weedLocations.Add(tg.lastCell, newWeed);
@@ -57,6 +57,7 @@ public class WeedPlanter : MonoBehaviour
     private void CheckChanges() {
         // Destroy obstacle if surrounded on all sides
             // Reward x seeds
+        // Or pay x seeds to destroy
 
         // Progress map if all weeds placed
     }
