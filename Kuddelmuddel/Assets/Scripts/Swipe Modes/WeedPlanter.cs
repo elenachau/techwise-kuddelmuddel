@@ -24,19 +24,24 @@ public class WeedPlanter : MonoBehaviour
 
             if (!(wlm.weedLocations.ContainsKey(tg.lastCell))){
                 if (wlm.tileLocations.ContainsKey(tg.lastCell)){
-                    if (pd.seedCount > 0){
-                        GameObject newWeed = Instantiate(weedPrefab, canvas.CellToWorld(tg.lastCell), Quaternion.identity);
-                        newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
-                        newWeed.name = "Weed" + tg.lastCell;
-                        newWeed.GetComponent<WeedData>().testNum = wlm.weedLocations.Count;
-                        pd.seedCount -= 1;
-                        print("Added weed at " + tg.lastCell);
-                        wlm.weedLocations.Add(tg.lastCell, newWeed);
+                    if (tg.GetSurroundingWeeds(tg.lastCell).Count > 0 || wlm.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
+                        if (pd.seedCount > 0){
+                            GameObject newWeed = Instantiate(weedPrefab, canvas.CellToWorld(tg.lastCell), Quaternion.identity);
+                            newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
+                            newWeed.name = "Weed" + tg.lastCell;
+                            newWeed.GetComponent<WeedData>().testNum = wlm.weedLocations.Count;
+                            pd.seedCount -= 1;
+                            print("Added weed at " + tg.lastCell);
+                            wlm.weedLocations.Add(tg.lastCell, newWeed);
 
-                        CheckChanges();
+                            CheckChanges();
+                        }
+                        else{
+                            print("You don't have enough seeds to plant a weed!");
+                        }
                     }
                     else{
-                        print("You don't have enough seeds to plant a weed!");
+                        print("That cell is not adjacent to a weed!");
                     }
                 }
                 else{
