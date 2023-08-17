@@ -27,10 +27,10 @@ public class WeedUserTemplate : MonoBehaviour
                 WeedData data = clickedWeed.GetComponent<WeedData>();
 
                 // // Read from WeedData.cs
-                print("You touched weed #" + data.testNum + ". myString = " + data.testString);
+                print("You touched weed at " + data.location);
                 
-                // Write to WeedData.cs
-                data.testString = "Touched";
+                // Write to WeedData.cs:
+                //data.testString = something something
 
                 // WeedData is used for custom properties (age, type of weed)
                 // GameObject properties (location, sprite) modifiable as well

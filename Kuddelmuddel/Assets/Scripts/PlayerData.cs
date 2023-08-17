@@ -11,18 +11,27 @@ public class PlayerData : MonoBehaviour
     public int xBounds;
     public int yBounds;
     public int seedCount;
+    private GameObject tm;
 
     // User-defined settings (settings menu)
     [SerializeField] public float scrollSensitivity; // 0-1 scroll speed
 
-    void Awake()
-    {
-        setBounds();
-        seedCount = startingSeedCount;
+    void Awake() {
+        SetProgression();
     }
 
-    private void setBounds() {
+    void Start() {
+        tm = GameObject.Find("Touch Manager");
+    }
+
+    private void SetBounds() {
         xBounds = 5 + progression / 2;
-        yBounds = xBounds / 2;
+        yBounds = xBounds;
+    }
+
+    public void SetProgression() {
+        seedCount = startingSeedCount;
+        SetBounds();
+        //tm.GetComponent<PinchZoom>().UpdateCamera();
     }
 }
