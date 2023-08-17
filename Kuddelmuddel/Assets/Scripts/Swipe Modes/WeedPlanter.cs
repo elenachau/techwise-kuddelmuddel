@@ -11,16 +11,19 @@ public class WeedPlanter : MonoBehaviour
     private WeedLocationManager wlm;
     private TileGetter tg;
     private PlayerData pd;
+    private MapManager mm;
 
     void Start() {
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
         pd = GameObject.Find("Player").GetComponent<PlayerData>();
+        mm = GameObject.Find("Map Manager").GetComponent<MapManager>();
     }
 
     public void PlanterUpdate() {
         if (Input.touchCount > 0){
             tg.TouchUpdate(canvas, Input.GetTouch(0).position);
+            bool firstTouch = (Input.GetTouch(0).phase == TouchPhase.Began);
 
             if (!(wlm.weedLocations.ContainsKey(tg.lastCell))){
                 if (wlm.tileLocations.ContainsKey(tg.lastCell)){
@@ -33,32 +36,23 @@ public class WeedPlanter : MonoBehaviour
                             pd.seedCount -= 1;
                             print("Added weed at " + tg.lastCell);
                             wlm.weedLocations.Add(tg.lastCell, newWeed);
-
-                            CheckChanges();
+                            mm.CheckMap();
                         }
-                        else{
+                        else if (firstTouch){
                             print("You don't have enough seeds to plant a weed!");
                         }
                     }
-                    else{
+                    else if (firstTouch){
                         print("That cell is not adjacent to a weed!");
                     }
                 }
-                else{
+                else if (firstTouch){
                     print("There is no tile to place that weed!");
                 }
             }
-            else if (Input.GetTouch(0).phase == TouchPhase.Began){
+            else if (firstTouch){
                 print("That tile is occupied! " + tg.lastCell);
             }
         }
-    }
-
-    private void CheckChanges() {
-        // Destroy obstacle if surrounded on all sides
-            // Reward x seeds
-        // Or pay x seeds to destroy
-
-        // Progress map if all weeds placed
     }
 }

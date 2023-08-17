@@ -22,12 +22,19 @@ public class WeedHarvester : MonoBehaviour
             tg.TouchUpdate(canvas, Input.GetTouch(0).position);
 
             if (wlm.weedLocations.ContainsKey(tg.lastCell)){
-                if (wlm.weedLocations[tg.lastCell].tag == "Weed"){
-                    Destroy(wlm.weedLocations[tg.lastCell]);
+                GameObject touchedObject = wlm.weedLocations[tg.lastCell];
+                if (touchedObject.tag == "Weed"){
+                    Destroy(touchedObject);
                     incWeedCount();
                 }
-                else if (Input.GetTouch(0).phase == TouchPhase.Began){
-                    print("That is not a weed!");
+                else if (touchedObject.tag == "Obstacle"){
+                    int cost = touchedObject.GetComponent<ObstacleData>().cost;
+                    if (pd.seedCount >= cost){
+                        pd.seedCount -= cost;
+                        Destroy(touchedObject);
+                    }
+                    else{
+                        print("You don't have enough seeds to destroy that obstacle!");}
                 }
             }
             else if (Input.GetTouch(0).phase == TouchPhase.Began){

@@ -14,7 +14,11 @@ public class PinchZoom : MonoBehaviour
 
     void Start() {
         pd = GameObject.Find("Player").GetComponent<PlayerData>();
-        maxCamSize = pd.xBounds;
+        UpdateCamera();
+    }
+
+    public void UpdateCamera() {
+        maxCamSize = pd.xBounds + 3;
     }
 
     public void ZoomUpdate()

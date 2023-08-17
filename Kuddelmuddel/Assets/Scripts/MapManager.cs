@@ -19,7 +19,7 @@ public class MapManager : MonoBehaviour
         tilePrefab = GameObject.Find("TileObject");
         obstaclePrefab = GameObject.Find("Obstacle");
         MakeRandomGrid();
-        SpawnObstacles();
+        SpawnObstacles(numObstaclesToSpawn);
     }
 
     void MakeRandomGrid() { // random procedural generator
@@ -27,29 +27,64 @@ public class MapManager : MonoBehaviour
             for (int j = pd.yBounds; j > -pd.yBounds; j--){
                 Vector3Int cell = new Vector3Int(i,j,0);
 
-                GameObject newTile = Instantiate(tilePrefab, canvas.CellToWorld(cell), Quaternion.identity);
-                newTile.transform.parent = GameObject.Find("Terrain").transform;
-                newTile.name = "Tile (" + i + ", " + j + ", 0)";
-                wlm.tileLocations.Add(cell, newTile);
-                
-                // Random sprite
-                int choice = Random.Range(0,2);
-                newTile.GetComponent<SpriteRenderer>().sprite = sprites[choice];
+                if (!wlm.tileLocations.ContainsKey(cell)){
+                    GameObject newTile = Instantiate(tilePrefab, canvas.CellToWorld(cell), Quaternion.identity);
+                    newTile.transform.parent = GameObject.Find("Terrain").transform;
+                    newTile.name = "Tile (" + i + ", " + j + ", 0)";
+                    wlm.tileLocations.Add(cell, newTile);
+                    
+                    // Random sprite
+                    int choice = Random.Range(0,2);
+                    newTile.GetComponent<SpriteRenderer>().sprite = sprites[choice];
+                }
 
             }
         }
     }
 
-    void SpawnObstacles() {
-        for (int i = 0; i < numObstaclesToSpawn; i++){
-            int x = Random.Range(-pd.xBounds, pd.xBounds+1);
-            int y = Random.Range(-pd.yBounds, pd.yBounds+1);
+    void SpawnObstacles(int count) {
+        while (count > 0) {
+            int x = Random.Range(-pd.xBounds, pd.xBounds);
+            int y = Random.Range(-pd.yBounds, pd.yBounds);
             Vector3Int cell = new Vector3Int(x, y, 0);
 
-            GameObject newObstacle = Instantiate(obstaclePrefab, canvas.CellToWorld(cell), Quaternion.identity);
-            newObstacle.transform.parent = GameObject.Find("Above Ground").transform;
-            newObstacle.name = "Obstacle (" + x + ", " + y + ", 0)";
-            wlm.weedLocations.Add(cell, newObstacle);
+            if (!wlm.weedLocations.ContainsKey(cell)) {
+                GameObject newObstacle = Instantiate(obstaclePrefab, canvas.CellToWorld(cell), Quaternion.identity);
+                newObstacle.transform.parent = GameObject.Find("Above Ground").transform;
+                newObstacle.name = "Obstacle (" + x + ", " + y + ", 0)";
+                newObstacle.GetComponent<ObstacleData>().location = cell;
+                wlm.weedLocations.Add(cell, newObstacle);
+                count--;
+            }
+        }
+    }
+
+    public void CheckMap() {
+        // Destroy obstacle if surrounded on all sides
+            // Reward x seeds
+        // Or pay x seeds to destroy?
+
+        // Progress map if all weeds placed
+        bool isMapFilled = true;
+        for (int i = pd.xBounds; i > -pd.xBounds; i--){
+            for (int j = pd.yBounds; j > -pd.yBounds; j--){
+                // Change win condition
+                Vector3Int cell = new Vector3Int(i,j,0);
+                if (!wlm.weedLocations.ContainsKey(cell)){
+                    isMapFilled = false;
+                }
+                else if(wlm.weedLocations[cell].tag != "Weed"){
+                    isMapFilled = false;
+                }
+            }
+        }
+
+        if (isMapFilled){
+            print("You win the level!");
+            pd.progression += 20;
+            pd.SetProgression();
+            MakeRandomGrid();
+            SpawnObstacles(3);
         }
     }
 }
