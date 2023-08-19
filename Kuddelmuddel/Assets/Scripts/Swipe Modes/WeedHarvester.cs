@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class WeedHarvester : MonoBehaviour
 {   
     [SerializeField] private Tilemap canvas;
+    [SerializeField] public TextMeshProUGUI weedCountText;
+    [SerializeField] public TextMeshProUGUI seedCountText;
     private WeedLocationManager wlm;
     private TileGetter tg;
     private PlayerData pd;
@@ -23,12 +26,15 @@ public class WeedHarvester : MonoBehaviour
 
             if (wlm.weedLocations.ContainsKey(tg.lastCell)){
                 GameObject touchedObject = wlm.weedLocations[tg.lastCell];
-                
+
                 if (touchedObject.tag == "Weed"){
                     Destroy(touchedObject);
                     wlm.weedLocations.Remove(tg.lastCell);
                     print("Harvested weed at " + tg.lastCell);
-                    incWeedCount();
+
+                    incSeedCount();
+                    pd.weedCount -= 1;
+                    weedCountText.text = "" + pd.weedCount;
                 }
                 else if (touchedObject.tag == "Obstacle"){
                     int cost = touchedObject.GetComponent<ObstacleData>().cost;
@@ -48,11 +54,12 @@ public class WeedHarvester : MonoBehaviour
         }
     }
 
-    private void incWeedCount(){
+    private void incSeedCount(){
         sellTracker += 1;
         if (sellTracker % pd.weedSellValue == 0){
             sellTracker = 0;
             pd.seedCount += 1;
+            seedCountText.text = "" + pd.seedCount;
         }
 
     }

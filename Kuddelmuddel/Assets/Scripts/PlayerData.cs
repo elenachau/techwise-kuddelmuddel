@@ -11,6 +11,7 @@ public class PlayerData : MonoBehaviour
     public int xBounds;
     public int yBounds;
     public int seedCount;
+    public int weedCount = 0;
     private GameObject tm;
 
     // User-defined settings (settings menu)

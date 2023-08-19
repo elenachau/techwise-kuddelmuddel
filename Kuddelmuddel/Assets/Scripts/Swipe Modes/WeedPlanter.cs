@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class WeedPlanter : MonoBehaviour
 {
     [SerializeField] public GameObject weedPrefab;
     [SerializeField] private Tilemap canvas;
+    [SerializeField] public TextMeshProUGUI weedCountText;
+    [SerializeField] public TextMeshProUGUI seedCountText;
     
     private WeedLocationManager wlm;
     private TileGetter tg;
@@ -33,8 +36,12 @@ public class WeedPlanter : MonoBehaviour
                             newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
                             newWeed.name = "Weed" + tg.lastCell;
                             newWeed.GetComponent<WeedData>().location = tg.lastCell;
+
                             pd.seedCount -= 1;
-                            print("Added weed at " + tg.lastCell);
+                            seedCountText.text = "" + pd.seedCount;
+                            pd.weedCount += 1;
+                            weedCountText.text = "" + pd.weedCount;
+
                             wlm.weedLocations.Add(tg.lastCell, newWeed);
                             mm.CheckMap();
                         }
