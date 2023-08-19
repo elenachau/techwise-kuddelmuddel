@@ -18,11 +18,11 @@ public class PlayerData : MonoBehaviour
 
     void Awake() {
         SetProgression();
-        DontDestroyOnLoad(GameObject.Find("Player"));
     }
 
     void Start() {
         tm = GameObject.Find("Touch Manager");
+        GameObject.DontDestroyOnLoad(this.gameObject);
     }
 
     private void SetBounds() {

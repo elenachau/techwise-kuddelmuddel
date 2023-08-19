@@ -12,8 +12,7 @@ public class TouchManager : MonoBehaviour
     private PinchZoom pz;
     private TileGetter tg;
     private WeedLocationManager wlm;
-
-    [SerializeField] private int mode;
+    private int mode;
     [SerializeField] private GameObject trail;
     [SerializeField] private Tilemap tilemap;
 
@@ -29,22 +28,8 @@ public class TouchManager : MonoBehaviour
 
     void Update()
     {
-        // DEBUG: Change modes
-        if(Input.GetKeyDown("4")){
-            mode = 3;
-            Debug.Log("Mode: Harvest"); }
-        else if(Input.GetKeyDown("3")){
-            mode = 2;
-            Debug.Log("Mode: Plant"); }
-        else if(Input.GetKeyDown("2")){
-            mode = 1;
-            Debug.Log("Mode: Zoom"); }
-        else if(Input.GetKeyDown("1")){
-            mode = 0;
-            Debug.Log("Mode: Navigate"); }
-
         // Handle touch
-        else if(Input.touchCount > 0)
+        if(Input.touchCount > 0)
         {
             tg.TouchUpdate(tilemap, Input.GetTouch(0).position);
             trail.SetActive(true);
@@ -65,5 +50,25 @@ public class TouchManager : MonoBehaviour
                        break;
             }
         }
+    }
+
+    public void SetModeNavigate() {
+        mode = 0;
+        Debug.Log("Mode: Navigate");
+    }
+
+    public void SetModeZoom() {
+        mode = 1;
+        Debug.Log("Mode: Zoom");
+    }
+
+    public void SetModePlant() {
+        mode = 2;
+        Debug.Log("Mode: Plant");
+    }
+
+    public void SetModeHarvest() {
+        mode = 3;
+        Debug.Log("Mode: Harvest");
     }
 }

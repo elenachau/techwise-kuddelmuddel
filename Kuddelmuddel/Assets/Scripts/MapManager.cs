@@ -22,6 +22,15 @@ public class MapManager : MonoBehaviour
         SpawnObstacles(numObstaclesToSpawn);
     }
 
+    void DrawTiles() {
+        foreach (KeyValuePair<Vector3Int, GameObject> entry in wlm.tileLocations) {
+            GameObject newTile = Instantiate(tilePrefab, canvas.CellToWorld(entry.Key), Quaternion.identity);
+            newTile.transform.parent = GameObject.Find("Terrain").transform;
+            //newTile.name = "Tile (" + i + ", " + j + ", 0)";
+            wlm.tileLocations.Add(entry.Key, newTile);
+        }
+    }
+
     void MakeRandomGrid() { // random procedural generator
         for (int i = pd.xBounds; i > -pd.xBounds; i--){
             for (int j = pd.yBounds; j > -pd.yBounds; j--){

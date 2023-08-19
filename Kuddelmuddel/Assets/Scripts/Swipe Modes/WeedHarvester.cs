@@ -23,8 +23,11 @@ public class WeedHarvester : MonoBehaviour
 
             if (wlm.weedLocations.ContainsKey(tg.lastCell)){
                 GameObject touchedObject = wlm.weedLocations[tg.lastCell];
+                
                 if (touchedObject.tag == "Weed"){
                     Destroy(touchedObject);
+                    wlm.weedLocations.Remove(tg.lastCell);
+                    print("Harvested weed at " + tg.lastCell);
                     incWeedCount();
                 }
                 else if (touchedObject.tag == "Obstacle"){
@@ -32,6 +35,8 @@ public class WeedHarvester : MonoBehaviour
                     if (pd.seedCount >= cost){
                         pd.seedCount -= cost;
                         Destroy(touchedObject);
+                        wlm.weedLocations.Remove(tg.lastCell);
+                        print("Destroyed obstacle at " + tg.lastCell);
                     }
                     else{
                         print("You don't have enough seeds to destroy that obstacle!");}

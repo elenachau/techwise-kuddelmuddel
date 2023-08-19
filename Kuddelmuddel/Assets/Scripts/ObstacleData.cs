@@ -11,9 +11,4 @@ public class ObstacleData : MonoBehaviour
     void Start() {
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
     }
-
-    private void OnDestroy() {
-        wlm.weedLocations.Remove(location);
-        print("Destroyed obstacle at " + location);
-    }
 }
