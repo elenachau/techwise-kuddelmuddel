@@ -25,7 +25,7 @@ public class PlayerData : MonoBehaviour
     }
 
     private void SetBounds() {
-        xBounds = 5 + progression / 2;
+        xBounds = progression;
         yBounds = xBounds;
     }
 

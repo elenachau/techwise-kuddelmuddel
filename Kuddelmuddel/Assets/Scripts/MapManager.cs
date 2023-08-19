@@ -44,8 +44,8 @@ public class MapManager : MonoBehaviour
 
     void SpawnObstacles(int count) {
         while (count > 0) {
-            int x = Random.Range(-pd.xBounds, pd.xBounds);
-            int y = Random.Range(-pd.yBounds, pd.yBounds);
+            int x = Random.Range(-pd.xBounds+1, pd.xBounds);
+            int y = Random.Range(-pd.yBounds+1, pd.yBounds);
             Vector3Int cell = new Vector3Int(x, y, 0);
 
             if (!wlm.weedLocations.ContainsKey(cell)) {
@@ -60,15 +60,11 @@ public class MapManager : MonoBehaviour
     }
 
     public void CheckMap() {
-        // Destroy obstacle if surrounded on all sides
-            // Reward x seeds
-        // Or pay x seeds to destroy?
-
         // Progress map if all weeds placed
         bool isMapFilled = true;
         for (int i = pd.xBounds; i > -pd.xBounds; i--){
             for (int j = pd.yBounds; j > -pd.yBounds; j--){
-                // Change win condition
+
                 Vector3Int cell = new Vector3Int(i,j,0);
                 if (!wlm.weedLocations.ContainsKey(cell)){
                     isMapFilled = false;
@@ -81,7 +77,7 @@ public class MapManager : MonoBehaviour
 
         if (isMapFilled){
             print("You win the level!");
-            pd.progression += 20;
+            pd.progression += 2;
             pd.SetProgression();
             MakeRandomGrid();
             SpawnObstacles(3);
