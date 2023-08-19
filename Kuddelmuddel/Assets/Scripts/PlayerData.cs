@@ -18,6 +18,7 @@ public class PlayerData : MonoBehaviour
 
     void Awake() {
         SetProgression();
+        DontDestroyOnLoad(GameObject.Find("Player"));
     }
 
     void Start() {
