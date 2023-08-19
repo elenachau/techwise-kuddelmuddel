@@ -48,9 +48,6 @@ public class WeedHarvester : MonoBehaviour
                         print("You don't have enough seeds to destroy that obstacle!");}
                 }
             }
-            else if (Input.GetTouch(0).phase == TouchPhase.Began){
-                print("A weed does not exist to destroy at " + tg.lastCell);
-            }
         }
     }
 
