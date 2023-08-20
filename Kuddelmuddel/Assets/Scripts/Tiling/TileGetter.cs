@@ -56,4 +56,16 @@ public class TileGetter : MonoBehaviour
 
         return surroundingObjects;
     }
+
+    public List<Vector3Int> GetSurroundingFreeCells(Vector3Int cell) {
+        List<Vector3Int> surroundingCells = GetSurroundingCells(cell);
+
+        foreach (Vector3Int sCell in surroundingCells) {
+            if(wlm.weedLocations.ContainsKey(sCell) || !wlm.tileLocations.ContainsKey(sCell)){
+                surroundingCells.Remove(sCell);
+            }
+        }
+
+        return surroundingCells;
+    }
 }

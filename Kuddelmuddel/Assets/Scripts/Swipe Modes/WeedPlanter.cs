@@ -33,16 +33,17 @@ public class WeedPlanter : MonoBehaviour
                     if (tg.GetSurroundingObjectsOfTag(tg.lastCell, "Weed").Count > 0 || wlm.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
                         if (pd.seedCount > 0){
                             GameObject newWeed = Instantiate(weedPrefab, canvas.CellToWorld(tg.lastCell), Quaternion.identity);
-                            newWeed.transform.parent = UnityEngine.GameObject.Find("Above Ground").transform;
+                            newWeed.transform.parent = GameObject.Find("Above Ground").transform;
                             newWeed.name = "Weed" + tg.lastCell;
                             newWeed.GetComponent<WeedData>().location = tg.lastCell;
+                            wlm.weedLocations.Add(tg.lastCell, newWeed);
+                            StartCoroutine(newWeed.GetComponent<WeedData>().GrowChild(canvas, tg));
 
                             pd.seedCount -= 1;
                             seedCountText.text = "" + pd.seedCount;
                             pd.weedCount += 1;
                             weedCountText.text = "" + pd.weedCount;
 
-                            wlm.weedLocations.Add(tg.lastCell, newWeed);
                             mm.CheckMap();
                         }
                         else if (firstTouch){
