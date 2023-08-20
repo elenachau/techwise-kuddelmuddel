@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Tilemaps;
 
 public class TouchManager : MonoBehaviour
 {
@@ -14,7 +13,6 @@ public class TouchManager : MonoBehaviour
     private WeedLocationManager wlm;
     private int mode;
     [SerializeField] private GameObject trail;
-    [SerializeField] private Tilemap tilemap;
 
     void Start(){
         GameObject self = GameObject.Find("Touch Manager");
@@ -31,7 +29,7 @@ public class TouchManager : MonoBehaviour
         // Handle touch
         if(Input.touchCount > 0)
         {
-            tg.TouchUpdate(tilemap, Input.GetTouch(0).position);
+            tg.TouchUpdate(Input.GetTouch(0).position);
             trail.SetActive(true);
             trail.transform.position = tg.lastWorldPt;
 

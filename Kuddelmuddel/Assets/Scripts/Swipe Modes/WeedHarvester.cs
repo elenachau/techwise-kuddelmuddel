@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Events;
 using TMPro;
 
 public class WeedHarvester : MonoBehaviour
 {   
-    [SerializeField] private Tilemap canvas;
-    [SerializeField] public TextMeshProUGUI weedCountText;
-    [SerializeField] public TextMeshProUGUI seedCountText;
     private WeedLocationManager wlm;
     private TileGetter tg;
     private PlayerData pd;
     private int sellTracker;
+    public UnityEvent weedDestroyed;
 
     void Start() {
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
@@ -22,19 +21,13 @@ public class WeedHarvester : MonoBehaviour
 
     public void HarvesterUpdate() {
         if (Input.touchCount > 0){
-            tg.TouchUpdate(canvas, Input.GetTouch(0).position);
+            tg.TouchUpdate(Input.GetTouch(0).position);
 
             if (wlm.weedLocations.ContainsKey(tg.lastCell)){
                 GameObject touchedObject = wlm.weedLocations[tg.lastCell];
 
                 if (touchedObject.tag == "Weed"){
-                    Destroy(touchedObject);
-                    wlm.weedLocations.Remove(tg.lastCell);
-                    print("Harvested weed at " + tg.lastCell);
-
-                    incSeedCount();
-                    pd.weedCount -= 1;
-                    weedCountText.text = "" + pd.weedCount;
+                    DestroyWeed(touchedObject);
                 }
                 else if (touchedObject.tag == "Obstacle"){
                     int cost = touchedObject.GetComponent<ObstacleData>().cost;
@@ -56,8 +49,17 @@ public class WeedHarvester : MonoBehaviour
         if (sellTracker % pd.weedSellValue == 0){
             sellTracker = 0;
             pd.seedCount += 1;
-            seedCountText.text = "" + pd.seedCount;
         }
 
+    }
+
+    private void DestroyWeed(GameObject weed){
+        Destroy(weed);
+        wlm.weedLocations.Remove(tg.lastCell);
+        incSeedCount();
+        pd.weedCount--;
+
+        print("Harvested weed at " + tg.lastCell);
+        weedDestroyed.Invoke();
     }
 }

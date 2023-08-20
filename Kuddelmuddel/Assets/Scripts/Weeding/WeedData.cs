@@ -21,7 +21,7 @@ public class WeedData : MonoBehaviour
     public IEnumerator GrowChild(Tilemap canvas, TileGetter tg) {
         print("Started coroutine");
 
-        yield return new WaitForSeconds(spreadBufferTime);
+        //yield return new WaitForSeconds(spreadBufferTime);
 
         while (canGrow) {
 
@@ -29,7 +29,7 @@ public class WeedData : MonoBehaviour
             print(freeCells.Count);
             float spreadCheck = Random.Range(0,1);
             print(spreadCheck + ", " + spreadChance);
-            
+
             if (spreadCheck <= spreadChance){
 
                 // Make weed
@@ -37,19 +37,15 @@ public class WeedData : MonoBehaviour
                 newWeed.transform.parent = GameObject.Find("Above Ground").transform;
                 newWeed.name = "Weed" + freeCells[0];
                 newWeed.GetComponent<WeedData>().location = freeCells[0];
-                freeCells.RemoveAt(0);
 
-                //pd.weedCount += 1;
-                //weedCountText.text = "" + pd.weedCount;
-
-                //wlm.weedLocations.Add(tg.lastCell, newWeed);
-                //mm.CheckMap();
+                
             }
 
-            canGrow = freeCells.Count > 0;
-            print(canGrow);
+            canGrow = tg.GetSurroundingFreeCells(location).Count > 0;
+            print(spreadRate);
 
             yield return new WaitForSeconds(spreadRate);
+            print("looping roiutine");
         }
         print("ended roiutine");
     }

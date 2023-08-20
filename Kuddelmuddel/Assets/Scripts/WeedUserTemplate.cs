@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Tilemaps;
 
 public class WeedUserTemplate : MonoBehaviour
 {
-    [SerializeField] private Tilemap tilemap; // Drag AboveGround tilemap here in inspector
     private WeedLocationManager wlm;
     private TileGetter tg;
 
@@ -20,7 +18,7 @@ public class WeedUserTemplate : MonoBehaviour
         if (Input.touchCount > 0) {
             Touch touch = Input.GetTouch(0);
 
-            tg.TouchUpdate(tilemap, touch.position);
+            tg.TouchUpdate(touch.position);
 
             if (wlm.weedLocations.ContainsKey(tg.lastCell) && wlm.weedLocations[tg.lastCell].tag == "Weed" && touch.phase == TouchPhase.Began) {
                 GameObject clickedWeed = wlm.weedLocations[tg.lastCell];

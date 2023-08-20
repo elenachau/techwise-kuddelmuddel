@@ -9,17 +9,18 @@ public class TileGetter : MonoBehaviour
     public Vector3Int lastCell;
     public Vector2 lastWorldPt;
     public GameObject lastWeed;
-
+    private Tilemap terrain;
     private WeedLocationManager wlm;
 
     void Start() {
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
+        terrain = GameObject.Find("Terrain").GetComponent<Tilemap>();
     }
 
-    public void TouchUpdate(Tilemap tilemap, Vector3 screenPos){ // Call this within touch if statement
+    public void TouchUpdate(Vector3 screenPos){ // Call this within touch if statement
         lastWorldPt = Camera.main.ScreenToWorldPoint(screenPos);
-        lastCell = tilemap.WorldToCell(lastWorldPt);
-        lastTile = tilemap.GetTile(lastCell);
+        lastCell = terrain.WorldToCell(lastWorldPt);
+        lastTile = terrain.GetTile(lastCell);
 
         if(wlm.weedLocations.ContainsKey(lastCell)){
             lastWeed = wlm.weedLocations[lastCell];

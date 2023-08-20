@@ -6,21 +6,24 @@ using UnityEngine.UI;
 public class Navigation : MonoBehaviour
 {
     private PlayerData pd;
+    private Camera cam;
 
     void Start() {
         pd = GameObject.Find("Player").GetComponent<PlayerData>();
+        cam = Camera.main;
     }
 
     public void NavUpdate() {
-        Vector2 dPos = Input.GetTouch(0).deltaPosition;
-        Camera cam = Camera.main;
+        if (Input.touchCount > 0){
+            Vector2 dPos = Input.GetTouch(0).deltaPosition;
 
-        Vector3 newPos = new Vector3(
-            (-pd.scrollSensitivity * dPos.x) + cam.transform.position.x,
-            (-pd.scrollSensitivity * dPos.y) + cam.transform.position.y,
-            cam.transform.position.z
-        );
-        cam.transform.position = CheckBounds(newPos);
+            Vector3 newPos = new Vector3(
+                (-pd.scrollSensitivity * dPos.x) + cam.transform.position.x,
+                (-pd.scrollSensitivity * dPos.y) + cam.transform.position.y,
+                cam.transform.position.z
+            );
+            cam.transform.position = CheckBounds(newPos);
+        }
     }
     
     Vector3 CheckBounds(Vector3 oldPos){

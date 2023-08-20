@@ -11,9 +11,11 @@ public class PinchZoom : MonoBehaviour
     private float previousDistance = 0;
     private Vector2 anchor;
     private bool anchored;
+    private Camera cam;
 
     void Start() {
         pd = GameObject.Find("Player").GetComponent<PlayerData>();
+        cam = Camera.main; // cache camera
         UpdateCamera();
     }
 
@@ -29,8 +31,8 @@ public class PinchZoom : MonoBehaviour
             if (anchored){
                 if (touch.phase == TouchPhase.Moved){
                     float currentDistance = Vector2.Distance(anchor, touch.position);
-                    float newSize = Camera.main.orthographicSize + (pd.scrollSensitivity * (previousDistance - currentDistance));
-                    Camera.main.orthographicSize = CheckCamZoom(Mathf.Abs(newSize));
+                    float newSize = cam.orthographicSize + (pd.scrollSensitivity * (previousDistance - currentDistance));
+                    cam.orthographicSize = CheckCamZoom(Mathf.Abs(newSize));
                     previousDistance = currentDistance;
                 }
 
