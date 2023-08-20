@@ -2571,7 +2571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growthState: 0
   growthRate: 100
-  spreadRate: 100
+  spreadRate: 5
   spreadBufferTime: 5
   spreadChance: 0.75
   health: 100
@@ -4509,15 +4509,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8254816943620058204, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8254816943620058204, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.8
+      value: 0.525
       objectReference: {fileID: 0}
     - target: {fileID: 8254816943620058204, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9039288809467558132, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}

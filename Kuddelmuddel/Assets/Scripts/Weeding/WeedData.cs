@@ -5,11 +5,14 @@ using UnityEngine.Tilemaps;
 
 public class WeedData : MonoBehaviour
 {
+    private TileGetter tg;
+    private WeedPlanter wp;
+
     public int growthState = 0; //used to determine which animation to display?
     public float growthRate = 100;
     public float spreadRate = 5f;
-    public float spreadBufferTime = 5f; // seconds
     public float spreadChance = 0.75f;
+    public int newWeedsPerSpread = 1;
     public int health = 100;
     public bool canGrow = true;
     public bool isGrown = false;
@@ -18,36 +21,28 @@ public class WeedData : MonoBehaviour
     public float totalGrowth = 0; //incremental growth 0 - 100. Grows 5% a second at growth rate of 100? 5 = 5%
     public Vector3Int location;
 
-    public IEnumerator GrowChild(Tilemap canvas, TileGetter tg) {
-        print("Started coroutine");
+    void Start() {
+        tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
+        wp = GameObject.Find("Touch Manager").GetComponent<WeedPlanter>();
+    }
 
-        //yield return new WaitForSeconds(spreadBufferTime);
+    public IEnumerator StartGrowthLoop() {
 
         while (canGrow) {
-
-            List<Vector3Int> freeCells = tg.GetSurroundingFreeCells(location);
-            print(freeCells.Count);
-            float spreadCheck = Random.Range(0,1);
-            print(spreadCheck + ", " + spreadChance);
-
-            if (spreadCheck <= spreadChance){
-
-                // Make weed
-                GameObject newWeed = Instantiate(this.gameObject, canvas.CellToWorld(freeCells[0]), Quaternion.identity);
-                newWeed.transform.parent = GameObject.Find("Above Ground").transform;
-                newWeed.name = "Weed" + freeCells[0];
-                newWeed.GetComponent<WeedData>().location = freeCells[0];
-
-                
-            }
-
-            canGrow = tg.GetSurroundingFreeCells(location).Count > 0;
-            print(spreadRate);
-
             yield return new WaitForSeconds(spreadRate);
-            print("looping roiutine");
+
+            List <Vector3Int> freeCells = tg.GetSurroundingFreeCells(location);
+            float spreadCheck = Random.Range(0f,1f);
+            if (freeCells.Count > 0 && spreadCheck <= spreadChance){
+                for (int i = 0; i < newWeedsPerSpread; i++) {
+                    Vector3Int newCell = freeCells[Random.Range(0, freeCells.Count)];
+                    wp.CreateWeed(newCell);
+                }
+            }
+            canGrow = tg.GetSurroundingFreeCells(location).Count > 0;
         }
-        print("ended roiutine");
     }
+
+
 
 }
