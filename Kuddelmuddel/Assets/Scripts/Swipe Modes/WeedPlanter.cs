@@ -62,6 +62,6 @@ public class WeedPlanter : MonoBehaviour
         wlm.weedLocations.Add(cell, newWeed);
         pd.weedCount++;
         weedCreated.Invoke();
-        StartCoroutine(newWeed.GetComponent<WeedData>().GrowingStage());
+        newWeed.GetComponent<WeedData>().StartGrowth();
     }
 }

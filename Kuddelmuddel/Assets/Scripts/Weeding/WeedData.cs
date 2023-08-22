@@ -23,6 +23,8 @@ public class WeedData : MonoBehaviour
     public bool isDamagable = true;
     public float totalGrowth = 0; //incremental growth 0 - 100. Grows 5% a second at growth rate of 100? 5 = 5%
     public Vector3Int location;
+    public Coroutine growCoroutine;
+    public Coroutine spreadCoroutine;
 
     void Start() {
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
@@ -30,7 +32,7 @@ public class WeedData : MonoBehaviour
     }
 
     public IEnumerator SpreadLoop() {
-        print("started spreading loop");
+        print("Started spreading loop at " + location);
         while (canSpread) {
             yield return new WaitForSeconds(spreadRate);
 
@@ -49,16 +51,28 @@ public class WeedData : MonoBehaviour
     public IEnumerator GrowingStage() {
         isGrowing = true;
         yield return new WaitForSeconds(growthRate);
-        GrowToNextStage();
+        if (this != null){
+            GrowToNextStage();
+        }
     }
 
     public void GrowToNextStage() {
-        print("grown!");
         isGrowing = false;
         isGrown = true;
         weedSellValue = 2;
         this.gameObject.GetComponent<SpriteRenderer>().sprite = seedSprite;
-        StartCoroutine(SpreadLoop());
+        spreadCoroutine = StartCoroutine(SpreadLoop());
+    }
+
+    public void StartGrowth(){
+        growCoroutine = StartCoroutine(GrowingStage());
+    }
+
+    void OnDestroy() {
+        if (spreadCoroutine != null){
+            StopCoroutine(spreadCoroutine);
+        }
+        StopCoroutine(growCoroutine);
     }
 
 }
