@@ -44,9 +44,9 @@ public class WeedHarvester : MonoBehaviour
         }
     }
 
-    private void incSeedCount(){
+    private void incSeedCount(int weedSellValue){
         sellTracker += 1;
-        if (sellTracker % pd.weedSellValue == 0){
+        if (sellTracker % weedSellValue == 0){
             sellTracker = 0;
             pd.seedCount += 1;
         }
@@ -54,9 +54,9 @@ public class WeedHarvester : MonoBehaviour
     }
 
     private void DestroyWeed(GameObject weed){
+        incSeedCount(weed.GetComponent<WeedData>().weedSellValue);
         Destroy(weed);
         wlm.weedLocations.Remove(tg.lastCell);
-        incSeedCount();
         pd.weedCount--;
 
         print("Harvested weed at " + tg.lastCell);

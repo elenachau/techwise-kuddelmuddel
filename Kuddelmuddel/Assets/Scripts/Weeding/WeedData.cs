@@ -7,16 +7,19 @@ public class WeedData : MonoBehaviour
 {
     private TileGetter tg;
     private WeedPlanter wp;
+    [SerializeField] private Sprite seedSprite;
+    [SerializeField] private Sprite weedSprite;
 
     public int growthState = 0; //used to determine which animation to display?
-    public float growthRate = 100;
-    public float spreadRate = 5f;
+    public float growthRate = 10f;
+    public float spreadRate = 5f; // seconds
     public float spreadChance = 0.75f;
     public int newWeedsPerSpread = 1;
+    public int weedSellValue = 1; // every x sold gets 1 seed back
     public int health = 100;
-    public bool canGrow = true;
+    public bool canSpread = true;
     public bool isGrown = false;
-    public bool isGrowing = true;
+    public bool isGrowing = false;
     public bool isDamagable = true;
     public float totalGrowth = 0; //incremental growth 0 - 100. Grows 5% a second at growth rate of 100? 5 = 5%
     public Vector3Int location;
@@ -26,9 +29,9 @@ public class WeedData : MonoBehaviour
         wp = GameObject.Find("Touch Manager").GetComponent<WeedPlanter>();
     }
 
-    public IEnumerator StartGrowthLoop() {
-
-        while (canGrow) {
+    public IEnumerator SpreadLoop() {
+        print("started spreading loop");
+        while (canSpread) {
             yield return new WaitForSeconds(spreadRate);
 
             List <Vector3Int> freeCells = tg.GetSurroundingFreeCells(location);
@@ -39,10 +42,23 @@ public class WeedData : MonoBehaviour
                     wp.CreateWeed(newCell);
                 }
             }
-            canGrow = tg.GetSurroundingFreeCells(location).Count > 0;
+            canSpread = tg.GetSurroundingFreeCells(location).Count > 0;
         }
     }
 
+    public IEnumerator GrowingStage() {
+        isGrowing = true;
+        yield return new WaitForSeconds(growthRate);
+        GrowToNextStage();
+    }
 
+    public void GrowToNextStage() {
+        print("grown!");
+        isGrowing = false;
+        isGrown = true;
+        weedSellValue = 2;
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = seedSprite;
+        StartCoroutine(SpreadLoop());
+    }
 
 }

@@ -51,10 +51,10 @@ public class PeacefulBuff : PowerupEffect
         target.GetComponent<WeedData>().isDamagable = false;
 
 
-        if (target.GetComponent<WeedData>().growthState < 10)
-        {
-            target.GetComponent<WeedData>().canGrow = true;
-        }
+        // if (target.GetComponent<WeedData>().growthState < 10)
+        // {
+        //     target.GetComponent<WeedData>().canGrow = true;
+        // }
 
         if (target.GetComponent<WeedData>().spreadRate < 100)
         {
