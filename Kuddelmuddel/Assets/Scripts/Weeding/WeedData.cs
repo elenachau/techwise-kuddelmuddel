@@ -42,10 +42,12 @@ public class WeedData : MonoBehaviour
             List <Vector3Int> freeCells = tg.GetSurroundingFreeCells(location);
             float spreadCheck = Random.Range(0f,1f);
             if (freeCells.Count > 0 && spreadCheck <= spreadChance){
+                animator.SetTrigger("GrowTrigger");
                 for (int i = 0; i < newWeedsPerSpread; i++) {
                     Vector3Int newCell = freeCells[Random.Range(0, freeCells.Count)];
                     wp.CreateWeed(newCell);
                 }
+                animator.SetTrigger("ReturnIdle");
             }
             canSpread = tg.GetSurroundingFreeCells(location).Count > 0;
         }
@@ -60,7 +62,8 @@ public class WeedData : MonoBehaviour
     }
 
     public void GrowToNextStage() {
-        animator.Play("Weed_Idle");
+        animator.Play("Weed_sprout");
+        animator.SetTrigger("GrowTrigger");
         isGrowing = false;
         isGrown = true;
         weedSellValue = 2;
