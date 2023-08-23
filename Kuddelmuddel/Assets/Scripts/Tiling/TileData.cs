@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class TileData : MonoBehaviour
 {
-    public int testNum = 0;
-    public string testString = "Default";
+    public bool isBarrier = false;
+    public Vector3Int location;
 }

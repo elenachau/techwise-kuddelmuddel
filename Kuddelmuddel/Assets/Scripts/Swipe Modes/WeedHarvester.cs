@@ -17,6 +17,7 @@ public class WeedHarvester : MonoBehaviour
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
         pd = GameObject.Find("Player").GetComponent<PlayerData>();
+        weedDestroyed.Invoke(); // Updates weed/seed text count (TextUpdater listeners)
     }
 
     public void HarvesterUpdate() {
@@ -30,15 +31,7 @@ public class WeedHarvester : MonoBehaviour
                     DestroyWeed(touchedObject);
                 }
                 else if (touchedObject.tag == "Obstacle"){
-                    int cost = touchedObject.GetComponent<ObstacleData>().cost;
-                    if (pd.seedCount >= cost){
-                        pd.seedCount -= cost;
-                        Destroy(touchedObject);
-                        wlm.weedLocations.Remove(tg.lastCell);
-                        print("Destroyed obstacle at " + tg.lastCell);
-                    }
-                    else{
-                        print("You don't have enough seeds to destroy that obstacle!");}
+                    DestroyObstacle(touchedObject);
                 }
             }
         }
@@ -61,5 +54,20 @@ public class WeedHarvester : MonoBehaviour
 
         print("Harvested weed at " + tg.lastCell);
         weedDestroyed.Invoke();
+    }
+
+    private void DestroyObstacle(GameObject obstacle){
+        int cost = obstacle.GetComponent<ObstacleData>().cost;
+        if (pd.seedCount >= cost){
+            pd.seedCount -= cost;
+            Destroy(obstacle);
+            wlm.weedLocations.Remove(tg.lastCell);
+            print("Destroyed obstacle at " + tg.lastCell);
+            weedDestroyed.Invoke();
+        }
+        else{
+            print("You don't have enough seeds to destroy that obstacle!");
+        }
+
     }
 }

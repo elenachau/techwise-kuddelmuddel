@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Events;
 
 public class MapManager : MonoBehaviour
 {
@@ -9,26 +10,23 @@ public class MapManager : MonoBehaviour
     private WeedLocationManager wlm;
     private GameObject tilePrefab;
     private GameObject obstaclePrefab;
+    public UnityEvent MapFilled;
     [SerializeField] private Tilemap canvas;
     [SerializeField] private Sprite[] sprites;
-    [SerializeField] private int numObstaclesToSpawn;
 
     void Start() {
+        // Instantiate helper classes
         pd = GameObject.Find("Player").GetComponent<PlayerData>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
         tilePrefab = GameObject.Find("TileObject");
         obstaclePrefab = GameObject.Find("Obstacle");
         MakeRandomGrid();
-        SpawnObstacles(numObstaclesToSpawn);
-    }
+        SpawnObstacles();
 
-    void DrawTiles() {
-        foreach (KeyValuePair<Vector3Int, GameObject> entry in wlm.tileLocations) {
-            GameObject newTile = Instantiate(tilePrefab, canvas.CellToWorld(entry.Key), Quaternion.identity);
-            newTile.transform.parent = GameObject.Find("Terrain").transform;
-            //newTile.name = "Tile (" + i + ", " + j + ", 0)";
-            wlm.tileLocations.Add(entry.Key, newTile);
-        }
+        // Add event listeners
+        MapFilled.AddListener(pd.SetNextProgression);
+        MapFilled.AddListener(MakeRandomGrid);
+        MapFilled.AddListener(SpawnObstacles);
     }
 
     void MakeRandomGrid() { // random procedural generator
@@ -46,13 +44,12 @@ public class MapManager : MonoBehaviour
                     int choice = Random.Range(0,2);
                     newTile.GetComponent<SpriteRenderer>().sprite = sprites[choice];
                 }
-
             }
         }
     }
 
-    void SpawnObstacles(int count) {
-        while (count > 0) {
+    void SpawnObstacles() {
+        while (pd.numObstaclesToSpawn > 0) {
             int x = Random.Range(-pd.xBounds+1, pd.xBounds);
             int y = Random.Range(-pd.yBounds+1, pd.yBounds);
             Vector3Int cell = new Vector3Int(x, y, 0);
@@ -63,7 +60,7 @@ public class MapManager : MonoBehaviour
                 newObstacle.name = "Obstacle (" + x + ", " + y + ", 0)";
                 newObstacle.GetComponent<ObstacleData>().location = cell;
                 wlm.weedLocations.Add(cell, newObstacle);
-                count--;
+                pd.numObstaclesToSpawn--;
             }
         }
     }
@@ -85,11 +82,8 @@ public class MapManager : MonoBehaviour
         }
 
         if (isMapFilled){
-            print("You win the level!");
-            pd.progression += 2;
-            pd.SetProgression();
-            MakeRandomGrid();
-            SpawnObstacles(3);
+            MapFilled.Invoke();
+            print("Map filled!");
         }
     }
 }
