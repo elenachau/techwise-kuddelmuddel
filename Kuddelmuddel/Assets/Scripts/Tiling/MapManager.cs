@@ -72,10 +72,9 @@ public class MapManager : MonoBehaviour
             for (int j = pd.yBounds; j > -pd.yBounds; j--){
 
                 Vector3Int cell = new Vector3Int(i,j,0);
-                if (!wlm.weedLocations.ContainsKey(cell)){
-                    isMapFilled = false;
-                }
-                else if(wlm.weedLocations[cell].tag != "Weed"){
+                if (!wlm.weedLocations.ContainsKey(cell) || // weed doesn't exist
+                    wlm.weedLocations[cell].tag != "Weed" || // obstacle exists
+                    !wlm.weedLocations[cell].GetComponent<WeedData>().isGrown){ // weed isn't fully grown
                     isMapFilled = false;
                 }
             }
