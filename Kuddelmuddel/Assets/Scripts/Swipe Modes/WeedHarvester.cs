@@ -27,8 +27,8 @@ public class WeedHarvester : MonoBehaviour
                 if (touchedObject.tag == "Weed"){
                     DestroyWeed(touchedObject);
                 }
-                else if (touchedObject.tag == "Obstacle"){
-                    DestroyObstacle(touchedObject);
+                else if (touchedObject.tag == "Obstacle" && Input.GetTouch(0).phase == TouchPhase.Began){
+                    touchedObject.GetComponent<ObstacleData>().RemoveSelf();
                 }
             }
         }
@@ -51,19 +51,5 @@ public class WeedHarvester : MonoBehaviour
         pd.AddWeeds(-1);
 
         print("Harvested weed at " + tg.lastCell);
-    }
-
-    private void DestroyObstacle(GameObject obstacle){
-        int cost = obstacle.GetComponent<ObstacleData>().cost;
-        if (pd.seedCount >= cost){
-            pd.AddSeeds(-cost);
-            Destroy(obstacle);
-            wlm.weedLocations.Remove(tg.lastCell);
-            print("Destroyed obstacle at " + tg.lastCell);
-        }
-        else{
-            print("You don't have enough seeds to destroy that obstacle!");
-        }
-
     }
 }

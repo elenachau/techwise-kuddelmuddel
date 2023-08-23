@@ -21,7 +21,7 @@ public class PlayerData : MonoBehaviour
 
     void Awake() {
         seedCount = startingSeedCount;
-        numObstaclesToSpawn = progression / 2;
+        numObstaclesToSpawn = progression;
         SetBounds();
     }
 
@@ -57,7 +57,7 @@ public class PlayerData : MonoBehaviour
         if (seedCount < 0) {
             seedCount = 0;
         }
-        weedText.UpdateText(weedCount);
+        seedText.UpdateText(seedCount);
 
     }
 }
