@@ -14,6 +14,7 @@ public class WeedHarvester : MonoBehaviour
     public UnityEvent weedDestroyed;
 
     void Start() {
+        sellTracker = 0;
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
         pd = GameObject.Find("Player").GetComponent<PlayerData>();
@@ -39,8 +40,9 @@ public class WeedHarvester : MonoBehaviour
 
     private void incSeedCount(int weedSellValue){
         sellTracker += 1;
+        print(sellTracker + ", " + weedSellValue);
         if (sellTracker % weedSellValue == 0){
-            sellTracker = 0;
+            sellTracker -= weedSellValue;
             pd.seedCount += 1;
         }
 

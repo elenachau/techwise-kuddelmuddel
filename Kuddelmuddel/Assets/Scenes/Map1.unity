@@ -986,11 +986,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ced8c96766434ed283bfdf9d00356d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapFilled:
+    m_PersistentCalls:
+      m_Calls: []
   canvas: {fileID: 260099597}
   sprites:
   - {fileID: 2032655338, guid: 203d5761aaaa9e2468f60983926a40eb, type: 3}
   - {fileID: 1727483446, guid: 203d5761aaaa9e2468f60983926a40eb, type: 3}
-  numObstaclesToSpawn: 0
 --- !u!1 &383187734
 GameObject:
   m_ObjectHideFlags: 0
@@ -2569,15 +2571,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 933df3edc8e2746ec8957cf761caf006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 910837279}
+  seedSprite: {fileID: 21300000, guid: be4828d822ef14f9e93fa7c3ae07618b, type: 3}
+  weedSprite: {fileID: 21300000, guid: 83c25f6b94c5ed7438f717cb02882307, type: 3}
   growthState: 0
-  growthRate: 100
+  growthRate: 10
   spreadRate: 5
-  spreadBufferTime: 5
   spreadChance: 0.75
+  newWeedsPerSpread: 1
+  weedSellValue: 1
   health: 100
-  canGrow: 1
+  canSpread: 1
   isGrown: 0
-  isGrowing: 1
+  isGrowing: 0
   isDamagable: 1
   totalGrowth: 0
   location: {x: 0, y: 0, z: 0}
@@ -2899,11 +2905,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ced8c96766434ed283bfdf9d00356d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapFilled:
+    m_PersistentCalls:
+      m_Calls: []
   canvas: {fileID: 260099597}
   sprites:
   - {fileID: 2032655338, guid: 203d5761aaaa9e2468f60983926a40eb, type: 3}
   - {fileID: 1727483446, guid: 203d5761aaaa9e2468f60983926a40eb, type: 3}
-  numObstaclesToSpawn: 2
 --- !u!4 &1095021811
 Transform:
   m_ObjectHideFlags: 0
@@ -3158,8 +3166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progression: 2
   playerName: billy
-  weedSellValue: 2
   startingSeedCount: 150
+  numObstaclesToSpawn: 0
   xBounds: 0
   yBounds: 0
   seedCount: 0
@@ -4385,8 +4393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008c94406e1dd415b9a610f2b90b19a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testNum: 0
-  testString: Default
+  isBarrier: 0
+  location: {x: 0, y: 0, z: 0}
 --- !u!212 &2135257700
 SpriteRenderer:
   m_ObjectHideFlags: 0

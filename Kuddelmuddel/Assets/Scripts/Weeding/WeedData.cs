@@ -7,6 +7,7 @@ public class WeedData : MonoBehaviour
 {
     private TileGetter tg;
     private WeedPlanter wp;
+    public Animator animator;
     [SerializeField] private Sprite seedSprite;
     [SerializeField] private Sprite weedSprite;
 
@@ -57,6 +58,7 @@ public class WeedData : MonoBehaviour
     }
 
     public void GrowToNextStage() {
+        animator.Play("Weed_Idle");
         isGrowing = false;
         isGrown = true;
         weedSellValue = 2;
