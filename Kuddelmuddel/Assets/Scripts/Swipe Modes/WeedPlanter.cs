@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.Events;
-using TMPro;
 
 public class WeedPlanter : MonoBehaviour
 {
     [SerializeField] public GameObject weedPrefab;
     [SerializeField] private Tilemap canvas;
-    public UnityEvent weedCreated;
     
     private WeedLocationManager wlm;
     private TileGetter tg;
@@ -33,7 +30,7 @@ public class WeedPlanter : MonoBehaviour
                     if (tg.GetSurroundingObjectsOfTag(tg.lastCell, "Weed").Count > 0 || wlm.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
                         if (pd.seedCount > 0){
                             CreateWeed(tg.lastCell);
-                            pd.seedCount--;
+                            pd.AddSeeds(-1);
                         }
                         else if (firstTouch){
                             print("You don't have enough seeds to plant a weed!");
@@ -60,8 +57,7 @@ public class WeedPlanter : MonoBehaviour
         newWeed.GetComponent<WeedData>().location = cell;
 
         wlm.weedLocations.Add(cell, newWeed);
-        pd.weedCount++;
-        weedCreated.Invoke();
+        pd.AddWeeds(1);
         newWeed.GetComponent<WeedData>().StartGrowth();
     }
 }

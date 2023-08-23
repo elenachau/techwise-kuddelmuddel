@@ -2096,45 +2096,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weedPrefab: {fileID: 910837274}
   canvas: {fileID: 260099597}
-  weedCreated:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 59827641}
-        m_TargetAssemblyTypeName: TextUpdater, Assembly-CSharp
-        m_MethodName: UpdateWeedCount
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 124046673}
-        m_TargetAssemblyTypeName: TextUpdater, Assembly-CSharp
-        m_MethodName: UpdateSeedCount
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1095021810}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CheckMap
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &754927778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2147,33 +2108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46004006320a74928a5e5d6a397d580b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weedDestroyed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 59827641}
-        m_TargetAssemblyTypeName: TextUpdater, Assembly-CSharp
-        m_MethodName: UpdateWeedCount
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 124046673}
-        m_TargetAssemblyTypeName: TextUpdater, Assembly-CSharp
-        m_MethodName: UpdateSeedCount
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &772267715
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,6 +3102,8 @@ MonoBehaviour:
   playerName: billy
   startingSeedCount: 150
   numObstaclesToSpawn: 0
+  weedText: {fileID: 59827641}
+  seedText: {fileID: 124046673}
   xBounds: 0
   yBounds: 0
   seedCount: 0
@@ -3222,8 +3158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -175}
-  m_SizeDelta: {x: 100, y: 75}
+  m_AnchoredPosition: {x: 275, y: -175}
+  m_SizeDelta: {x: 130, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1561604878
 MonoBehaviour:

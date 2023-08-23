@@ -7,6 +7,7 @@ public class WeedData : MonoBehaviour
 {
     private TileGetter tg;
     private WeedPlanter wp;
+    private MapManager mm;
     public Animator animator;
     [SerializeField] private Sprite seedSprite;
     [SerializeField] private Sprite weedSprite;
@@ -30,6 +31,7 @@ public class WeedData : MonoBehaviour
     void Start() {
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
         wp = GameObject.Find("Touch Manager").GetComponent<WeedPlanter>();
+        mm = GameObject.Find("Map Manager").GetComponent<MapManager>();
     }
 
     public IEnumerator SpreadLoop() {
@@ -63,6 +65,7 @@ public class WeedData : MonoBehaviour
         isGrown = true;
         weedSellValue = 2;
         this.gameObject.GetComponent<SpriteRenderer>().sprite = seedSprite;
+        mm.CheckMap();
         spreadCoroutine = StartCoroutine(SpreadLoop());
     }
 

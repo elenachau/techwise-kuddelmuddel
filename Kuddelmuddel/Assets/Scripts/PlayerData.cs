@@ -13,7 +13,7 @@ public class PlayerData : MonoBehaviour
     public int xBounds;
     public int yBounds;
     public int seedCount;
-    public int weedCount = 0;
+    public int weedCount;
     private GameObject tm;
 
     // User-defined settings (settings menu)
@@ -28,6 +28,7 @@ public class PlayerData : MonoBehaviour
     void Start() {
         tm = GameObject.Find("Touch Manager");
         GameObject.DontDestroyOnLoad(this.gameObject);
+        weedCount = 0;
     }
 
     private void SetBounds() {
@@ -38,8 +39,25 @@ public class PlayerData : MonoBehaviour
     public void SetNextProgression() {
         progression *= 3;
         numObstaclesToSpawn = progression / 2;
-        //seedCount += progression;
+        AddSeeds(progression);
         SetBounds();
         tm.GetComponent<PinchZoom>().UpdateCamera();
+    }
+
+    public void AddWeeds(int amount) {
+        weedCount += amount;
+        if (weedCount < 0) {
+            weedCount = 0;
+        }
+        weedText.UpdateText(weedCount);
+    }
+
+    public void AddSeeds(int amount) {
+        seedCount += amount;
+        if (seedCount < 0) {
+            seedCount = 0;
+        }
+        weedText.UpdateText(weedCount);
+
     }
 }
