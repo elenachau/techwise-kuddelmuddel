@@ -9,7 +9,6 @@ public class WeedData : MonoBehaviour
     private WeedPlanter wp;
     private MapManager mm;
     public Animator animator;
-    [SerializeField] public RuntimeAnimatorController defaultAnimController;
     [SerializeField] private Sprite seedSprite;
     [SerializeField] private Sprite weedSprite;
 
@@ -33,33 +32,25 @@ public class WeedData : MonoBehaviour
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
         wp = GameObject.Find("Touch Manager").GetComponent<WeedPlanter>();
         mm = GameObject.Find("Map Manager").GetComponent<MapManager>();
-        animator.SetBool("isGrown", false);
-
     }
 
     public IEnumerator SpreadLoop() {
         print("Started spreading loop at " + location);
-        do {
+        while (canSpread) {
             yield return new WaitForSeconds(spreadRate);
-            CheckSpreadable();
+
             List <Vector3Int> freeCells = tg.GetSurroundingFreeCells(location);
             float spreadCheck = Random.Range(0f,1f);
-            if (canSpread && spreadCheck <= spreadChance){
+            if (freeCells.Count > 0 && spreadCheck <= spreadChance){
                 animator.SetTrigger("GrowTrigger");
                 for (int i = 0; i < newWeedsPerSpread; i++) {
                     Vector3Int newCell = freeCells[Random.Range(0, freeCells.Count)];
                     wp.CreateWeed(newCell);
                 }
+                animator.SetTrigger("ReturnIdle");
             }
-        } while (canSpread);
-    }
-
-    public void CheckSpreadable() {
-        canSpread = (tg.GetSurroundingFreeCells(location).Count > 0);
-    }
-
-    public void ChangeAnimatorController(RuntimeAnimatorController controller){
-        animator.runtimeAnimatorController = controller;
+            canSpread = tg.GetSurroundingFreeCells(location).Count > 0;
+        }
     }
 
     public IEnumerator GrowingStage() {
@@ -75,19 +66,14 @@ public class WeedData : MonoBehaviour
         animator.SetTrigger("GrowTrigger");
         isGrowing = false;
         isGrown = true;
-        animator.SetBool("isGrown", true);
         weedSellValue = 2;
         this.gameObject.GetComponent<SpriteRenderer>().sprite = seedSprite;
         mm.CheckMap();
-        StartSpread();
+        spreadCoroutine = StartCoroutine(SpreadLoop());
     }
 
     public void StartGrowth(){
         growCoroutine = StartCoroutine(GrowingStage());
-    }
-
-    public void StartSpread(){
-        spreadCoroutine = StartCoroutine(SpreadLoop());
     }
 
     void OnDestroy() {
