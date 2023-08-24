@@ -9,6 +9,7 @@ public class WeedHarvester : MonoBehaviour
     private TileGetter tg;
     private PlayerData pd;
     private int sellTracker;
+    [SerializeField] private AudioClip harvestSound;
 
     void Start() {
         sellTracker = 0;
@@ -26,9 +27,11 @@ public class WeedHarvester : MonoBehaviour
 
                 if (touchedObject.tag == "Weed"){
                     DestroyWeed(touchedObject);
+                    AudioManager.Instance.PlaySoundEffect(harvestSound);
                 }
                 else if (touchedObject.tag == "Obstacle" && Input.GetTouch(0).phase == TouchPhase.Began){
                     touchedObject.GetComponent<ObstacleData>().RemoveSelf();
+                    AudioManager.Instance.PlaySoundEffect(harvestSound);
                 }
             }
         }
