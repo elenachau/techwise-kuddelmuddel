@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WeedDance
+  m_Controller: {fileID: 9100000, guid: 1c66e7c60ddd64134a11a017d2bc679a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c9c534f9a7d53487a977556a4a1c2703, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fc4efed94fd0343eb887a5b6ee2fd038, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: fc4efed94fd0343eb887a5b6ee2fd038, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fc4efed94fd0343eb887a5b6ee2fd038, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 19e5747d24d9845b591e191443fa9533, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 19e5747d24d9845b591e191443fa9533, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6b8998013ba6a4d90b7228c53332e9fd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6b8998013ba6a4d90b7228c53332e9fd, type: 2}
