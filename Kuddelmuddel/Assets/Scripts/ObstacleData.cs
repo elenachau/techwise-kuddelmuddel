@@ -6,11 +6,6 @@ public class ObstacleData : MonoBehaviour
 {
     [SerializeField] public int cost = 2;
     public Vector3Int location;
-    private TileGetter tg;
-
-    void Start() {
-        tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
-    }
 
     public bool isRemovable() {
         bool removable = true;
@@ -20,7 +15,7 @@ public class ObstacleData : MonoBehaviour
             print("You don't have enough seeds to destroy that obstacle!");
         }
 
-        else if (tg.GetSurroundingObjectsOfTag(location, "Weed").Count == 0){
+        else if (TileGetter.Instance.GetSurroundingObjectsOfTag(location, "Weed").Count == 0){
             removable = false;
             print("You need to have a surrounding weed to remove that obstacle!");
         }
@@ -31,8 +26,8 @@ public class ObstacleData : MonoBehaviour
     public void RemoveSelf() {
         if (isRemovable()){
             PlayerData.Instance.AddSeeds(-cost);
-            WeedLocationManager.Instance.weedLocations.Remove(tg.lastCell);
-            print("Destroyed obstacle at " + tg.lastCell);
+            WeedLocationManager.Instance.weedLocations.Remove(TileGetter.Instance.lastCell);
+            print("Destroyed obstacle at " + TileGetter.Instance.lastCell);
             Destroy(this.gameObject);
         }
     }

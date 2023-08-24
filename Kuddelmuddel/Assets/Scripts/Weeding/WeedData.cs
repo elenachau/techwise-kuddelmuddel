@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class WeedData : MonoBehaviour
 {
-    private TileGetter tg;
     private WeedPlanter wp;
     private MapManager mm;
     public Animator animator;
@@ -29,17 +28,15 @@ public class WeedData : MonoBehaviour
     public Coroutine spreadCoroutine;
 
     void Start() {
-        tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
         wp = GameObject.Find("Touch Manager").GetComponent<WeedPlanter>();
         mm = GameObject.Find("Map Manager").GetComponent<MapManager>();
     }
 
     public IEnumerator SpreadLoop() {
-        print("Started spreading loop at " + location);
         while (canSpread) {
             yield return new WaitForSeconds(spreadRate);
 
-            List <Vector3Int> freeCells = tg.GetSurroundingFreeCells(location);
+            List <Vector3Int> freeCells = TileGetter.Instance.GetSurroundingFreeCells(location);
             float spreadCheck = Random.Range(0f,1f);
             if (freeCells.Count > 0 && spreadCheck <= spreadChance){
                 animator.SetTrigger("GrowTrigger");
@@ -49,7 +46,7 @@ public class WeedData : MonoBehaviour
                 }
                 animator.SetTrigger("ReturnIdle");
             }
-            canSpread = tg.GetSurroundingFreeCells(location).Count > 0;
+            canSpread = TileGetter.Instance.GetSurroundingFreeCells(location).Count > 0;
         }
     }
 

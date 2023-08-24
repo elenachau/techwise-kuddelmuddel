@@ -9,7 +9,6 @@ public class TouchManager : MonoBehaviour
     private WeedPlanter wp;
     private WeedHarvester wh;
     private PinchZoom pz;
-    private TileGetter tg;
     private int mode;
     [SerializeField] private GameObject trail;
 
@@ -19,7 +18,6 @@ public class TouchManager : MonoBehaviour
         wp = self.GetComponent<WeedPlanter>();
         wh = self.GetComponent<WeedHarvester>();
         pz = self.GetComponent<PinchZoom>();
-        tg = self.GetComponent<TileGetter>();
     }
 
     void Update()
@@ -27,9 +25,9 @@ public class TouchManager : MonoBehaviour
         // Handle touch
         if(Input.touchCount > 0)
         {
-            tg.TouchUpdate(Input.GetTouch(0).position);
+            TileGetter.Instance.TouchUpdate(Input.GetTouch(0).position);
             trail.SetActive(true);
-            trail.transform.position = tg.lastWorldPt;
+            trail.transform.position = TileGetter.Instance.lastWorldPt;
 
             switch (mode){
                 case 0:

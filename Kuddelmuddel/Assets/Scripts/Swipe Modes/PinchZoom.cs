@@ -19,6 +19,7 @@ public class PinchZoom : MonoBehaviour
 
     public void UpdateCamera() {
         maxCamSize = PlayerData.Instance.xBounds + 3;
+        // TODO: Tween camera aniamtion at MapFilled event
     }
 
     public void ZoomUpdate()

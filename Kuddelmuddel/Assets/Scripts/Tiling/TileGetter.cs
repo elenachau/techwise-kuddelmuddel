@@ -5,12 +5,23 @@ using UnityEngine.Tilemaps;
 
 public class TileGetter : MonoBehaviour
 {   
+    public static TileGetter Instance;
     public TileBase lastTile;
     public Vector3Int lastCell;
     public Vector2 lastWorldPt;
     public GameObject lastWeed;
     [SerializeField] public Tilemap terrain;
     [SerializeField] public Tilemap aboveGround;
+
+    void Awake() {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
+            Destroy(gameObject);
+        }
+    }
 
     public void TouchUpdate(Vector3 screenPos){ // Call this within touch if statement
         lastWorldPt = Camera.main.ScreenToWorldPoint(screenPos);

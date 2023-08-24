@@ -5,21 +5,19 @@ using UnityEngine.Tilemaps;
 
 public class WeedHarvester : MonoBehaviour
 {   
-    private TileGetter tg;
     private int sellTracker;
     [SerializeField] private AudioClip harvestSound;
 
     void Start() {
         sellTracker = 0;
-        tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
     }
 
     public void HarvesterUpdate() {
         if (Input.touchCount > 0){
-            tg.TouchUpdate(Input.GetTouch(0).position);
+            TileGetter.Instance.TouchUpdate(Input.GetTouch(0).position);
 
-            if (WeedLocationManager.Instance.weedLocations.ContainsKey(tg.lastCell)){
-                GameObject touchedObject = WeedLocationManager.Instance.weedLocations[tg.lastCell];
+            if (WeedLocationManager.Instance.weedLocations.ContainsKey(TileGetter.Instance.lastCell)){
+                GameObject touchedObject = WeedLocationManager.Instance.weedLocations[TileGetter.Instance.lastCell];
 
                 if (touchedObject.tag == "Weed"){
                     DestroyWeed(touchedObject);
@@ -28,6 +26,10 @@ public class WeedHarvester : MonoBehaviour
                 else if (touchedObject.tag == "Obstacle" && Input.GetTouch(0).phase == TouchPhase.Began){
                     touchedObject.GetComponent<ObstacleData>().RemoveSelf();
                     AudioManager.Instance.PlaySoundEffect(harvestSound);
+                }
+
+                else if (touchedObject.tag == "Seed") {
+                    // TODO: Make seed tag
                 }
             }
         }
@@ -46,9 +48,9 @@ public class WeedHarvester : MonoBehaviour
     private void DestroyWeed(GameObject weed){
         incSeedCount(weed.GetComponent<WeedData>().weedSellValue);
         Destroy(weed);
-        WeedLocationManager.Instance.weedLocations.Remove(tg.lastCell);
+        WeedLocationManager.Instance.weedLocations.Remove(TileGetter.Instance.lastCell);
         PlayerData.Instance.AddWeeds(-1);
 
-        print("Harvested weed at " + tg.lastCell);
+        print("Harvested weed at " + TileGetter.Instance.lastCell);
     }
 }
