@@ -7,7 +7,6 @@ public class WeedHarvester : MonoBehaviour
 {   
     private WeedLocationManager wlm;
     private TileGetter tg;
-    private PlayerData pd;
     private int sellTracker;
     [SerializeField] private AudioClip harvestSound;
 
@@ -15,7 +14,6 @@ public class WeedHarvester : MonoBehaviour
         sellTracker = 0;
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
-        pd = GameObject.Find("Player").GetComponent<PlayerData>();
     }
 
     public void HarvesterUpdate() {
@@ -42,7 +40,7 @@ public class WeedHarvester : MonoBehaviour
         print(sellTracker + ", " + weedSellValue);
         if (sellTracker % weedSellValue == 0){
             sellTracker -= weedSellValue;
-            pd.AddSeeds(1);
+            PlayerData.Instance.AddSeeds(1);
         }
 
     }
@@ -51,7 +49,7 @@ public class WeedHarvester : MonoBehaviour
         incSeedCount(weed.GetComponent<WeedData>().weedSellValue);
         Destroy(weed);
         wlm.weedLocations.Remove(tg.lastCell);
-        pd.AddWeeds(-1);
+        PlayerData.Instance.AddWeeds(-1);
 
         print("Harvested weed at " + tg.lastCell);
     }

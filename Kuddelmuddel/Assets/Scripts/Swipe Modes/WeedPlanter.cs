@@ -10,13 +10,11 @@ public class WeedPlanter : MonoBehaviour
     
     private WeedLocationManager wlm;
     private TileGetter tg;
-    private PlayerData pd;
     private Transform parentTilemap;
 
     void Start() {
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
-        pd = GameObject.Find("Player").GetComponent<PlayerData>();
         parentTilemap = GameObject.Find("Above Ground").transform;
     }
 
@@ -28,9 +26,9 @@ public class WeedPlanter : MonoBehaviour
             if (!(wlm.weedLocations.ContainsKey(tg.lastCell))){
                 if (wlm.tileLocations.ContainsKey(tg.lastCell)){
                     if (tg.GetSurroundingObjectsOfTag(tg.lastCell, "Weed").Count > 0 || wlm.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
-                        if (pd.seedCount > 0){
+                        if (PlayerData.Instance.seedCount > 0){
                             CreateWeed(tg.lastCell);
-                            pd.AddSeeds(-1);
+                            PlayerData.Instance.AddSeeds(-1);
                         }
                         else if (firstTouch){
                             print("You don't have enough seeds to plant a weed!");
@@ -57,7 +55,7 @@ public class WeedPlanter : MonoBehaviour
         newWeed.GetComponent<WeedData>().location = cell;
 
         wlm.weedLocations.Add(cell, newWeed);
-        pd.AddWeeds(1);
+        PlayerData.Instance.AddWeeds(1);
         newWeed.GetComponent<WeedData>().StartGrowth();
     }
 }

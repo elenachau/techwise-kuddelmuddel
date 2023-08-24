@@ -5,11 +5,9 @@ using UnityEngine.UI;
 
 public class Navigation : MonoBehaviour
 {
-    private PlayerData pd;
     private Camera cam;
 
     void Start() {
-        pd = GameObject.Find("Player").GetComponent<PlayerData>();
         cam = Camera.main;
     }
 
@@ -18,8 +16,8 @@ public class Navigation : MonoBehaviour
             Vector2 dPos = Input.GetTouch(0).deltaPosition;
 
             Vector3 newPos = new Vector3(
-                (-pd.scrollSensitivity * dPos.x) + cam.transform.position.x,
-                (-pd.scrollSensitivity * dPos.y) + cam.transform.position.y,
+                (-PlayerData.Instance.scrollSensitivity * dPos.x) + cam.transform.position.x,
+                (-PlayerData.Instance.scrollSensitivity * dPos.y) + cam.transform.position.y,
                 cam.transform.position.z
             );
             cam.transform.position = CheckBounds(newPos);
@@ -28,10 +26,10 @@ public class Navigation : MonoBehaviour
     
     Vector3 CheckBounds(Vector3 oldPos){
         Vector3 pos = oldPos;
-        pos.x = pos.x >  pd.xBounds ?  pd.xBounds : pos.x; // Snap to bound if greater, else no change
-        pos.x = pos.x < -pd.xBounds ? -pd.xBounds : pos.x;
-        pos.y = pos.y >  pd.yBounds ?  pd.yBounds : pos.y;
-        pos.y = pos.y < -pd.yBounds ? -pd.yBounds : pos.y;
+        pos.x = pos.x >  PlayerData.Instance.xBounds ?  PlayerData.Instance.xBounds : pos.x; // Snap to bound if greater, else no change
+        pos.x = pos.x < -PlayerData.Instance.xBounds ? -PlayerData.Instance.xBounds : pos.x;
+        pos.y = pos.y >  PlayerData.Instance.yBounds ?  PlayerData.Instance.yBounds : pos.y;
+        pos.y = pos.y < -PlayerData.Instance.yBounds ? -PlayerData.Instance.yBounds : pos.y;
         return pos;
     }
 }

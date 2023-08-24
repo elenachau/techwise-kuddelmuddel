@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+    public static PlayerData Instance;
+
     [SerializeField] public int progression; // 0-100%
     [SerializeField] public string playerName;
     [SerializeField] public int startingSeedCount;
@@ -20,6 +22,13 @@ public class PlayerData : MonoBehaviour
     [SerializeField] public float scrollSensitivity; // 0-1 scroll speed
 
     void Awake() {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
+            Destroy(gameObject);
+        }
         seedCount = startingSeedCount;
         numObstaclesToSpawn = progression;
         SetBounds();

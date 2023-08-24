@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class MapManager : MonoBehaviour
 {
-    private PlayerData pd;
     private WeedLocationManager wlm;
     private GameObject tilePrefab;
     private GameObject obstaclePrefab;
@@ -16,7 +15,6 @@ public class MapManager : MonoBehaviour
 
     void Start() {
         // Instantiate helper classes
-        pd = GameObject.Find("Player").GetComponent<PlayerData>();
         wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
         tilePrefab = GameObject.Find("TileObject");
         obstaclePrefab = GameObject.Find("Obstacle");
@@ -24,14 +22,14 @@ public class MapManager : MonoBehaviour
         SpawnObstacles();
 
         // Add event listeners
-        MapFilled.AddListener(pd.SetNextProgression);
+        MapFilled.AddListener(PlayerData.Instance.SetNextProgression);
         MapFilled.AddListener(MakeRandomGrid);
         MapFilled.AddListener(SpawnObstacles);
     }
 
     void MakeRandomGrid() { // random procedural generator
-        for (int i = pd.xBounds; i > -pd.xBounds; i--){
-            for (int j = pd.yBounds; j > -pd.yBounds; j--){
+        for (int i = PlayerData.Instance.xBounds; i > -PlayerData.Instance.xBounds; i--){
+            for (int j = PlayerData.Instance.yBounds; j > -PlayerData.Instance.yBounds; j--){
                 Vector3Int cell = new Vector3Int(i,j,0);
 
                 if (!wlm.tileLocations.ContainsKey(cell)){
@@ -49,9 +47,9 @@ public class MapManager : MonoBehaviour
     }
 
     void SpawnObstacles() {
-        while (pd.numObstaclesToSpawn > 0) {
-            int x = Random.Range(-pd.xBounds+1, pd.xBounds);
-            int y = Random.Range(-pd.yBounds+1, pd.yBounds);
+        while (PlayerData.Instance.numObstaclesToSpawn > 0) {
+            int x = Random.Range(-PlayerData.Instance.xBounds+1, PlayerData.Instance.xBounds);
+            int y = Random.Range(-PlayerData.Instance.yBounds+1, PlayerData.Instance.yBounds);
             Vector3Int cell = new Vector3Int(x, y, 0);
 
             if (!wlm.weedLocations.ContainsKey(cell)) {
@@ -60,7 +58,7 @@ public class MapManager : MonoBehaviour
                 newObstacle.name = "Obstacle (" + x + ", " + y + ", 0)";
                 newObstacle.GetComponent<ObstacleData>().location = cell;
                 wlm.weedLocations.Add(cell, newObstacle);
-                pd.numObstaclesToSpawn--;
+                PlayerData.Instance.numObstaclesToSpawn--;
             }
         }
     }
@@ -68,8 +66,8 @@ public class MapManager : MonoBehaviour
     public void CheckMap() {
         // Progress map if all weeds placed
         bool isMapFilled = true;
-        for (int i = pd.xBounds; i > -pd.xBounds; i--){
-            for (int j = pd.yBounds; j > -pd.yBounds; j--){
+        for (int i = PlayerData.Instance.xBounds; i > -PlayerData.Instance.xBounds; i--){
+            for (int j = PlayerData.Instance.yBounds; j > -PlayerData.Instance.yBounds; j--){
 
                 Vector3Int cell = new Vector3Int(i,j,0);
                 if (!wlm.weedLocations.ContainsKey(cell) || // weed doesn't exist
