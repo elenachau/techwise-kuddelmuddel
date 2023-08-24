@@ -5,12 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class WeedHarvester : MonoBehaviour
 {   
-    private int sellTracker;
+    [SerializeField] private float seedReturnChance;
     [SerializeField] private AudioClip harvestSound;
-
-    void Start() {
-        sellTracker = 0;
-    }
 
     public void HarvesterUpdate() {
         if (Input.touchCount > 0){
@@ -29,28 +25,26 @@ public class WeedHarvester : MonoBehaviour
                 }
 
                 else if (touchedObject.tag == "Seed") {
-                    // TODO: Make seed tag
+                    DestroySeed(touchedObject);
                 }
             }
         }
     }
 
-    private void incSeedCount(int weedSellValue){
-        sellTracker += 1;
-        print(sellTracker + ", " + weedSellValue);
-        if (sellTracker % weedSellValue == 0){
-            sellTracker -= weedSellValue;
-            PlayerData.Instance.AddSeeds(1);
-        }
-
-    }
-
     private void DestroyWeed(GameObject weed){
-        incSeedCount(weed.GetComponent<WeedData>().weedSellValue);
         Destroy(weed);
         WeedLocationManager.Instance.weedLocations.Remove(TileGetter.Instance.lastCell);
         PlayerData.Instance.AddWeeds(-1);
-
+        if(Random.Range(0,1) < seedReturnChance){
+            PlayerData.Instance.AddSeeds(1);
+        }
         print("Harvested weed at " + TileGetter.Instance.lastCell);
+    }
+
+    private void DestroySeed(GameObject seed){
+        Destroy(seed);
+        WeedLocationManager.Instance.weedLocations.Remove(TileGetter.Instance.lastCell);
+        PlayerData.Instance.AddSeeds(1);
+        print("Harvested seed at " + TileGetter.Instance.lastCell);
     }
 }

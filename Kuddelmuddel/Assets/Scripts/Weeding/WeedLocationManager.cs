@@ -18,15 +18,4 @@ public class WeedLocationManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public int GetNumWeeds() {
-        int count = 0;
-        foreach (KeyValuePair<Vector3Int, GameObject> entry in weedLocations) {
-            if (entry.Value.tag == "Weed"){
-                count++;
-            }
-        }
-        return count;
-    }
-
 }

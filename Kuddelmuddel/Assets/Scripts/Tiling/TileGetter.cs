@@ -58,6 +58,9 @@ public class TileGetter : MonoBehaviour
                         surroundingObjects.Add(sObject);
                     }
                 }
+                else {
+                    surroundingObjects.Add(sObject);
+                }
             }
         }
 

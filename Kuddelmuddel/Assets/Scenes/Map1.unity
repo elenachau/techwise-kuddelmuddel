@@ -4439,7 +4439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7380889301390715365, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
       propertyPath: m_TagString
-      value: Weed
+      value: Seed
       objectReference: {fileID: 0}
     - target: {fileID: 8091114417187337510, guid: 737ac3e26f799a040b2e64022b2b8efc, type: 3}
       propertyPath: m_Sprite

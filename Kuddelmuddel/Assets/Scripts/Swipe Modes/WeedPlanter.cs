@@ -14,7 +14,9 @@ public class WeedPlanter : MonoBehaviour
 
             if (!(WeedLocationManager.Instance.weedLocations.ContainsKey(TileGetter.Instance.lastCell))){
                 if (WeedLocationManager.Instance.tileLocations.ContainsKey(TileGetter.Instance.lastCell)){
-                    if (TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Weed").Count > 0 || WeedLocationManager.Instance.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
+                    if (TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Weed").Count 
+                        + TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Seed").Count > 0
+                        || PlayerData.Instance.weedCount == 0){ // Is adjacent to a weed/seed and is not the first weed placed
                         if (PlayerData.Instance.seedCount > 0){
                             CreateWeed(TileGetter.Instance.lastCell);
                             PlayerData.Instance.AddSeeds(-1);
@@ -44,7 +46,6 @@ public class WeedPlanter : MonoBehaviour
         newWeed.GetComponent<WeedData>().location = cell;
 
         WeedLocationManager.Instance.weedLocations.Add(cell, newWeed);
-        PlayerData.Instance.AddWeeds(1);
         newWeed.GetComponent<WeedData>().StartGrowth();
     }
 }

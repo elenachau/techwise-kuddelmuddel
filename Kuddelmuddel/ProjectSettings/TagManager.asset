@@ -7,6 +7,7 @@ TagManager:
   - Event
   - Weed
   - Obstacle
+  - Seed
   layers:
   - Default
   - TransparentFX

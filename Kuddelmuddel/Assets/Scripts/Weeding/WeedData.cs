@@ -65,6 +65,8 @@ public class WeedData : MonoBehaviour
         isGrown = true;
         weedSellValue = 2;
         this.gameObject.GetComponent<SpriteRenderer>().sprite = seedSprite;
+        this.gameObject.tag = "Weed";
+        PlayerData.Instance.AddWeeds(1);
         mm.CheckMap();
         spreadCoroutine = StartCoroutine(SpreadLoop());
     }
