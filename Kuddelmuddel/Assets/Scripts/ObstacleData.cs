@@ -6,11 +6,9 @@ public class ObstacleData : MonoBehaviour
 {
     [SerializeField] public int cost = 2;
     public Vector3Int location;
-    private WeedLocationManager wlm;
     private TileGetter tg;
 
     void Start() {
-        wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
     }
 
@@ -33,7 +31,7 @@ public class ObstacleData : MonoBehaviour
     public void RemoveSelf() {
         if (isRemovable()){
             PlayerData.Instance.AddSeeds(-cost);
-            wlm.weedLocations.Remove(tg.lastCell);
+            WeedLocationManager.Instance.weedLocations.Remove(tg.lastCell);
             print("Destroyed obstacle at " + tg.lastCell);
             Destroy(this.gameObject);
         }

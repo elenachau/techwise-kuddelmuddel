@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class WeedHarvester : MonoBehaviour
 {   
-    private WeedLocationManager wlm;
     private TileGetter tg;
     private int sellTracker;
     [SerializeField] private AudioClip harvestSound;
@@ -13,15 +12,14 @@ public class WeedHarvester : MonoBehaviour
     void Start() {
         sellTracker = 0;
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
-        wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
     }
 
     public void HarvesterUpdate() {
         if (Input.touchCount > 0){
             tg.TouchUpdate(Input.GetTouch(0).position);
 
-            if (wlm.weedLocations.ContainsKey(tg.lastCell)){
-                GameObject touchedObject = wlm.weedLocations[tg.lastCell];
+            if (WeedLocationManager.Instance.weedLocations.ContainsKey(tg.lastCell)){
+                GameObject touchedObject = WeedLocationManager.Instance.weedLocations[tg.lastCell];
 
                 if (touchedObject.tag == "Weed"){
                     DestroyWeed(touchedObject);
@@ -48,7 +46,7 @@ public class WeedHarvester : MonoBehaviour
     private void DestroyWeed(GameObject weed){
         incSeedCount(weed.GetComponent<WeedData>().weedSellValue);
         Destroy(weed);
-        wlm.weedLocations.Remove(tg.lastCell);
+        WeedLocationManager.Instance.weedLocations.Remove(tg.lastCell);
         PlayerData.Instance.AddWeeds(-1);
 
         print("Harvested weed at " + tg.lastCell);

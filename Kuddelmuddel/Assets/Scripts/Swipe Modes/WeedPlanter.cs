@@ -6,16 +6,12 @@ using UnityEngine.Tilemaps;
 public class WeedPlanter : MonoBehaviour
 {
     [SerializeField] public GameObject weedPrefab;
-    [SerializeField] private Tilemap canvas;
     
-    private WeedLocationManager wlm;
     private TileGetter tg;
     private Transform parentTilemap;
 
     void Start() {
         tg = GameObject.Find("Touch Manager").GetComponent<TileGetter>();
-        wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
-        parentTilemap = GameObject.Find("Above Ground").transform;
     }
 
     public void PlanterUpdate() {
@@ -23,9 +19,9 @@ public class WeedPlanter : MonoBehaviour
             tg.TouchUpdate(Input.GetTouch(0).position);
             bool firstTouch = (Input.GetTouch(0).phase == TouchPhase.Began);
 
-            if (!(wlm.weedLocations.ContainsKey(tg.lastCell))){
-                if (wlm.tileLocations.ContainsKey(tg.lastCell)){
-                    if (tg.GetSurroundingObjectsOfTag(tg.lastCell, "Weed").Count > 0 || wlm.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
+            if (!(WeedLocationManager.Instance.weedLocations.ContainsKey(tg.lastCell))){
+                if (WeedLocationManager.Instance.tileLocations.ContainsKey(tg.lastCell)){
+                    if (tg.GetSurroundingObjectsOfTag(tg.lastCell, "Weed").Count > 0 || WeedLocationManager.Instance.GetNumWeeds() == 0){ // Is adjacent to a weed and is not the first weed placed
                         if (PlayerData.Instance.seedCount > 0){
                             CreateWeed(tg.lastCell);
                             PlayerData.Instance.AddSeeds(-1);
@@ -49,12 +45,12 @@ public class WeedPlanter : MonoBehaviour
     }
 
     public void CreateWeed(Vector3Int cell) {
-        GameObject newWeed = Instantiate(weedPrefab, canvas.CellToWorld(cell), Quaternion.identity);
-        newWeed.transform.parent = parentTilemap;
+        GameObject newWeed = Instantiate(weedPrefab, tg.terrain.CellToWorld(cell), Quaternion.identity);
+        newWeed.transform.parent = tg.aboveGround.transform;
         newWeed.name = "Weed " + cell;
         newWeed.GetComponent<WeedData>().location = cell;
 
-        wlm.weedLocations.Add(cell, newWeed);
+        WeedLocationManager.Instance.weedLocations.Add(cell, newWeed);
         PlayerData.Instance.AddWeeds(1);
         newWeed.GetComponent<WeedData>().StartGrowth();
     }

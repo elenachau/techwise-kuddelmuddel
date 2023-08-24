@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class MapManager : MonoBehaviour
 {
-    private WeedLocationManager wlm;
     private GameObject tilePrefab;
     private GameObject obstaclePrefab;
     public UnityEvent MapFilled;
@@ -15,7 +14,6 @@ public class MapManager : MonoBehaviour
 
     void Start() {
         // Instantiate helper classes
-        wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
         tilePrefab = GameObject.Find("TileObject");
         obstaclePrefab = GameObject.Find("Obstacle");
         MakeRandomGrid();
@@ -32,11 +30,11 @@ public class MapManager : MonoBehaviour
             for (int j = PlayerData.Instance.yBounds; j > -PlayerData.Instance.yBounds; j--){
                 Vector3Int cell = new Vector3Int(i,j,0);
 
-                if (!wlm.tileLocations.ContainsKey(cell)){
+                if (!WeedLocationManager.Instance.tileLocations.ContainsKey(cell)){
                     GameObject newTile = Instantiate(tilePrefab, canvas.CellToWorld(cell), Quaternion.identity);
                     newTile.transform.parent = GameObject.Find("Terrain").transform;
                     newTile.name = "Tile (" + i + ", " + j + ", 0)";
-                    wlm.tileLocations.Add(cell, newTile);
+                    WeedLocationManager.Instance.tileLocations.Add(cell, newTile);
                     
                     // Random sprite
                     int choice = Random.Range(0,2);
@@ -52,12 +50,12 @@ public class MapManager : MonoBehaviour
             int y = Random.Range(-PlayerData.Instance.yBounds+1, PlayerData.Instance.yBounds);
             Vector3Int cell = new Vector3Int(x, y, 0);
 
-            if (!wlm.weedLocations.ContainsKey(cell)) {
+            if (!WeedLocationManager.Instance.weedLocations.ContainsKey(cell)) {
                 GameObject newObstacle = Instantiate(obstaclePrefab, canvas.CellToWorld(cell), Quaternion.identity);
                 newObstacle.transform.parent = GameObject.Find("Above Ground").transform;
                 newObstacle.name = "Obstacle (" + x + ", " + y + ", 0)";
                 newObstacle.GetComponent<ObstacleData>().location = cell;
-                wlm.weedLocations.Add(cell, newObstacle);
+                WeedLocationManager.Instance.weedLocations.Add(cell, newObstacle);
                 PlayerData.Instance.numObstaclesToSpawn--;
             }
         }
@@ -70,9 +68,9 @@ public class MapManager : MonoBehaviour
             for (int j = PlayerData.Instance.yBounds; j > -PlayerData.Instance.yBounds; j--){
 
                 Vector3Int cell = new Vector3Int(i,j,0);
-                if (!wlm.weedLocations.ContainsKey(cell) || // weed doesn't exist
-                    wlm.weedLocations[cell].tag != "Weed" || // obstacle exists
-                    !wlm.weedLocations[cell].GetComponent<WeedData>().isGrown){ // weed isn't fully grown
+                if (!WeedLocationManager.Instance.weedLocations.ContainsKey(cell) || // weed doesn't exist
+                    WeedLocationManager.Instance.weedLocations[cell].tag != "Weed" || // obstacle exists
+                    !WeedLocationManager.Instance.weedLocations[cell].GetComponent<WeedData>().isGrown){ // weed isn't fully grown
                     isMapFilled = false;
                 }
             }

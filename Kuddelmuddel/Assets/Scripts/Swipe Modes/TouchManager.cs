@@ -10,7 +10,6 @@ public class TouchManager : MonoBehaviour
     private WeedHarvester wh;
     private PinchZoom pz;
     private TileGetter tg;
-    private WeedLocationManager wlm;
     private int mode;
     [SerializeField] private GameObject trail;
 
@@ -21,7 +20,6 @@ public class TouchManager : MonoBehaviour
         wh = self.GetComponent<WeedHarvester>();
         pz = self.GetComponent<PinchZoom>();
         tg = self.GetComponent<TileGetter>();
-        wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
     }
 
     void Update()

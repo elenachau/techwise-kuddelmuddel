@@ -9,21 +9,16 @@ public class TileGetter : MonoBehaviour
     public Vector3Int lastCell;
     public Vector2 lastWorldPt;
     public GameObject lastWeed;
-    private Tilemap terrain;
-    private WeedLocationManager wlm;
-
-    void Start() {
-        wlm = GameObject.Find("Weed Location Manager").GetComponent<WeedLocationManager>();
-        terrain = GameObject.Find("Terrain").GetComponent<Tilemap>();
-    }
+    [SerializeField] public Tilemap terrain;
+    [SerializeField] public Tilemap aboveGround;
 
     public void TouchUpdate(Vector3 screenPos){ // Call this within touch if statement
         lastWorldPt = Camera.main.ScreenToWorldPoint(screenPos);
         lastCell = terrain.WorldToCell(lastWorldPt);
         lastTile = terrain.GetTile(lastCell);
 
-        if(wlm.weedLocations.ContainsKey(lastCell)){
-            lastWeed = wlm.weedLocations[lastCell];
+        if(WeedLocationManager.Instance.weedLocations.ContainsKey(lastCell)){
+            lastWeed = WeedLocationManager.Instance.weedLocations[lastCell];
         }
     }
 
@@ -45,8 +40,8 @@ public class TileGetter : MonoBehaviour
         List<Vector3Int> surroundingCells = GetSurroundingCells(cell);
 
         foreach (Vector3Int sCell in surroundingCells) {
-            if(wlm.weedLocations.ContainsKey(sCell)){
-                GameObject sObject = wlm.weedLocations[sCell];
+            if(WeedLocationManager.Instance.weedLocations.ContainsKey(sCell)){
+                GameObject sObject = WeedLocationManager.Instance.weedLocations[sCell];
                 if (tag != "any"){
                     if (sObject.tag == tag){
                         surroundingObjects.Add(sObject);
@@ -63,7 +58,8 @@ public class TileGetter : MonoBehaviour
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 Vector3Int sCell = new Vector3Int(cell.x + i, cell.y + j, cell.z);
-                if ( wlm.tileLocations.ContainsKey(sCell) && !wlm.weedLocations.ContainsKey(sCell) ){
+                if ( WeedLocationManager.Instance.tileLocations.ContainsKey(sCell)
+                    && !WeedLocationManager.Instance.weedLocations.ContainsKey(sCell) ){
                     surroundingCells.Add(sCell);
                 }
             }
