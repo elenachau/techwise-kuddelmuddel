@@ -6,6 +6,17 @@ using UnityEngine;
 public class Powerup : MonoBehaviour
 {
     public PowerupEffect powerupEffect;
+    public static Powerup Instance;
+
+    void Awake() {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
+            Destroy(gameObject);
+        }
+    }
 
     public void PowerUpAllWeeds()
     {   

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class ShopManagerScript : MonoBehaviour
 {
     public int[,] shopItems = new int[5, 5];
+    [SerializeField] public List<PowerupEffect> powerups;
     public Text CoinsTXT;
 
     void Start()
@@ -44,6 +46,11 @@ public class ShopManagerScript : MonoBehaviour
             shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++;
             CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
             ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
+            
+            // Apply powerup automatically and close shop
+            Powerup.Instance.powerupEffect = powerups[ButtonRef.GetComponent<ButtonInfo>().ItemID - 1];
+            Powerup.Instance.PowerUpAllWeeds();
+            SceneManager.UnloadScene("ShopSystem");
         }
 
     }

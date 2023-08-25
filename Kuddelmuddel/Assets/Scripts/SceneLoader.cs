@@ -12,7 +12,12 @@ public class SceneLoader : MonoBehaviour
     
     public void OpenItemShop()
     {
-        SceneManager.LoadScene("ShopSystem");
+        SceneManager.LoadScene("ShopSystem", LoadSceneMode.Additive);
+    }
+
+    public void CloseItemShop()
+    {
+        SceneManager.UnloadScene("ShopSystem");
     }
 
     public void PlayGame()
