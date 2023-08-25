@@ -6,10 +6,12 @@ using UnityEngine;
 public class Powerup : MonoBehaviour
 {
     public PowerupEffect powerupEffect;
+    [SerializeField] private TextUpdater textBox;
     public static Powerup Instance;
     private GameObject weedPrefab;
 
-    void Awake() {
+    void Awake()
+    {
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -19,7 +21,8 @@ public class Powerup : MonoBehaviour
         }
     }
 
-    void Start() {
+    void Start()
+    {
         weedPrefab = GameObject.Find("WeedObject");
     }
 
@@ -34,6 +37,7 @@ public class Powerup : MonoBehaviour
 
         // Apply buffs to Weed Prefab - all children (new seeds) will have buff
         powerupEffect.ApplyEffect(weedPrefab);
+        textBox.UpdateText(powerupEffect.getText());
         StartCoroutine(DisablePowerupOnClick(weedPrefab));
     }
 
@@ -41,5 +45,6 @@ public class Powerup : MonoBehaviour
     {
         yield return new WaitForSeconds(powerupEffect.getDuration());
         powerupEffect.DisableEffect(target.gameObject);
+        textBox.UpdateText("");
     }
 }

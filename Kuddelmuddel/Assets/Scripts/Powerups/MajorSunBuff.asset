@@ -15,4 +15,5 @@ MonoBehaviour:
   duration: 0
   growthRateMultiplier: 0
   spreadRateMultiplier: 0
+  text: Major sunlight buff
   isEnabled: 0

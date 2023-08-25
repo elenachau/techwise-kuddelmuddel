@@ -41,6 +41,7 @@ public class PeacefulBuff : PowerupEffect
     public float duration = 0;
     public float growthRateMultiplier = 0;
     public float spreadRateMultiplier = 0;
+    public string text;
     public bool isEnabled = false;
 
     public override void ApplyEffect(GameObject target)
@@ -71,6 +72,11 @@ public class PeacefulBuff : PowerupEffect
     public override float getDuration()
     {
         return duration;
+    }
+
+    public override string getText()
+    {
+        return text;
     }
 
 }

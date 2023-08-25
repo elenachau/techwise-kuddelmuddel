@@ -8,6 +8,7 @@ public abstract class PowerupEffect : ScriptableObject
     public abstract void ApplyEffect(GameObject target);
     public abstract void DisableEffect(GameObject target);
     public abstract float getDuration();
+    public abstract string getText();
 }
 
 

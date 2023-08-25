@@ -5,16 +5,16 @@ using TMPro;
 
 public class TextUpdater : MonoBehaviour
 {
-    public void UpdateText(int count) {
-        this.gameObject.GetComponent<TextMeshProUGUI>().text = GetShortenedNumber(count);
+    public void UpdateText(string newText) {
+        this.gameObject.GetComponent<TextMeshProUGUI>().text = newText;
     }
 
     public void UpdateSeedCount() {
-        UpdateText(PlayerData.Instance.seedCount);
+        UpdateText(GetShortenedNumber(PlayerData.Instance.seedCount));
     }
 
     public void UpdateWeedCount() {
-        UpdateText(PlayerData.Instance.weedCount);
+        UpdateText(GetShortenedNumber(PlayerData.Instance.weedCount));
     }
 
     private string GetShortenedNumber(int count) {

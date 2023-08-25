@@ -15,4 +15,5 @@ MonoBehaviour:
   duration: 10
   growthRateMultiplier: 3
   spreadRateMultiplier: 3
+  text: 'Minor sunlight buff '
   isEnabled: 0

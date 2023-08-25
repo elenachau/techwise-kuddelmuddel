@@ -13,6 +13,7 @@ public class DancePartyBuff : PowerupEffect
     [SerializeField] private float newSpreadRate = 0.5f;
     [SerializeField] private float newSpreadChance = 1f;
     [SerializeField] private float newGrowthRate = 1f;
+    [SerializeField] private string text;
     [SerializeField] private RuntimeAnimatorController newAnimations;
 
     public override void ApplyEffect(GameObject target)
@@ -38,6 +39,10 @@ public class DancePartyBuff : PowerupEffect
 
     public override float getDuration() { 
         return duration;
+    }
+
+    public override string getText() {
+        return text;
     }
     
 }

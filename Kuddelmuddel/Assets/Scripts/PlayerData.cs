@@ -58,7 +58,7 @@ public class PlayerData : MonoBehaviour
         if (weedCount < 0) {
             weedCount = 0;
         }
-        weedText.UpdateText(weedCount);
+        weedText.UpdateWeedCount();
     }
 
     public void AddSeeds(int amount) {
@@ -66,7 +66,7 @@ public class PlayerData : MonoBehaviour
         if (seedCount < 0) {
             seedCount = 0;
         }
-        seedText.UpdateText(seedCount);
+        seedText.UpdateSeedCount();
 
     }
 }

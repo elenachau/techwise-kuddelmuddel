@@ -16,4 +16,5 @@ MonoBehaviour:
   newSpreadRate: 0.5
   newSpreadChance: 1
   newGrowthRate: 1.5
+  text: DANCE PARTY!!!
   newAnimations: {fileID: 0}
