@@ -15,7 +15,7 @@ public class WeedData : MonoBehaviour
     public int growthState = 0; //used to determine which animation to display?
     public float growthRate = 10f;
     public float spreadRate = 5f; // seconds
-    public float spreadChance = 0.75f;
+    public float spreadChance = 0.50f;
     public int newWeedsPerSpread = 1;
     public bool canSpread = true;
     public bool isGrown = false;
@@ -45,6 +45,7 @@ public class WeedData : MonoBehaviour
                     wp.CreateWeed(newCell);
                 }
             }
+            animator.SetTrigger("ReturnIdle");
         } while (canSpread);
     }
 

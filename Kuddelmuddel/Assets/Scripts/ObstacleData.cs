@@ -24,11 +24,14 @@ public class ObstacleData : MonoBehaviour
     }
 
     public void RemoveSelf() {
-        if (isRemovable()){
-            PlayerData.Instance.AddSeeds(-cost);
-            WeedLocationManager.Instance.weedLocations.Remove(TileGetter.Instance.lastCell);
-            print("Destroyed obstacle at " + TileGetter.Instance.lastCell);
-            Destroy(this.gameObject);
+        PlayerData.Instance.AddSeeds(-cost);
+        WeedLocationManager.Instance.weedLocations.Remove(TileGetter.Instance.lastCell);
+        foreach (GameObject sWeed in
+                TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Weed")){
+            sWeed.GetComponent<WeedData>().StartSpread();
         }
+
+        print("Destroyed obstacle at " + TileGetter.Instance.lastCell);
+        Destroy(this.gameObject);
     }
 }

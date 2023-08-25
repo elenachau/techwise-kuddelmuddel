@@ -23,6 +23,7 @@ public class MapManager : MonoBehaviour
         MapFilled.AddListener(PlayerData.Instance.SetNextProgression);
         MapFilled.AddListener(MakeRandomGrid);
         MapFilled.AddListener(SpawnObstacles);
+        MapFilled.AddListener(RecheckSpreadable);
     }
 
     void MakeRandomGrid() { // random procedural generator
@@ -79,6 +80,15 @@ public class MapManager : MonoBehaviour
         if (isMapFilled){
             MapFilled.Invoke();
             print("Map filled!");
+        }
+    }
+
+    public void RecheckSpreadable() {
+        // enables all weeds to be able to spread onto newly-created tiles
+        foreach (KeyValuePair<Vector3Int, GameObject> entry in WeedLocationManager.Instance.weedLocations) {
+            if (entry.Value.tag == "Weed"){
+                entry.Value.GetComponent<WeedData>().StartSpread();
+            }
         }
     }
 }
