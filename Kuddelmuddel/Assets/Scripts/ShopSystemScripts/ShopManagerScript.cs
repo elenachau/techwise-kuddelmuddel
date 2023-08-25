@@ -50,7 +50,7 @@ public class ShopManagerScript : MonoBehaviour
             // Apply powerup automatically and close shop
             Powerup.Instance.powerupEffect = powerups[ButtonRef.GetComponent<ButtonInfo>().ItemID - 1];
             Powerup.Instance.PowerUpAllWeeds();
-            SceneManager.UnloadScene("ShopSystem");
+            SceneManager.UnloadSceneAsync("ShopSystem");
         }
 
     }

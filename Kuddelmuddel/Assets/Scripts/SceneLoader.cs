@@ -7,7 +7,7 @@ public class SceneLoader : MonoBehaviour
 {
     public void PauseGame()
     { 
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
     }
     
     public void OpenItemShop()
@@ -17,12 +17,17 @@ public class SceneLoader : MonoBehaviour
 
     public void CloseItemShop()
     {
-        SceneManager.UnloadScene("ShopSystem");
+        SceneManager.UnloadSceneAsync("ShopSystem");
     }
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Map1");
+        if (PlayerData.Instance == null){ // game has not started yet
+            SceneManager.LoadScene("Map1");
+        }
+        else {
+            SceneManager.UnloadSceneAsync("Menu");
+        }
     }
 
     public void QuitGame()
