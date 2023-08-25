@@ -8,6 +8,7 @@ public class WeedData : MonoBehaviour
     private WeedPlanter wp;
     private MapManager mm;
     public Animator animator;
+    [SerializeField] public RuntimeAnimatorController defaultAnimController;
     [SerializeField] private Sprite seedSprite;
     [SerializeField] private Sprite weedSprite;
 
@@ -16,8 +17,6 @@ public class WeedData : MonoBehaviour
     public float spreadRate = 5f; // seconds
     public float spreadChance = 0.75f;
     public int newWeedsPerSpread = 1;
-    public int weedSellValue = 1; // every x sold gets 1 seed back
-    public int health = 100;
     public bool canSpread = true;
     public bool isGrown = false;
     public bool isGrowing = false;
@@ -33,21 +32,28 @@ public class WeedData : MonoBehaviour
     }
 
     public IEnumerator SpreadLoop() {
-        while (canSpread) {
+        print("Started spreading loop at " + location);
+        do {
             yield return new WaitForSeconds(spreadRate);
-
+            CheckSpreadable();
             List <Vector3Int> freeCells = TileGetter.Instance.GetSurroundingFreeCells(location);
             float spreadCheck = Random.Range(0f,1f);
-            if (freeCells.Count > 0 && spreadCheck <= spreadChance){
+            if (canSpread && spreadCheck <= spreadChance){
                 animator.SetTrigger("GrowTrigger");
                 for (int i = 0; i < newWeedsPerSpread; i++) {
                     Vector3Int newCell = freeCells[Random.Range(0, freeCells.Count)];
                     wp.CreateWeed(newCell);
                 }
-                animator.SetTrigger("ReturnIdle");
             }
-            canSpread = TileGetter.Instance.GetSurroundingFreeCells(location).Count > 0;
-        }
+        } while (canSpread);
+    }
+
+    public void CheckSpreadable() {
+        canSpread = (TileGetter.Instance.GetSurroundingFreeCells(location).Count > 0);
+    }
+
+    public void ChangeAnimatorController(RuntimeAnimatorController controller){
+        animator.runtimeAnimatorController = controller;
     }
 
     public IEnumerator GrowingStage() {
@@ -59,11 +65,11 @@ public class WeedData : MonoBehaviour
     }
 
     public void GrowToNextStage() {
+        print("GrowToNextStage() - " + growthRate.ToString());
         animator.Play("Weed_sprout");
         animator.SetTrigger("GrowTrigger");
         isGrowing = false;
         isGrown = true;
-        weedSellValue = 2;
         this.gameObject.GetComponent<SpriteRenderer>().sprite = seedSprite;
         this.gameObject.tag = "Weed";
         PlayerData.Instance.AddWeeds(1);
@@ -73,6 +79,10 @@ public class WeedData : MonoBehaviour
 
     public void StartGrowth(){
         growCoroutine = StartCoroutine(GrowingStage());
+    }
+    
+    public void StartSpread(){
+        spreadCoroutine = StartCoroutine(SpreadLoop());
     }
 
     void OnDestroy() {

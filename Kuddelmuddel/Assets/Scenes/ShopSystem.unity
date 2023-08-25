@@ -2015,9 +2015,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerups:
   - {fileID: 11400000, guid: 5287f41b73fe2fc44a014d7b175856a8, type: 2}
+  - {fileID: 11400000, guid: 27edc8e344d10443f9abc8886daf3926, type: 2}
   - {fileID: 11400000, guid: bf45d84739ac124418e651a24e2a471b, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: bf45d84739ac124418e651a24e2a471b, type: 2}
   CoinsTXT: {fileID: 1739342145}
 --- !u!4 &965731163
 Transform:

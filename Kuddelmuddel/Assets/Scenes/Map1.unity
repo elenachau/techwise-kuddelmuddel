@@ -2554,6 +2554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 910837279}
+  defaultAnimController: {fileID: 0}
   seedSprite: {fileID: 21300000, guid: be4828d822ef14f9e93fa7c3ae07618b, type: 3}
   weedSprite: {fileID: 21300000, guid: 83c25f6b94c5ed7438f717cb02882307, type: 3}
   growthState: 0
@@ -2561,8 +2562,6 @@ MonoBehaviour:
   spreadRate: 5
   spreadChance: 0.75
   newWeedsPerSpread: 1
-  weedSellValue: 1
-  health: 100
   canSpread: 1
   isGrown: 0
   isGrowing: 0
@@ -3268,7 +3267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progression: 2
   playerName: billy
-  startingSeedCount: 150
+  startingSeedCount: 10
   numObstaclesToSpawn: 0
   weedText: {fileID: 59827641}
   seedText: {fileID: 124046673}
