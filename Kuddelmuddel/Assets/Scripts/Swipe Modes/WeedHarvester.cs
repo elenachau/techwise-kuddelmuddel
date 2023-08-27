@@ -22,7 +22,7 @@ public class WeedHarvester : MonoBehaviour
 
                 if (touchedObject.tag == "Weed"){
                     DestroyWeed(touchedObject);
-                    AudioManager.Instance.PlaySoundEffect(harvestSound);
+                    AudioManager.Instance.PlayHarvestSFX();
                 }
                 else if (touchedObject.tag == "Obstacle" && Input.GetTouch(0).phase == TouchPhase.Began){
                     if (touchedObject.GetComponent<ObstacleData>().isRemovable()){
@@ -39,6 +39,7 @@ public class WeedHarvester : MonoBehaviour
 
                 else if (touchedObject.tag == "Seed") {
                     DestroySeed(touchedObject);
+                    AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.sfx_removedObstacle);
                 }
             }
         }

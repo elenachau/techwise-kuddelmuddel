@@ -40,6 +40,7 @@ public class WeedPlanter : MonoBehaviour
         newWeed.GetComponent<WeedData>().location = cell;
 
         WeedLocationManager.Instance.weedLocations.Add(cell, newWeed);
+        AudioManager.Instance.PlayPlantingSFX();
         newWeed.GetComponent<WeedData>().StartGrowth();
     }
 }

@@ -33,6 +33,7 @@ public class ObstacleData : MonoBehaviour
         }
 
         print("Destroyed obstacle at " + location);
+        AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.sfx_removedObstacle);
         Destroy(this.gameObject);
     }
 }
