@@ -31,8 +31,8 @@ public class DancePartyBuff : PowerupEffect
     {
         WeedData data = target.GetComponent<WeedData>();
         data.spreadRate = 5f;
-        data.spreadChance = 0.75f;
-        data.growthRate = 5f;
+        data.spreadChance = 0.5f;
+        data.growthRate = 10f;
         //data.ChangeAnimatorController(data.defaultAnimController);
 
     }

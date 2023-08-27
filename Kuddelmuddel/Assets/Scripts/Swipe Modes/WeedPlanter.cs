@@ -29,6 +29,7 @@ public class WeedPlanter : MonoBehaviour
                         print("That cell is not adjacent to a weed!");
                     }
                 }
+            }
         }
     }
 
