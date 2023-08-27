@@ -11,6 +11,7 @@ public class MapManager : MonoBehaviour
     public UnityEvent MapFilled;
     [SerializeField] private Tilemap canvas;
     [SerializeField] private Sprite[] sprites;
+    [SerializeField] private int noiseDensity; // smaller scale = more dense noise
 
     void Start() {
         // Instantiate helper classes
@@ -38,8 +39,14 @@ public class MapManager : MonoBehaviour
                     WeedLocationManager.Instance.tileLocations.Add(cell, newTile);
                     
                     // Random sprite
-                    int choice = Random.Range(0,2);
-                    newTile.GetComponent<SpriteRenderer>().sprite = sprites[choice];
+                    newTile.GetComponent<SpriteRenderer>().sprite = sprites[0];
+                    float x = (float)i / noiseDensity;
+                    float y = (float)j / noiseDensity;
+                    float noise = Mathf.PerlinNoise(x,y);
+                    print(noise);
+                    if (noise < 0.4f) {
+                        newTile.GetComponent<SpriteRenderer>().sprite = sprites[1];
+                    }
                 }
             }
         }

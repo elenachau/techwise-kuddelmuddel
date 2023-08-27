@@ -10,6 +10,8 @@ public class PlayerData : MonoBehaviour
     [SerializeField] public string playerName;
     [SerializeField] public int startingSeedCount;
     [SerializeField] public int numObstaclesToSpawn;
+    [SerializeField] public int minXBounds;
+    [SerializeField] public int minYBounds;
     [SerializeField] private TextUpdater weedText;
     [SerializeField] private TextUpdater seedText;
     public int xBounds;
@@ -30,8 +32,8 @@ public class PlayerData : MonoBehaviour
             Destroy(gameObject);
         }
         seedCount = startingSeedCount;
-        numObstaclesToSpawn = progression;
-        SetBounds();
+        xBounds = minXBounds;
+        yBounds = minYBounds;
     }
 
     void Start() {
@@ -47,7 +49,8 @@ public class PlayerData : MonoBehaviour
 
     public void SetNextProgression() {
         progression *= 3;
-        numObstaclesToSpawn = progression / 2;
+        numObstaclesToSpawn = 0;
+        //numObstaclesToSpawn = progression / 2;
         AddSeeds(progression);
         SetBounds();
         tm.GetComponent<PinchZoom>().UpdateCamera();
