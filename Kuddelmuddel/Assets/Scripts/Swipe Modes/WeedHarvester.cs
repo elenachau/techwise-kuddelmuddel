@@ -32,7 +32,7 @@ public class WeedHarvester : MonoBehaviour
                         }
                         Vector2 buttonPos = new Vector2(TileGetter.Instance.lastWorldPt.x, TileGetter.Instance.lastWorldPt.y + buttonYOffset);
                         obstacleRemoveButton.transform.position = buttonPos;
-                        GameObject.Find("Seed Cost").GetComponent<TextUpdater>().UpdateText(touchedObject.GetComponent<ObstacleData>().cost.ToString());
+                        GameObject.Find("Seed Cost").GetComponent<TextUpdater>().UpdateText(PlayerData.Instance.numObstaclesRemoved.ToString());
                         selectedObstacle = touchedObject;
                     }
                 }

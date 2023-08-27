@@ -12,8 +12,8 @@ public class WeedPlanter : MonoBehaviour
             TileGetter.Instance.TouchUpdate(Input.GetTouch(0).position);
             bool firstTouch = (Input.GetTouch(0).phase == TouchPhase.Began);
 
-            if (!(WeedLocationManager.Instance.weedLocations.ContainsKey(TileGetter.Instance.lastCell))){
-                if (WeedLocationManager.Instance.tileLocations.ContainsKey(TileGetter.Instance.lastCell)){
+            if (!(WeedLocationManager.Instance.weedLocations.ContainsKey(TileGetter.Instance.lastCell))){ // object exists on this tile
+                if (WeedLocationManager.Instance.tileLocations.ContainsKey(TileGetter.Instance.lastCell)){ // tile doesn't exist
                     if (TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Weed").Count 
                         + TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Seed").Count > 0
                         || PlayerData.Instance.weedCount == 0){ // Is adjacent to a weed/seed and is not the first weed placed
@@ -29,13 +29,6 @@ public class WeedPlanter : MonoBehaviour
                         print("That cell is not adjacent to a weed!");
                     }
                 }
-                else if (firstTouch){
-                    print("There is no tile to place that weed!");
-                }
-            }
-            else if (firstTouch){
-                print("That tile is occupied! " + TileGetter.Instance.lastCell);
-            }
         }
     }
 

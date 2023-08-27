@@ -43,7 +43,6 @@ public class MapManager : MonoBehaviour
                     float x = (float)i / noiseDensity;
                     float y = (float)j / noiseDensity;
                     float noise = Mathf.PerlinNoise(x,y);
-                    print(noise);
                     if (noise < 0.4f) {
                         newTile.GetComponent<SpriteRenderer>().sprite = sprites[1];
                     }

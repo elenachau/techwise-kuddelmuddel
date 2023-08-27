@@ -14,6 +14,7 @@ public class PlayerData : MonoBehaviour
     [SerializeField] public int minYBounds;
     [SerializeField] private TextUpdater weedText;
     [SerializeField] private TextUpdater seedText;
+    public int numObstaclesRemoved = 1;
     public int xBounds;
     public int yBounds;
     public int seedCount;

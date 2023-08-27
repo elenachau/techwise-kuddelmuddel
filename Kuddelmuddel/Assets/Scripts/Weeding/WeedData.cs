@@ -32,7 +32,7 @@ public class WeedData : MonoBehaviour
     }
 
     public IEnumerator SpreadLoop() {
-        print("Started spreading loop at " + location);
+        //print("Started spreading loop at " + location);
         do {
             yield return new WaitForSeconds(spreadRate);
             CheckSpreadable();
@@ -66,7 +66,6 @@ public class WeedData : MonoBehaviour
     }
 
     public void GrowToNextStage() {
-        print("GrowToNextStage() - " + growthRate.ToString());
         animator.Play("Weed_sprout");
         animator.SetTrigger("GrowTrigger");
         isGrowing = false;

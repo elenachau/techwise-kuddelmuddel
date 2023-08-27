@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ObstacleData : MonoBehaviour
 {
-    [SerializeField] public int cost = 2;
+    [SerializeField] public int cost;
     public Vector3Int location;
 
     public bool isRemovable() {
         bool removable = true;
 
-        if (PlayerData.Instance.seedCount < cost){
+        if (PlayerData.Instance.seedCount < PlayerData.Instance.numObstaclesRemoved){
             removable = false;
             print("You don't have enough seeds to destroy that obstacle!");
         }
@@ -24,7 +24,8 @@ public class ObstacleData : MonoBehaviour
     }
 
     public void RemoveSelf() {
-        PlayerData.Instance.AddSeeds(-cost);
+        PlayerData.Instance.AddSeeds(-PlayerData.Instance.numObstaclesRemoved);
+        PlayerData.Instance.numObstaclesRemoved++;
         WeedLocationManager.Instance.weedLocations.Remove(location);
         foreach (GameObject sWeed in
                 TileGetter.Instance.GetSurroundingObjectsOfTag(location, "Weed")){
