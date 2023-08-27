@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class ShopManagerScript : MonoBehaviour
 {
     public int[,] shopItems = new int[5, 5];
-    public float coins;
-
+    [SerializeField] public List<PowerupEffect> powerups;
     public Text CoinsTXT;
-    //public NumberIncrementer numberIncrementer;
-
 
     void Start()
     {
-        CoinsTXT.text = "Coins:" + coins.ToString();
-        //numberIncrementer = GameObject.FindObjectOfType<NumberIncrementer>();
-
+        CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
 
         //ID's
         shopItems[1, 1] = 1;
@@ -44,12 +40,17 @@ public class ShopManagerScript : MonoBehaviour
     {
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
 
-        if (coins >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
+        if (PlayerData.Instance.seedCount >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
         {
-            coins -= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID];
+            PlayerData.Instance.AddSeeds( -shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID]);
             shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++;
-            CoinsTXT.text = "Coins:" + coins.ToString();
+            CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
             ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
+            
+            // Apply powerup automatically and close shop
+            Powerup.Instance.powerupEffect = powerups[ButtonRef.GetComponent<ButtonInfo>().ItemID - 1];
+            Powerup.Instance.PowerUpAllWeeds();
+            SceneManager.UnloadSceneAsync("ShopSystem");
         }
 
     }

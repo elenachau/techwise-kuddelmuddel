@@ -5,14 +5,24 @@ TagManager:
   serializedVersion: 2
   tags:
   - Event
+<<<<<<< HEAD
   - StandardWeed
   - WaterWeed
   - DisasterEvent
+=======
+  - Weed
+  - Obstacle
+  - Seed
+>>>>>>> main
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
+<<<<<<< HEAD
   - Trigger
+=======
+  - Background
+>>>>>>> main
   - Water
   - UI
   - Weed
@@ -51,6 +61,11 @@ TagManager:
   - name: AboveGround
     uniqueID: 2444677781
     locked: 0
+<<<<<<< HEAD
   - name: Rain
     uniqueID: 2395519845
+=======
+  - name: WorldUI
+    uniqueID: 978333831
+>>>>>>> main
     locked: 0

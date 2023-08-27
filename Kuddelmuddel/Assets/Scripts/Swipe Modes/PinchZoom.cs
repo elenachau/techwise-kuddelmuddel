@@ -5,13 +5,22 @@ using UnityEngine.UI;
 
 public class PinchZoom : MonoBehaviour
 {
-    [SerializeField] float zoomScale;
-    [SerializeField] float maxCamSize;
-    [SerializeField] float minCamSize;
-
+    private float maxCamSize;
+    private float minCamSize = 2;
     private float previousDistance = 0;
     private Vector2 anchor;
     private bool anchored;
+    private Camera cam;
+
+    void Start() {
+        cam = Camera.main; // cache camera
+        UpdateCamera();
+    }
+
+    public void UpdateCamera() {
+        maxCamSize = PlayerData.Instance.xBounds + 3;
+        // TODO: Tween camera aniamtion at MapFilled event
+    }
 
     public void ZoomUpdate()
     {
@@ -21,8 +30,8 @@ public class PinchZoom : MonoBehaviour
             if (anchored){
                 if (touch.phase == TouchPhase.Moved){
                     float currentDistance = Vector2.Distance(anchor, touch.position);
-                    float newSize = Camera.main.orthographicSize + (zoomScale * (previousDistance - currentDistance));
-                    Camera.main.orthographicSize = CheckCamZoom(Mathf.Abs(newSize));
+                    float newSize = cam.orthographicSize + (PlayerData.Instance.scrollSensitivity * (previousDistance - currentDistance));
+                    cam.orthographicSize = CheckCamZoom(Mathf.Abs(newSize));
                     previousDistance = currentDistance;
                 }
 

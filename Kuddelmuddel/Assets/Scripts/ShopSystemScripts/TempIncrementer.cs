@@ -32,7 +32,7 @@ public class NumberIncrementer : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        print(timer += Time.deltaTime);
+        //print(timer += Time.deltaTime);
 
         if (timer >= interval)
         {

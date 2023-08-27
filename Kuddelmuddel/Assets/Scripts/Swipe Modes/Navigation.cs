@@ -5,31 +5,31 @@ using UnityEngine.UI;
 
 public class Navigation : MonoBehaviour
 {
-    [SerializeField]
-    float xBounds;
-    [SerializeField]
-    float yBounds;
-    [SerializeField]
-    float scrollSensitivity; // 0-1 scroll speed
+    private Camera cam;
+
+    void Start() {
+        cam = Camera.main;
+    }
 
     public void NavUpdate() {
-        Vector2 dPos = Input.GetTouch(0).deltaPosition;
-        Camera cam = Camera.main;
+        if (Input.touchCount > 0){
+            Vector2 dPos = Input.GetTouch(0).deltaPosition;
 
-        Vector3 newPos = new Vector3(
-            (-scrollSensitivity * dPos.x) + cam.transform.position.x,
-            (-scrollSensitivity * dPos.y) + cam.transform.position.y,
-            cam.transform.position.z
-        );
-        cam.transform.position = CheckBounds(newPos);
+            Vector3 newPos = new Vector3(
+                (-PlayerData.Instance.scrollSensitivity * dPos.x) + cam.transform.position.x,
+                (-PlayerData.Instance.scrollSensitivity * dPos.y) + cam.transform.position.y,
+                cam.transform.position.z
+            );
+            cam.transform.position = CheckBounds(newPos);
+        }
     }
     
     Vector3 CheckBounds(Vector3 oldPos){
         Vector3 pos = oldPos;
-        pos.x = pos.x >  xBounds ?  xBounds : pos.x; // Snap to bound if greater, else no change
-        pos.x = pos.x < -xBounds ? -xBounds : pos.x;
-        pos.y = pos.y >  yBounds ?  yBounds : pos.y;
-        pos.y = pos.y < -yBounds ? -yBounds : pos.y;
+        pos.x = pos.x >  PlayerData.Instance.xBounds ?  PlayerData.Instance.xBounds : pos.x; // Snap to bound if greater, else no change
+        pos.x = pos.x < -PlayerData.Instance.xBounds ? -PlayerData.Instance.xBounds : pos.x;
+        pos.y = pos.y >  PlayerData.Instance.yBounds ?  PlayerData.Instance.yBounds : pos.y;
+        pos.y = pos.y < -PlayerData.Instance.yBounds ? -PlayerData.Instance.yBounds : pos.y;
         return pos;
     }
 }
