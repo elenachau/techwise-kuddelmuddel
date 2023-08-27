@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
+using TMPro;
 
 public class WeedHarvester : MonoBehaviour
 {   
     [SerializeField] private float seedReturnChance;
     [SerializeField] private AudioClip harvestSound;
+    [SerializeField] private GameObject obstacleRemoveButton;
+    [SerializeField] private int buttonYOffset;
+    private GameObject selectedObstacle;
 
     public void HarvesterUpdate() {
         if (Input.touchCount > 0){
@@ -21,8 +26,14 @@ public class WeedHarvester : MonoBehaviour
                 }
                 else if (touchedObject.tag == "Obstacle" && Input.GetTouch(0).phase == TouchPhase.Began){
                     if (touchedObject.GetComponent<ObstacleData>().isRemovable()){
-                        touchedObject.GetComponent<ObstacleData>().RemoveSelf();
-                        AudioManager.Instance.PlaySoundEffect(harvestSound);
+                        obstacleRemoveButton.SetActive(true);
+                        if (touchedObject == selectedObstacle) {
+                            obstacleRemoveButton.SetActive(false);
+                        }
+                        Vector2 buttonPos = new Vector2(TileGetter.Instance.lastWorldPt.x, TileGetter.Instance.lastWorldPt.y + buttonYOffset);
+                        obstacleRemoveButton.transform.position = buttonPos;
+                        GameObject.Find("Seed Cost").GetComponent<TextUpdater>().UpdateText(touchedObject.GetComponent<ObstacleData>().cost.ToString());
+                        selectedObstacle = touchedObject;
                     }
                 }
 
@@ -56,5 +67,13 @@ public class WeedHarvester : MonoBehaviour
             sWeed.GetComponent<WeedData>().StartSpread();
         }
         print("Harvested seed at " + TileGetter.Instance.lastCell);
+    }
+
+    public void DestroySelectedObstacle() {
+        if (selectedObstacle != null){
+            selectedObstacle.GetComponent<ObstacleData>().RemoveSelf();
+            obstacleRemoveButton.SetActive(false);
+            AudioManager.Instance.PlaySoundEffect(harvestSound);
+        }
     }
 }

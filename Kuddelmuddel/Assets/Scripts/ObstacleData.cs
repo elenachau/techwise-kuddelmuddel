@@ -17,7 +17,7 @@ public class ObstacleData : MonoBehaviour
 
         else if (TileGetter.Instance.GetSurroundingObjectsOfTag(location, "Weed").Count == 0){
             removable = false;
-            print("You need to have a surrounding weed to remove that obstacle!");
+            //print("You need to have a surrounding weed to remove that obstacle!");
         }
 
         return removable;
@@ -25,13 +25,13 @@ public class ObstacleData : MonoBehaviour
 
     public void RemoveSelf() {
         PlayerData.Instance.AddSeeds(-cost);
-        WeedLocationManager.Instance.weedLocations.Remove(TileGetter.Instance.lastCell);
+        WeedLocationManager.Instance.weedLocations.Remove(location);
         foreach (GameObject sWeed in
-                TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Weed")){
+                TileGetter.Instance.GetSurroundingObjectsOfTag(location, "Weed")){
             sWeed.GetComponent<WeedData>().StartSpread();
         }
 
-        print("Destroyed obstacle at " + TileGetter.Instance.lastCell);
+        print("Destroyed obstacle at " + location);
         Destroy(this.gameObject);
     }
 }

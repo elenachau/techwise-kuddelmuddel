@@ -53,7 +53,8 @@ public class MapManager : MonoBehaviour
     }
 
     void SpawnObstacles() {
-        while (PlayerData.Instance.numObstaclesToSpawn > 0) {
+        int count = PlayerData.Instance.numObstaclesToSpawn * PlayerData.Instance.progression;
+        while (count > 0) {
             int x = Random.Range(-PlayerData.Instance.xBounds+1, PlayerData.Instance.xBounds);
             int y = Random.Range(-PlayerData.Instance.yBounds+1, PlayerData.Instance.yBounds);
             Vector3Int cell = new Vector3Int(x, y, 0);
@@ -64,7 +65,7 @@ public class MapManager : MonoBehaviour
                 newObstacle.name = "Obstacle (" + x + ", " + y + ", 0)";
                 newObstacle.GetComponent<ObstacleData>().location = cell;
                 WeedLocationManager.Instance.weedLocations.Add(cell, newObstacle);
-                PlayerData.Instance.numObstaclesToSpawn--;
+                count--;
             }
         }
     }

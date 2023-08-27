@@ -49,8 +49,6 @@ public class PlayerData : MonoBehaviour
 
     public void SetNextProgression() {
         progression *= 3;
-        numObstaclesToSpawn = 0;
-        //numObstaclesToSpawn = progression / 2;
         AddSeeds(progression);
         SetBounds();
         tm.GetComponent<PinchZoom>().UpdateCamera();
