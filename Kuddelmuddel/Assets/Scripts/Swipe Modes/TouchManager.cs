@@ -29,6 +29,10 @@ public class TouchManager : MonoBehaviour
             trail.SetActive(true);
             trail.transform.position = TileGetter.Instance.lastWorldPt;
 
+            if(Input.GetTouch(0).phase == TouchPhase.Began){
+                AudioManager.Instance.PlayUI();
+            }
+
             switch (mode){
                 case 0:
                     nv.NavUpdate();

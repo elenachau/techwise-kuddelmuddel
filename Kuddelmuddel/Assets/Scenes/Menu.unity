@@ -773,21 +773,21 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a164485085dc54b03ad1828515845d89, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -1907,7 +1907,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1f0a6e16e69df4bd3bdcb4860e7c42a9, type: 3}
   sfx_removedObstacle: {fileID: 8300000, guid: fcef5de3fa7544a2ca4acb2bdb12b55a, type: 3}
   sfx_volumeTestSound: {fileID: 8300000, guid: a509cd22bfcdf4b7b9ffcc962fa7b999, type: 3}
-  music_baseBackground: {fileID: 0}
+  music_baseBackground: {fileID: 8300000, guid: a164485085dc54b03ad1828515845d89, type: 3}
   music_danceParty: {fileID: 0}
 --- !u!4 &1206062883
 Transform:
