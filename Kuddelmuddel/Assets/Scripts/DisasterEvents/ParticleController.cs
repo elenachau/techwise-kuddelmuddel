@@ -8,6 +8,8 @@ public class ParticleSystemController : MonoBehaviour
     public Delete randomDeletionScript;
     public float chanceToStart = 0.5f;  // 50% chance to start a particle system
 
+    private bool isParticleSystemActive = false;
+
     private void Start()
     {
         // Validate references
@@ -35,11 +37,15 @@ public class ParticleSystemController : MonoBehaviour
             // Wait for 3 minutes
             yield return new WaitForSeconds(20f);
 
+            // Check if a particle system is already active
+            if (isParticleSystemActive)
+                continue;  // Skip this iteration if true
+
             // Randomly decide whether to start a particle system
             if (Random.value < chanceToStart)
             {
                 // Decide which particle system to play
-                if (Random.value < 0.10f) // 50% chance for each, adjust as needed
+                if (Random.value < 0.10f) // Adjust as needed
                 {
                     StartParticleSystemAndDeletion(acidRainSystem);
                 }
@@ -53,6 +59,13 @@ public class ParticleSystemController : MonoBehaviour
 
     private void StartParticleSystemAndDeletion(ParticleSystem systemToStart)
     {
+        // Set the lock
+        isParticleSystemActive = true;
+
+        // Stop any previously running particle systems
+        acidRainSystem.Stop();
+        blizzardSystem.Stop();
+
         // Start the chosen particle system
         systemToStart.Play();
 
@@ -72,5 +85,8 @@ public class ParticleSystemController : MonoBehaviour
 
         // Deactivate the random deletion process
         randomDeletionScript.enabled = false;
+
+        // Release the lock
+        isParticleSystemActive = false;
     }
 }

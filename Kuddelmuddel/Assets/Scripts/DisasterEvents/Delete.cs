@@ -4,50 +4,53 @@ using UnityEngine;
 
 public class Delete : MonoBehaviour
 {
-    private List<GameObject> objectsToDestroy;
-    private int totalObjectsToDelete;
+    private List<GameObject> seedWeeds = new List<GameObject>();
+    private float timeSinceLastDeletion = 0;
 
-    private void Start()
+    void Update()
     {
-        // Initialize the list of objects to be potentially deleted.
-        objectsToDestroy = new List<GameObject>(GameObject.FindGameObjectsWithTag("StandardWeed"));
-
-        // Randomize the total number of objects to delete, but limit to half the original count.
-        totalObjectsToDelete = Random.Range(1, (objectsToDestroy.Count / 2) + 1);
-
-        StartCoroutine(DeleteRandomly());
+        // Every 2 minutes, trigger the weed deletion process
+        timeSinceLastDeletion += Time.deltaTime;
+        if (timeSinceLastDeletion >= 120f) // 120 seconds = 2 minutes
+        {
+            timeSinceLastDeletion = 0f;
+            DestroyRandomSeeds();
+        }
     }
 
-    private IEnumerator DeleteRandomly()
+    private void DestroyRandomSeeds()
     {
-        // Initial delay before starting the deletion.
-        yield return new WaitForSeconds(Random.Range(20f, 120f));
+        PopulateSeedWeedsList();
+        int weedsToDeleteCount = Mathf.FloorToInt(seedWeeds.Count * 0.6f); // Calculate 60%
+        int deletionCounter = 0;
 
-        int deletedObjectsCount = 0;
-
-        while (deletedObjectsCount < totalObjectsToDelete)
+        while (weedsToDeleteCount > 0)
         {
-            if (objectsToDestroy.Count == 0)
-                break;
+            int randomIndex = Random.Range(0, seedWeeds.Count);
+            Destroy(seedWeeds[randomIndex]);
+            seedWeeds.RemoveAt(randomIndex);
+            weedsToDeleteCount--;
 
-            // Decide how many objects to delete, 1 or 2.
-            int deleteCount = Random.Range(1, 3);
-            for (int i = 0; i < deleteCount; i++)
+            deletionCounter++;
+
+            // Ensure no more than 2 are deleted at once
+            if (deletionCounter >= 2)
             {
-                // If we've reached our random deletion limit, stop.
-                if (deletedObjectsCount >= totalObjectsToDelete)
-                    break;
-
-                // Choose a random object to delete.
-                GameObject objectToDelete = objectsToDestroy[Random.Range(0, objectsToDestroy.Count)];
-
-                Destroy(objectToDelete);
-                objectsToDestroy.Remove(objectToDelete);
-                deletedObjectsCount++;
+                break;
             }
+        }
+    }
 
-            // Wait for a random time before the next deletion.
-            yield return new WaitForSeconds(Random.Range(20f, 120f));
+    private void PopulateSeedWeedsList()
+    {
+        seedWeeds.Clear();
+
+        foreach (var entry in WeedLocationManager.Instance.weedLocations)
+        {
+            if (entry.Value.tag == "Seed")
+            {
+                seedWeeds.Add(entry.Value);
+            }
         }
     }
 }

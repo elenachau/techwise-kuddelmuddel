@@ -45,7 +45,7 @@ public class WeedHarvester : MonoBehaviour
         }
     }
 
-    private void DestroyWeed(GameObject weed){
+    public void DestroyWeed(GameObject weed){
         Destroy(weed);
         WeedLocationManager.Instance.weedLocations.Remove(TileGetter.Instance.lastCell);
         PlayerData.Instance.AddWeeds(-1);
