@@ -10,21 +10,27 @@ public class Navigation : MonoBehaviour
 
     void Start() {
         cam = Camera.main;
-        oldPos = new Vector3(0,0,0);
     }
 
     public void NavUpdate() {
-        Vector3 currentPos = Input.mousePosition;
-        Vector3 dPos = currentPos - oldPos;
+        if (Input.GetMouseButtonDown(0)){
+            oldPos = Input.mousePosition;
+            print("New Swipe");
+        }
 
-        Vector3 newPos = new Vector3(
-            (-PlayerData.Instance.scrollSensitivity * dPos.x) + cam.transform.position.x,
-            (-PlayerData.Instance.scrollSensitivity * dPos.y) + cam.transform.position.y,
-            cam.transform.position.z
-        );
-        print("current: " + currentPos + " / delta: "  + dPos + " / new: " + newPos);
-        cam.transform.position = CheckBounds(newPos);
-        oldPos = currentPos;
+        if (Input.GetMouseButton(0)){
+            Vector3 currentPos = Input.mousePosition;
+            Vector3 dPos = currentPos - oldPos;
+            print("current: " + currentPos + " / delta: "  + dPos + " / old: " + oldPos);
+
+            Vector3 newPos = new Vector3(
+                (-PlayerData.Instance.scrollSensitivity * dPos.x) + cam.transform.position.x,
+                (-PlayerData.Instance.scrollSensitivity * dPos.y) + cam.transform.position.y,
+                cam.transform.position.z
+            );
+            cam.transform.position = CheckBounds(newPos);
+            oldPos = currentPos;
+        }
     }
     
     Vector3 CheckBounds(Vector3 checkPos){

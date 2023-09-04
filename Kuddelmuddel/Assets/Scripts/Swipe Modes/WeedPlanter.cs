@@ -8,24 +8,26 @@ public class WeedPlanter : MonoBehaviour
     [SerializeField] public GameObject weedPrefab;
 
     public void PlanterUpdate() {
-        TileGetter.Instance.TouchUpdate(Input.mousePosition);
-        bool firstTouch = (Input.GetMouseButtonDown(0));
+        if (Input.GetMouseButton(0)){
+            TileGetter.Instance.TouchUpdate(Input.mousePosition);
+            bool firstTouch = (Input.GetMouseButtonDown(0));
 
-        if (!(WeedLocationManager.Instance.weedLocations.ContainsKey(TileGetter.Instance.lastCell))){ // object exists on this tile
-            if (WeedLocationManager.Instance.tileLocations.ContainsKey(TileGetter.Instance.lastCell)){ // tile doesn't exist
-                if (TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Weed").Count 
-                    + TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Seed").Count > 0
-                    || PlayerData.Instance.weedCount == 0){ // Is adjacent to a weed/seed and is not the first weed placed
-                    if (PlayerData.Instance.seedCount > 0){
-                        CreateWeed(TileGetter.Instance.lastCell);
-                        PlayerData.Instance.AddSeeds(-1);
+            if (!(WeedLocationManager.Instance.weedLocations.ContainsKey(TileGetter.Instance.lastCell))){ // object exists on this tile
+                if (WeedLocationManager.Instance.tileLocations.ContainsKey(TileGetter.Instance.lastCell)){ // tile doesn't exist
+                    if (TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Weed").Count 
+                        + TileGetter.Instance.GetSurroundingObjectsOfTag(TileGetter.Instance.lastCell, "Seed").Count > 0
+                        || PlayerData.Instance.weedCount == 0){ // Is adjacent to a weed/seed and is not the first weed placed
+                        if (PlayerData.Instance.seedCount > 0){
+                            CreateWeed(TileGetter.Instance.lastCell);
+                            PlayerData.Instance.AddSeeds(-1);
+                        }
+                        else if (firstTouch){
+                            print("You don't have enough seeds to plant a weed!");
+                        }
                     }
                     else if (firstTouch){
-                        print("You don't have enough seeds to plant a weed!");
+                        print("That cell is not adjacent to a weed!");
                     }
-                }
-                else if (firstTouch){
-                    print("That cell is not adjacent to a weed!");
                 }
             }
         }

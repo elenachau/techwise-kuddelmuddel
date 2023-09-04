@@ -23,6 +23,21 @@ public class TouchManager : MonoBehaviour
     void Update()
     {
         // Handle touch
+        switch (mode){
+            case 0:
+                nv.NavUpdate();
+                break;
+            case 1:
+                pz.ZoomUpdate();
+                break;
+            case 2:
+                wp.PlanterUpdate();
+                break;
+            case 3:
+                wh.HarvesterUpdate();
+                break;
+        }
+        
         if(Input.GetMouseButtonDown(0)){
             AudioManager.Instance.PlayUI();
         }
@@ -32,22 +47,8 @@ public class TouchManager : MonoBehaviour
             TileGetter.Instance.TouchUpdate(Input.mousePosition);
             trail.SetActive(true);
             trail.transform.position = TileGetter.Instance.lastWorldPt;
-
-            switch (mode){
-                case 0:
-                    nv.NavUpdate();
-                    break;
-                case 1:
-                    pz.ZoomUpdate();
-                    break;
-                case 2:
-                    wp.PlanterUpdate();
-                    break;
-                case 3:
-                    wh.HarvesterUpdate();
-                    break;
-            }
         }
+
         pz.ScrollWheelUpdate();
 
     }

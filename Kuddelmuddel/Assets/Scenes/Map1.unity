@@ -6941,14 +6941,14 @@ RectTransform:
   m_GameObject: {fileID: 522122835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1366070481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 150}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 576, y: 324}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &522122837
@@ -7136,7 +7136,7 @@ GameObject:
   - component: {fileID: 697671211}
   - component: {fileID: 697671210}
   m_Layer: 0
-  m_Name: WeedController
+  m_Name: Disaster Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7190,7 +7190,10 @@ MonoBehaviour:
   acidRainSystem: {fileID: 266912749}
   blizzardSystem: {fileID: 860655816}
   randomDeletionScript: {fileID: 697671211}
-  chanceToStart: 0.5
+  chanceToStart: 0.25
+  disasterFailureBoost: 0.1
+  disasterCheckDelay: 30
+  disasterDuration: 25
 --- !u!114 &697671211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7203,6 +7206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45646334e76f4a249215920b5f7683b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enabled: 0
+  destroyDelay: 2
 --- !u!1 &720430696
 GameObject:
   m_ObjectHideFlags: 0
@@ -8950,7 +8955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progression: 2
   playerName: billy
-  startingSeedCount: 150
+  startingSeedCount: 5
   numObstaclesToSpawn: 1
   minXBounds: 2
   minYBounds: 2
