@@ -10,6 +10,17 @@ public class ShopManagerScript : MonoBehaviour
     public int[,] shopItems = new int[5, 5];
     [SerializeField] public List<PowerupEffect> powerups;
     public Text CoinsTXT;
+    public static ShopManagerScript Instance;
+
+    void Awake() {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -31,15 +42,15 @@ public class ShopManagerScript : MonoBehaviour
     public void Buy()
     {
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
+        int id = ButtonRef.GetComponent<ButtonInfo>().ItemID;
 
-        if (PlayerData.Instance.seedCount >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
+        if (PlayerData.Instance.seedCount >= shopItems[2, id])
         {
-            PlayerData.Instance.AddSeeds( -shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID]);
-            shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++;
+            PlayerData.Instance.AddSeeds(-shopItems[2, id]);
             CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
             
             // Apply powerup automatically and close shop
-            Powerup.Instance.powerupEffect = powerups[ButtonRef.GetComponent<ButtonInfo>().ItemID - 1];
+            Powerup.Instance.powerupEffect = powerups[id - 1];
             Powerup.Instance.PowerUpAllWeeds();
             SceneManager.UnloadSceneAsync("ShopSystem");
         }
