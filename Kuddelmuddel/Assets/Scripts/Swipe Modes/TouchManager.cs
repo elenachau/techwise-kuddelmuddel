@@ -37,7 +37,7 @@ public class TouchManager : MonoBehaviour
                 wh.HarvesterUpdate();
                 break;
         }
-        
+
         if(Input.GetMouseButtonDown(0)){
             AudioManager.Instance.PlayUI();
         }
@@ -49,6 +49,7 @@ public class TouchManager : MonoBehaviour
             trail.transform.position = TileGetter.Instance.lastWorldPt;
         }
 
+        nv.ScrollWheelNavUpdate();
         pz.ScrollWheelUpdate();
 
     }

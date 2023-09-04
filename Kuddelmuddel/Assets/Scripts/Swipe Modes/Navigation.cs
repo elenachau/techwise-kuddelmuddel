@@ -31,6 +31,24 @@ public class Navigation : MonoBehaviour
             oldPos = currentPos;
         }
     }
+
+    public void ScrollWheelNavUpdate() {
+        if (Input.GetMouseButtonDown(2)){
+            oldPos = Input.mousePosition;
+        }
+
+        if (Input.GetMouseButton(2)){
+            Vector3 currentPos = Input.mousePosition;
+            Vector3 dPos = currentPos - oldPos;
+            Vector3 newPos = new Vector3(
+                (-PlayerData.Instance.scrollSensitivity * dPos.x) + cam.transform.position.x,
+                (-PlayerData.Instance.scrollSensitivity * dPos.y) + cam.transform.position.y,
+                cam.transform.position.z
+            );
+            cam.transform.position = CheckBounds(newPos);
+            oldPos = currentPos;
+        }
+    }
     
     Vector3 CheckBounds(Vector3 checkPos){
         Vector3 pos = checkPos;
