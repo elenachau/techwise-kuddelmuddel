@@ -36,7 +36,6 @@ public class TextUpdater : MonoBehaviour
             return count.ToString("E2"); // scientific exponential format
         }
 
-        print(newCount + ", " + unit);
         return count.ToString("N2").Substring(0,3) + unitStr[unit-1]; // 2 decimal places
 
     }

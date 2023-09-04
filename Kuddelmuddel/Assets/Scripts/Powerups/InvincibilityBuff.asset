@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d497f934138c98a448af3b32e85c5b9f, type: 3}
-  m_Name: MinorSunBuff
+  m_Script: {fileID: 11500000, guid: 8c509dca77466bb45965d762f82bd1aa, type: 3}
+  m_Name: InvincibilityBuff
   m_EditorClassIdentifier: 
-  duration: 10
-  growthRateMultiplier: 3
-  spreadRateMultiplier: 3
-  text: 'Minor sunlight buff '
+  duration: 30
+  growthRateMultiplier: 0
+  spreadRateMultiplier: 0
+  cost: 50
+  text: Weeds can't be destroyed by disasters!
   isEnabled: 0

@@ -311,7 +311,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Growth Spurt
+  m_Text: 'instant
+
+    grow'
 --- !u!222 &35886714
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -856,7 +858,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ca532bc308a18b144a9123b6edcfe5de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 187ed0ddef46b1d48be502bdc6dc7c0d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2016,10 +2018,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerups:
-  - {fileID: 11400000, guid: 5287f41b73fe2fc44a014d7b175856a8, type: 2}
+  - {fileID: 11400000, guid: 5d38530bc49e9460582bd609167cde54, type: 2}
+  - {fileID: 11400000, guid: 96898de2b095d4e928c41219871c6709, type: 2}
   - {fileID: 11400000, guid: 27edc8e344d10443f9abc8886daf3926, type: 2}
-  - {fileID: 11400000, guid: 27edc8e344d10443f9abc8886daf3926, type: 2}
-  - {fileID: 11400000, guid: bf45d84739ac124418e651a24e2a471b, type: 2}
+  - {fileID: 11400000, guid: b5b37c52ce5144ba280dec822dc38cc4, type: 2}
   CoinsTXT: {fileID: 1739342145}
 --- !u!4 &965731163
 Transform:
@@ -3293,7 +3295,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: harmony
+  m_Text: 'batch
+
+    remove'
 --- !u!222 &1807060966
 CanvasRenderer:
   m_ObjectHideFlags: 0

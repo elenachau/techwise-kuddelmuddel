@@ -305,8 +305,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 150, y: -175}
-  m_SizeDelta: {x: 700, y: 300}
+  m_AnchoredPosition: {x: 130, y: -103.6}
+  m_SizeDelta: {x: 250, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &24294498
 MonoBehaviour:
@@ -6303,6 +6303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 0}
   textBox: {fileID: 386097617}
+  weedPrefab: {fileID: 910837274}
 --- !u!4 &349412224
 Transform:
   m_ObjectHideFlags: 0
@@ -8956,7 +8957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progression: 2
   playerName: billy
-  startingSeedCount: 5
+  startingSeedCount: 1000
   numObstaclesToSpawn: 1
   minXBounds: 2
   minYBounds: 2
@@ -9214,7 +9215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1721579039
 MonoBehaviour:
   m_ObjectHideFlags: 0

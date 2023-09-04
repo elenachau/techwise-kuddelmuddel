@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public class Powerup : MonoBehaviour
 {
     public PowerupEffect powerupEffect;
     [SerializeField] private TextUpdater textBox;
+    [SerializeField] private GameObject weedPrefab;
     public static Powerup Instance;
-    private GameObject weedPrefab;
 
     void Awake()
     {
@@ -21,24 +22,22 @@ public class Powerup : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        weedPrefab = GameObject.Find("WeedObject");
-    }
-
     public void PowerUpAllWeeds()
     {   
-        foreach (KeyValuePair<Vector3Int, GameObject> entry in WeedLocationManager.Instance.weedLocations) {
-            if (entry.Value.tag == "Weed" || entry.Value.tag == "Seed"){
-                powerupEffect.ApplyEffect(entry.Value);
-                StartCoroutine(DisablePowerupOnClick(entry.Value));
+        foreach (GameObject obj in WeedLocationManager.Instance.weedLocations.Values.ToList()) {
+            powerupEffect.ApplyEffect(obj);
+            if (powerupEffect.getDuration() < 1) {
+                StartCoroutine(DisablePowerupOnClick(obj));
             }
         }
 
         // Apply buffs to Weed Prefab - all children (new seeds) will have buff
-        powerupEffect.ApplyEffect(weedPrefab);
+        // powerupEffect.ApplyEffect(weedPrefab);
+        // if (powerupEffect.getDuration() < 1) {
+        //         StartCoroutine(DisablePowerupOnClick(weedPrefab));
+        // }
+
         textBox.UpdateText(powerupEffect.getText());
-        StartCoroutine(DisablePowerupOnClick(weedPrefab));
     }
 
     public IEnumerator DisablePowerupOnClick(GameObject target)
