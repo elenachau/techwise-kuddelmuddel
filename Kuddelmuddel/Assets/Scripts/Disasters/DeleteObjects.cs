@@ -15,6 +15,13 @@ public class DeleteObjects : MonoBehaviour
     }
 
     public IEnumerator StartWeedDestruction() {
+        
+        // Disable growth during disaster
+        PopulateSeedWeedsList();
+        foreach (GameObject weed in seedWeeds) {
+            weed.GetComponent<WeedData>().canSpread = false;
+        }
+
         while (enabled){
             yield return new WaitForSeconds(destroyDelay);
             PopulateSeedWeedsList();
@@ -27,6 +34,13 @@ public class DeleteObjects : MonoBehaviour
                 }
             }
         }
+
+        // Enable growth again
+        PopulateSeedWeedsList();
+        foreach (GameObject weed in seedWeeds) {
+            weed.GetComponent<WeedData>().canSpread = true;
+            weed.GetComponent<WeedData>().StartSpread();
+        }
     }
 
     private void PopulateSeedWeedsList()
@@ -34,7 +48,7 @@ public class DeleteObjects : MonoBehaviour
         seedWeeds.Clear();
 
         foreach (KeyValuePair<Vector3Int, GameObject> entry in WeedLocationManager.Instance.weedLocations) {
-            if (entry.Value.tag == "Weed" && entry.Value.GetComponent<WeedData>().isDamagable)
+            if ((entry.Value.tag == "Weed" || entry.Value.tag == "Seed") && entry.Value.GetComponent<WeedData>().isDamagable)
             {
                 seedWeeds.Add(entry.Value);
             }

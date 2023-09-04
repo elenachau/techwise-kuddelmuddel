@@ -13,7 +13,7 @@ public class ButtonInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PriceTxt.text = GetShortenedNumber(ShopManager.GetComponent<ShopManagerScript>().shopItems[2, ItemID].ToString());
+        PriceTxt.text = GetShortenedNumber(ShopManager.GetComponent<ShopManagerScript>().shopItems[2, ItemID]);
     }
 
     private string GetShortenedNumber(int count) {

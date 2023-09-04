@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RemoveObstacles
   m_EditorClassIdentifier: 
   duration: 1
-  cost: 20
+  cost: 30
   text: Remove every obstacle!

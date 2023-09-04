@@ -37,7 +37,6 @@ public class ShopManagerScript : MonoBehaviour
             PlayerData.Instance.AddSeeds( -shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID]);
             shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++;
             CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
-            ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
             
             // Apply powerup automatically and close shop
             Powerup.Instance.powerupEffect = powerups[ButtonRef.GetComponent<ButtonInfo>().ItemID - 1];
