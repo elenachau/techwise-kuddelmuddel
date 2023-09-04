@@ -8961,7 +8961,7 @@ MonoBehaviour:
   yBounds: 0
   seedCount: 0
   weedCount: 0
-  scrollSensitivity: 0.01
+  scrollSensitivity: 0.02
 --- !u!4 &1508157525
 Transform:
   m_ObjectHideFlags: 0
