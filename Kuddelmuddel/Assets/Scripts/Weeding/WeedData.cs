@@ -66,16 +66,18 @@ public class WeedData : MonoBehaviour
     }
 
     public void GrowToNextStage() {
-        animator.Play("Weed_sprout");
-        animator.SetTrigger("GrowTrigger");
-        AudioManager.Instance.PlayHarvestSFX();
-        isGrowing = false;
-        isGrown = true;
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = seedSprite;
-        this.gameObject.tag = "Weed";
-        PlayerData.Instance.AddWeeds(1);
-        mm.CheckMap();
-        spreadCoroutine = StartCoroutine(SpreadLoop());
+        if (!isGrown){
+            animator.Play("Weed_sprout");
+            animator.SetTrigger("GrowTrigger");
+            AudioManager.Instance.PlayHarvestSFX();
+            isGrowing = false;
+            isGrown = true;
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = seedSprite;
+            this.gameObject.tag = "Weed";
+            PlayerData.Instance.AddWeeds(1);
+            mm.CheckMap();
+            spreadCoroutine = StartCoroutine(SpreadLoop());
+        }
     }
 
     public void StartGrowth(){

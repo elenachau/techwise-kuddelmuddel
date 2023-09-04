@@ -18,9 +18,13 @@ public class DeleteObjects : MonoBehaviour
         while (enabled){
             yield return new WaitForSeconds(destroyDelay);
             PopulateSeedWeedsList();
-            for (int i = 0; i < PlayerData.Instance.progression / 3; i++){
-                int randomIndex = Random.Range(0, seedWeeds.Count);
-                wh.DestroyWeed(seedWeeds[randomIndex]);
+            int numWeedsToDestroyPerCycle = PlayerData.Instance.progression;
+            numWeedsToDestroyPerCycle = (numWeedsToDestroyPerCycle < 1) ? 1 : numWeedsToDestroyPerCycle; // set =1 if less than one
+            for (int i = 0; i < numWeedsToDestroyPerCycle; i++){
+                if (seedWeeds.Count > 0){
+                    int randomIndex = Random.Range(0, seedWeeds.Count);
+                    wh.DestroyWeed(seedWeeds[randomIndex]);
+                }
             }
         }
     }
@@ -30,7 +34,7 @@ public class DeleteObjects : MonoBehaviour
         seedWeeds.Clear();
 
         foreach (KeyValuePair<Vector3Int, GameObject> entry in WeedLocationManager.Instance.weedLocations) {
-            if (entry.Value.tag == "Weed")
+            if (entry.Value.tag == "Weed" && entry.Value.GetComponent<WeedData>().isDamagable)
             {
                 seedWeeds.Add(entry.Value);
             }

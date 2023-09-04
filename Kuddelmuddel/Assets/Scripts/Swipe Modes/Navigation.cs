@@ -15,13 +15,12 @@ public class Navigation : MonoBehaviour
     public void NavUpdate() {
         if (Input.GetMouseButtonDown(0)){
             oldPos = Input.mousePosition;
-            print("New Swipe");
         }
 
         if (Input.GetMouseButton(0)){
             Vector3 currentPos = Input.mousePosition;
             Vector3 dPos = currentPos - oldPos;
-            print("current: " + currentPos + " / delta: "  + dPos + " / old: " + oldPos);
+            //print("current: " + currentPos + " / delta: "  + dPos + " / old: " + oldPos);
 
             Vector3 newPos = new Vector3(
                 (-PlayerData.Instance.scrollSensitivity * dPos.x) + cam.transform.position.x,

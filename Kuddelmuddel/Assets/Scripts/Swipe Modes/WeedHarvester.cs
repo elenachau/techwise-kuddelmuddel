@@ -22,23 +22,32 @@ public class WeedHarvester : MonoBehaviour
 
                 if (touchedObject.tag == "Weed"){
                     DestroyWeed(touchedObject);
+                    PlayerData.Instance.AddSeeds(1);
                     AudioManager.Instance.PlayHarvestSFX();
                 }
                 else if (touchedObject.tag == "Obstacle" && Input.GetMouseButtonDown(0)){
                     if (touchedObject.GetComponent<ObstacleData>().isRemovable()){
-                        obstacleRemoveButton.SetActive(true);
                         if (touchedObject == selectedObstacle) {
-                            obstacleRemoveButton.SetActive(false);
+                            obstacleRemoveButton.SetActive(!obstacleRemoveButton.activeInHierarchy); // toggle
                         }
-                        Vector2 buttonPos = new Vector2(TileGetter.Instance.lastWorldPt.x, TileGetter.Instance.lastWorldPt.y + buttonYOffset);
-                        obstacleRemoveButton.transform.position = buttonPos;
-                        GameObject.Find("Seed Cost").GetComponent<TextUpdater>().UpdateText(PlayerData.Instance.numObstaclesRemoved.ToString());
-                        selectedObstacle = touchedObject;
+                        else {
+                            obstacleRemoveButton.SetActive(true);
+                        }
+
+                        if (obstacleRemoveButton.activeInHierarchy){
+                            Vector2 buttonPos = new Vector2(TileGetter.Instance.lastWorldPt.x, TileGetter.Instance.lastWorldPt.y + buttonYOffset);
+                            obstacleRemoveButton.transform.position = buttonPos;
+                            GameObject.Find("Seed Cost").GetComponent<TextUpdater>().UpdateText(PlayerData.Instance.numObstaclesRemoved.ToString());
+                            selectedObstacle = touchedObject;
+                        }
                     }
                 }
 
                 else if (touchedObject.tag == "Seed") {
                     DestroySeed(touchedObject);
+                    if(Random.Range(0,1) < seedReturnChance){
+                        PlayerData.Instance.AddSeeds(1);
+                    }
                     AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.sfx_removedObstacle);
                 }
             }
@@ -50,26 +59,34 @@ public class WeedHarvester : MonoBehaviour
         Vector3Int location = weed.GetComponent<WeedData>().location;
         WeedLocationManager.Instance.weedLocations.Remove(location);
         PlayerData.Instance.AddWeeds(-1);
-        PlayerData.Instance.AddSeeds(1);
         foreach (GameObject sWeed in
                 TileGetter.Instance.GetSurroundingObjectsOfTag(location, "Weed")){
             sWeed.GetComponent<WeedData>().StartSpread();
         }
-        print("Harvested weed at " + location);
+
+        // Check if player has no seeds or weeds; prohibit softlock
+        if (WeedLocationManager.Instance.getWeedObjectCount() + PlayerData.Instance.seedCount < 1) {
+            PlayerData.Instance.AddSeeds(1);
+        }
+
+        print("Destroyed weed at " + location);
     }
 
     private void DestroySeed(GameObject seed){
         Destroy(seed);
         Vector3Int location = seed.GetComponent<WeedData>().location;
         WeedLocationManager.Instance.weedLocations.Remove(location);
-        if(Random.Range(0,1) < seedReturnChance){
-            PlayerData.Instance.AddSeeds(1);
-        }
         foreach (GameObject sWeed in
                 TileGetter.Instance.GetSurroundingObjectsOfTag(location, "Weed")){
             sWeed.GetComponent<WeedData>().StartSpread();
         }
-        print("Harvested seed at " + location);
+
+        // Check if player has no seeds or weeds; prohibit softlock
+        if (WeedLocationManager.Instance.getWeedObjectCount() + PlayerData.Instance.seedCount < 1) {
+            PlayerData.Instance.AddSeeds(1);
+        }
+
+        print("Destroyed seed at " + location);
     }
 
     public void DestroySelectedObstacle() {

@@ -6,10 +6,12 @@ public class PartController : MonoBehaviour
     public ParticleSystem acidRainSystem;
     public ParticleSystem blizzardSystem;
     public DeleteObjects randomDeletionScript;
-    [SerializeField] private float chanceToStart;  // chance to start a particle system
+    private float chanceToStart;
+    [SerializeField] private float baseChanceToStart;  // chance to start a particle system
     [SerializeField] private float disasterFailureBoost;  // increases start chance when fails to start
     [SerializeField] private float disasterCheckDelay;  // attempts to start disaster every x seconds
     [SerializeField] private float disasterDuration;
+    [SerializeField] private float disasterCooldown;
 
     private bool isParticleSystemActive = false;
 
@@ -28,6 +30,9 @@ public class PartController : MonoBehaviour
 
         // Disable the random deletion script at start
         randomDeletionScript.enabled = false;
+
+        // Set chance
+        chanceToStart = baseChanceToStart;
 
         // Start the check loop
         StartCoroutine(CheckStartDisaster());
@@ -98,6 +103,12 @@ public class PartController : MonoBehaviour
 
         // Deactivate the random deletion process
         randomDeletionScript.enabled = false;
+
+        // Initiate cooldown
+        yield return new WaitForSeconds(disasterCooldown);
+
+        // Reset start chance if changed
+        chanceToStart = baseChanceToStart;
 
         // Release the lock
         isParticleSystemActive = false;

@@ -32,7 +32,7 @@ public class PlayerData : MonoBehaviour
         else {
             Destroy(gameObject);
         }
-        seedCount = startingSeedCount;
+        AddSeeds(startingSeedCount);
         xBounds = minXBounds;
         yBounds = minYBounds;
     }

@@ -7190,10 +7190,11 @@ MonoBehaviour:
   acidRainSystem: {fileID: 266912749}
   blizzardSystem: {fileID: 860655816}
   randomDeletionScript: {fileID: 697671211}
-  chanceToStart: 0.25
+  baseChanceToStart: 0.25
   disasterFailureBoost: 0.1
   disasterCheckDelay: 30
   disasterDuration: 25
+  disasterCooldown: 60
 --- !u!114 &697671211
 MonoBehaviour:
   m_ObjectHideFlags: 0
