@@ -12656,7 +12656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progression: 2
   playerName: billy
-  startingSeedCount: 20
+  startingSeedCount: 5
   numObstaclesToSpawn: 1
   minXBounds: 2
   minYBounds: 2

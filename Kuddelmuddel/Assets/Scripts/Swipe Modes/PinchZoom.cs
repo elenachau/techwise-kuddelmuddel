@@ -26,6 +26,9 @@ public class PinchZoom : MonoBehaviour
     }
 
     public void ZoomUpdate() {
+        if (Input.GetMouseButtonDown(0)){
+            previousDistance = Vector2.Distance(anchor, Input.mousePosition);;
+        }
         if (Input.GetMouseButton(0)){
             float currentDistance = Vector2.Distance(anchor, Input.mousePosition); // distance from origin
             float newSize = cam.orthographicSize + (PlayerData.Instance.scrollSensitivity * (previousDistance - currentDistance));
@@ -35,7 +38,7 @@ public class PinchZoom : MonoBehaviour
     }
 
     public void ScrollWheelUpdate() {
-        float newSize = cam.orthographicSize - (Input.GetAxis("Mouse ScrollWheel"));
+        float newSize = cam.orthographicSize - 2*(Input.GetAxis("Mouse ScrollWheel"));
         cam.orthographicSize = CheckCamZoom(Mathf.Abs(newSize));
     }
 

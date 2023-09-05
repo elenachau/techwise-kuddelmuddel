@@ -18,4 +18,5 @@ MonoBehaviour:
   newSpreadChance: 1
   newGrowthRate: 1.5
   text: DANCE PARTY!!!
+  affectsPrefab: 1
   newAnimations: {fileID: 0}
