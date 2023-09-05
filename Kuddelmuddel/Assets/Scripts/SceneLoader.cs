@@ -26,8 +26,8 @@ public class SceneLoader : MonoBehaviour
 
     public void PlayGame()
     {
-        //AudioManager.Instance.PlayUI();
         if (PlayerData.Instance == null){ // game has not started yet
+            AudioManager.Instance.PlayUI();
             SceneManager.LoadScene("Map1");
         }
         else {

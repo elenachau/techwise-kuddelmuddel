@@ -17,7 +17,7 @@ public class TextUpdater : MonoBehaviour
         UpdateText(GetShortenedNumber(PlayerData.Instance.weedCount));
     }
 
-    private string GetShortenedNumber(int count) {
+    public string GetShortenedNumber(int count) {
         if (count < 1000){
             return count.ToString();
         }
