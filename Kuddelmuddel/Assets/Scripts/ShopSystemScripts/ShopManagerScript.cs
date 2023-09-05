@@ -9,7 +9,7 @@ public class ShopManagerScript : MonoBehaviour
 {
     public int[,] shopItems = new int[5, 5];
     [SerializeField] public List<PowerupEffect> powerups;
-    public Text CoinsTXT;
+    //public Text CoinsTXT;
     public static ShopManagerScript Instance;
 
     void Awake() {
@@ -24,7 +24,8 @@ public class ShopManagerScript : MonoBehaviour
 
     void Start()
     {
-        CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
+        //CoinsTXT = GameObject.Find("CoinsTxt").GetComponent<Text>();
+        //CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
 
         //ID's
         shopItems[1, 1] = 1;
@@ -47,7 +48,6 @@ public class ShopManagerScript : MonoBehaviour
         if (PlayerData.Instance.seedCount >= shopItems[2, id])
         {
             PlayerData.Instance.AddSeeds(-shopItems[2, id]);
-            CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
             
             // Apply powerup automatically and close shop
             Powerup.Instance.powerupEffect = powerups[id - 1];
