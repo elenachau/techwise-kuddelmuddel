@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9826cbbe8bc34fb0980764f95cfd9ef, type: 3}
   m_Name: DanceBuff
   m_EditorClassIdentifier: 
-  duration: 5
-  cost: 100
+  duration: 15
+  cost: 75
   newSpreadRate: 0.5
   newSpreadChance: 1
   newGrowthRate: 1.5

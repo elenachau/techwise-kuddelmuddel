@@ -15,10 +15,10 @@ public class ObstacleData : MonoBehaviour
             print("You don't have enough seeds to destroy that obstacle!");
         }
 
-        else if (TileGetter.Instance.GetSurroundingObjectsOfTag(location, "Weed").Count == 0){
-            removable = false;
-            //print("You need to have a surrounding weed to remove that obstacle!");
-        }
+        // else if (TileGetter.Instance.GetSurroundingObjectsOfTag(location, "Weed").Count == 0){
+        //     removable = false;
+        //     //print("You need to have a surrounding weed to remove that obstacle!");
+        // }
 
         return removable;
     }

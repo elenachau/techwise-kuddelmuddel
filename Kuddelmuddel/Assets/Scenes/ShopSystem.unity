@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 7206629}
   - component: {fileID: 7206628}
   - component: {fileID: 7206627}
-  - component: {fileID: 7206631}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -229,18 +228,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &7206631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7206626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a914cc42325b4d8aa4e3c59d796a942, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &35886711
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,7 +781,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemID: 2
   PriceTxt: {fileID: 1921843586}
-  ShopManager: {fileID: 965731161}
 --- !u!114 &272641281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2293,7 +2279,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 96898de2b095d4e928c41219871c6709, type: 2}
   - {fileID: 11400000, guid: 27edc8e344d10443f9abc8886daf3926, type: 2}
   - {fileID: 11400000, guid: b5b37c52ce5144ba280dec822dc38cc4, type: 2}
-  CoinsTXT: {fileID: 1739342145}
 --- !u!4 &965731163
 Transform:
   m_ObjectHideFlags: 0
@@ -2582,7 +2567,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemID: 3
   PriceTxt: {fileID: 1404473558}
-  ShopManager: {fileID: 965731161}
 --- !u!114 &1288171455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3344,7 +3328,6 @@ GameObject:
   - component: {fileID: 1515033409}
   - component: {fileID: 1515033408}
   - component: {fileID: 1515033407}
-  - component: {fileID: 1515033411}
   m_Layer: 5
   m_Name: UIButtons
   m_TagString: Untagged
@@ -3436,18 +3419,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1515033411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1515033406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd6553be98aa884c85f2609fd2a7e42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1557610581
 GameObject:
   m_ObjectHideFlags: 0
@@ -4049,7 +4020,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemID: 1
   PriceTxt: {fileID: 404243480}
-  ShopManager: {fileID: 965731161}
 --- !u!114 &1682737008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4155,7 +4125,6 @@ GameObject:
   - component: {fileID: 1739342147}
   - component: {fileID: 1739342146}
   - component: {fileID: 1739342145}
-  - component: {fileID: 1739342148}
   m_Layer: 5
   m_Name: CoinsTxt
   m_TagString: Untagged
@@ -4224,18 +4193,6 @@ RectTransform:
   m_AnchoredPosition: {x: -100, y: 200}
   m_SizeDelta: {x: 931.8, y: 212.2}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1739342148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1739342144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6809fe2638214dff9d8178799e236db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1764307123
 GameObject:
   m_ObjectHideFlags: 0
@@ -4804,7 +4761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1954779048
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4934,7 +4891,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemID: 4
   PriceTxt: {fileID: 1940841351}
-  ShopManager: {fileID: 965731161}
 --- !u!114 &2145403405
 MonoBehaviour:
   m_ObjectHideFlags: 0

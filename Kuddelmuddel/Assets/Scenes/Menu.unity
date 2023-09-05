@@ -1908,7 +1908,7 @@ MonoBehaviour:
   sfx_removedObstacle: {fileID: 8300000, guid: fcef5de3fa7544a2ca4acb2bdb12b55a, type: 3}
   sfx_volumeTestSound: {fileID: 8300000, guid: a509cd22bfcdf4b7b9ffcc962fa7b999, type: 3}
   music_baseBackground: {fileID: 8300000, guid: a164485085dc54b03ad1828515845d89, type: 3}
-  music_danceParty: {fileID: 0}
+  music_danceParty: {fileID: 8300000, guid: d5a0bff5d808a440f971e587d1fe9217, type: 3}
 --- !u!4 &1206062883
 Transform:
   m_ObjectHideFlags: 0

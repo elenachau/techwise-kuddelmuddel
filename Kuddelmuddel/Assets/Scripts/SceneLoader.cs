@@ -14,9 +14,6 @@ public class SceneLoader : MonoBehaviour
     public void OpenItemShop()
     {
         AudioManager.Instance.PlayUI();
-        if (ShopManagerScript.Instance == null){
-            // start tutorial
-        }
         SceneManager.LoadScene("ShopSystem", LoadSceneMode.Additive);
         
     }

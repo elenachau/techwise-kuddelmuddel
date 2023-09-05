@@ -24,26 +24,31 @@ public class Powerup : MonoBehaviour
 
     public void PowerUpAllWeeds()
     {   
-        foreach (GameObject obj in WeedLocationManager.Instance.weedLocations.Values.ToList()) {
-            powerupEffect.ApplyEffect(obj);
-            if (powerupEffect.getDuration() < 1) {
-                StartCoroutine(DisablePowerupOnClick(obj));
-            }
+        if (powerupEffect.getText() == "DANCE PARTY!!!") {
+            AudioManager.Instance.PlayDanceParty();
+            powerupEffect.ApplyEffect(weedPrefab);
         }
 
-        // Apply buffs to Weed Prefab - all children (new seeds) will have buff
-        // powerupEffect.ApplyEffect(weedPrefab);
-        // if (powerupEffect.getDuration() < 1) {
-        //         StartCoroutine(DisablePowerupOnClick(weedPrefab));
-        // }
+        foreach (GameObject obj in WeedLocationManager.Instance.weedLocations.Values.ToList()) {
+            powerupEffect.ApplyEffect(obj);
+        }
+
+        if (powerupEffect.getDuration() > 1) {
+            StartCoroutine(DisablePowerup());
+        }
 
         textBox.UpdateText(powerupEffect.getText());
     }
 
-    public IEnumerator DisablePowerupOnClick(GameObject target)
+    public IEnumerator DisablePowerup()
     {
         yield return new WaitForSeconds(powerupEffect.getDuration());
-        powerupEffect.DisableEffect(target.gameObject);
+        if (powerupEffect.getText() == "DANCE PARTY!!!") {
+            powerupEffect.DisableEffect(weedPrefab);
+        }
+        foreach (GameObject obj in WeedLocationManager.Instance.weedLocations.Values.ToList()) {
+            powerupEffect.DisableEffect(obj);
+        }
         textBox.UpdateText("");
     }
 }

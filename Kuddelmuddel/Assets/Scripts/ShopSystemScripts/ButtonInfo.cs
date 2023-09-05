@@ -8,12 +8,16 @@ public class ButtonInfo : MonoBehaviour
     // Start is called before the first frame update
     public int ItemID;
     public Text PriceTxt;
-    public GameObject ShopManager;
+    private ShopManagerScript sm;
+
+    void Start() {
+        sm = GameObject.Find("ShopManager").GetComponent<ShopManagerScript>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        PriceTxt.text = GetShortenedNumber(ShopManager.GetComponent<ShopManagerScript>().shopItems[2, ItemID]);
+        PriceTxt.text = GetShortenedNumber(sm.shopItems[2, ItemID]);
     }
 
     private string GetShortenedNumber(int count) {
