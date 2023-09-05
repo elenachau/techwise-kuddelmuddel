@@ -38,6 +38,9 @@ public class BoardWipeBuff : PowerupEffect
                 count++;
             }
         }
+        if (removalCost == 0){
+            return 0; // no upfront fee
+        }
         return cost + removalCost;
     }
 
