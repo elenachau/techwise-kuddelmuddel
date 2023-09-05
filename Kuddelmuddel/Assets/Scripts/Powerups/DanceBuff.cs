@@ -15,6 +15,7 @@ public class DancePartyBuff : PowerupEffect
     [SerializeField] private float newSpreadChance;
     [SerializeField] private float newGrowthRate;
     [SerializeField] private string text;
+    [SerializeField] private bool affectsPrefab;
     [SerializeField] private RuntimeAnimatorController newAnimations;
 
     public override void ApplyEffect(GameObject target)
@@ -51,6 +52,10 @@ public class DancePartyBuff : PowerupEffect
 
     public override string getText() {
         return text;
+    }
+
+    public override bool getAffectsPrefab() {
+        return affectsPrefab;
     }
     
 }

@@ -31,10 +31,8 @@ public class ShopManagerScript : MonoBehaviour
 
     public void Buy()
     {
-        print("Bought");
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
         int id = ButtonRef.GetComponent<ButtonInfo>().ItemID;
-        print("id: " + id + ", powerup: " + powerups[id-1]);
 
         if (PlayerData.Instance.seedCount >= shopItems[2, id])
         {

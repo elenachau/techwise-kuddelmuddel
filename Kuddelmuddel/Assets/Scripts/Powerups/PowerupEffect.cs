@@ -10,6 +10,7 @@ public abstract class PowerupEffect : ScriptableObject
     public abstract float getDuration();
     public abstract int getCost();
     public abstract string getText();
+    public abstract bool getAffectsPrefab();
 }
 
 

@@ -7,12 +7,11 @@ using UnityEngine;
 public class InvincibilityBuff : PowerupEffect
 {
 
-    public float duration = 0;
-    public float growthRateMultiplier = 0;
-    public float spreadRateMultiplier = 0;
-    public int cost;
-    public string text;
-    public bool isEnabled = false;
+    [SerializeField] private float duration;
+    [SerializeField] private int cost;
+    [SerializeField] private string text;
+    [SerializeField] private bool affectsPrefab;
+
 
     public override void ApplyEffect(GameObject target)
     {
@@ -40,6 +39,10 @@ public class InvincibilityBuff : PowerupEffect
     public override string getText()
     {
         return text;
+    }
+
+    public override bool getAffectsPrefab() {
+        return affectsPrefab;
     }
 
 }

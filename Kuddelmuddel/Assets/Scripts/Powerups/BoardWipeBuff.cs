@@ -10,6 +10,7 @@ public class BoardWipeBuff : PowerupEffect
     [SerializeField] private float duration;
     [SerializeField] private int cost;
     [SerializeField] private string text;
+    [SerializeField] private bool affectsPrefab;
 
     public override void ApplyEffect(GameObject target)
     {
@@ -42,6 +43,10 @@ public class BoardWipeBuff : PowerupEffect
 
     public override string getText() {
         return text;
+    }
+
+    public override bool getAffectsPrefab() {
+        return affectsPrefab;
     }
     
 }
