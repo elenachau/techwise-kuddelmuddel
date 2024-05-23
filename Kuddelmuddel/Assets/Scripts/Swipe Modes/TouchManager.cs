@@ -23,31 +23,35 @@ public class TouchManager : MonoBehaviour
     void Update()
     {
         // Handle touch
-        if(Input.touchCount > 0)
+        switch (mode){
+            case 0:
+                nv.NavUpdate();
+                break;
+            case 1:
+                pz.ZoomUpdate();
+                break;
+            case 2:
+                wp.PlanterUpdate();
+                break;
+            case 3:
+                wh.HarvesterUpdate();
+                break;
+        }
+
+        if(Input.GetMouseButtonDown(0)){
+            AudioManager.Instance.PlayUI();
+        }
+
+        if(Input.GetMouseButton(0))
         {
-            TileGetter.Instance.TouchUpdate(Input.GetTouch(0).position);
+            TileGetter.Instance.TouchUpdate(Input.mousePosition);
             trail.SetActive(true);
             trail.transform.position = TileGetter.Instance.lastWorldPt;
-
-            if(Input.GetTouch(0).phase == TouchPhase.Began){
-                AudioManager.Instance.PlayUI();
-            }
-
-            switch (mode){
-                case 0:
-                    nv.NavUpdate();
-                    break;
-                case 1:
-                    pz.ZoomUpdate();
-                    break;
-                case 2:
-                    wp.PlanterUpdate();
-                    break;
-                case 3:
-                    wh.HarvesterUpdate();
-                       break;
-            }
         }
+
+        nv.ScrollWheelNavUpdate();
+        pz.ScrollWheelUpdate();
+
     }
 
     public void SetModeNavigate() {

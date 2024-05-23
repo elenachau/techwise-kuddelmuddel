@@ -9,11 +9,12 @@ public class ShopManagerScript : MonoBehaviour
 {
     public int[,] shopItems = new int[5, 5];
     [SerializeField] public List<PowerupEffect> powerups;
-    public Text CoinsTXT;
+    //public Text CoinsTXT;
 
     void Start()
     {
-        CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
+        //CoinsTXT = GameObject.Find("CoinsTxt").GetComponent<Text>();
+        //CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
 
         //ID's
         shopItems[1, 1] = 1;
@@ -22,33 +23,23 @@ public class ShopManagerScript : MonoBehaviour
         shopItems[1, 4] = 4;
 
         //Price
-        shopItems[2, 1] = 10;
-        shopItems[2, 2] = 20;
-        shopItems[2, 3] = 30;
-        shopItems[2, 4] = 40;
-
-        //Quantity
-        shopItems[3, 1] = 0;
-        shopItems[3, 2] = 0;
-        shopItems[3, 3] = 0;
-        shopItems[3, 4] = 0;
-
-
+        shopItems[2, 1] = powerups[0].getCost();
+        shopItems[2, 2] = powerups[1].getCost();
+        shopItems[2, 3] = powerups[2].getCost();
+        shopItems[2, 4] = powerups[3].getCost();
     }
 
     public void Buy()
     {
         GameObject ButtonRef = GameObject.FindGameObjectWithTag("Event").GetComponent<EventSystem>().currentSelectedGameObject;
+        int id = ButtonRef.GetComponent<ButtonInfo>().ItemID;
 
-        if (PlayerData.Instance.seedCount >= shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID])
+        if (PlayerData.Instance.seedCount >= shopItems[2, id])
         {
-            PlayerData.Instance.AddSeeds( -shopItems[2, ButtonRef.GetComponent<ButtonInfo>().ItemID]);
-            shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID]++;
-            CoinsTXT.text = "Seeds:" + PlayerData.Instance.seedCount.ToString();
-            ButtonRef.GetComponent<ButtonInfo>().QuantityTxt.text = shopItems[3, ButtonRef.GetComponent<ButtonInfo>().ItemID].ToString();
+            PlayerData.Instance.AddSeeds(-(shopItems[2, id]));
             
             // Apply powerup automatically and close shop
-            Powerup.Instance.powerupEffect = powerups[ButtonRef.GetComponent<ButtonInfo>().ItemID - 1];
+            Powerup.Instance.powerupEffect = powerups[id - 1];
             Powerup.Instance.PowerUpAllWeeds();
             SceneManager.UnloadSceneAsync("ShopSystem");
         }

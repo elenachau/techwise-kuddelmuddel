@@ -5,39 +5,41 @@ using UnityEngine;
 public class DeleteObjects : MonoBehaviour
 {
     private List<GameObject> seedWeeds = new List<GameObject>();
-    private float timeSinceLastDeletion = 0;
+    public bool enabled = false;
+    [SerializeField] private float destroyDelay;
+    //[SerializeField] private int weedsToDestroyPerCycle;
+    private WeedHarvester wh;
 
-    void Update()
-    {
-        // Every 2 minutes, trigger the weed deletion process
-        timeSinceLastDeletion += Time.deltaTime;
-        if (timeSinceLastDeletion >= 120f) // 120 seconds = 2 minutes
-        {
-            timeSinceLastDeletion = 0f;
-            DestroyRandomSeeds();
-        }
+    void Start() {
+        wh = GameObject.Find("Touch Manager").GetComponent<WeedHarvester>();
     }
 
-    private void DestroyRandomSeeds()
-    {
+    public IEnumerator StartWeedDestruction() {
+        
+        // Disable growth during disaster
         PopulateSeedWeedsList();
-        int weedsToDeleteCount = Mathf.FloorToInt(seedWeeds.Count * 0.6f); // Calculate 60%
-        int deletionCounter = 0;
+        foreach (GameObject weed in seedWeeds) {
+            weed.GetComponent<WeedData>().canSpread = false;
+        }
 
-        while (weedsToDeleteCount > 0)
-        {
-            int randomIndex = Random.Range(0, seedWeeds.Count);
-            Destroy(seedWeeds[randomIndex]);
-            seedWeeds.RemoveAt(randomIndex);
-            weedsToDeleteCount--;
-
-            deletionCounter++;
-
-            // Ensure no more than 2 are deleted at once
-            if (deletionCounter >= 2)
-            {
-                break;
+        while (enabled){
+            yield return new WaitForSeconds(destroyDelay);
+            PopulateSeedWeedsList();
+            int numWeedsToDestroyPerCycle = PlayerData.Instance.progression;
+            numWeedsToDestroyPerCycle = (numWeedsToDestroyPerCycle < 1) ? 1 : numWeedsToDestroyPerCycle; // set =1 if less than one
+            for (int i = 0; i < numWeedsToDestroyPerCycle; i++){
+                if (seedWeeds.Count > 0){
+                    int randomIndex = Random.Range(0, seedWeeds.Count);
+                    wh.DestroyWeed(seedWeeds[randomIndex]);
+                }
             }
+        }
+
+        // Enable growth again
+        PopulateSeedWeedsList();
+        foreach (GameObject weed in seedWeeds) {
+            weed.GetComponent<WeedData>().canSpread = true;
+            weed.GetComponent<WeedData>().StartSpread();
         }
     }
 
@@ -45,9 +47,8 @@ public class DeleteObjects : MonoBehaviour
     {
         seedWeeds.Clear();
 
-        foreach (var entry in WeedLocationManager.Instance.weedLocations)
-        {
-            if (entry.Value.tag == "Seed")
+        foreach (KeyValuePair<Vector3Int, GameObject> entry in WeedLocationManager.Instance.weedLocations) {
+            if ((entry.Value.tag == "Weed" || entry.Value.tag == "Seed") && entry.Value.GetComponent<WeedData>().isDamagable)
             {
                 seedWeeds.Add(entry.Value);
             }

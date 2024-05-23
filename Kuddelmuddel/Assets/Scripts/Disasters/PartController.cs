@@ -1,12 +1,17 @@
 using UnityEngine;
 using System.Collections;
 
-public class ParticleSystemController : MonoBehaviour
+public class PartController : MonoBehaviour
 {
     public ParticleSystem acidRainSystem;
     public ParticleSystem blizzardSystem;
     public DeleteObjects randomDeletionScript;
-    public float chanceToStart = 0.5f;  // 50% chance to start a particle system
+    private float chanceToStart;
+    [SerializeField] private float baseChanceToStart;  // chance to start a particle system
+    [SerializeField] private float disasterFailureBoost;  // increases start chance when fails to start
+    [SerializeField] private float disasterCheckDelay;  // attempts to start disaster every x seconds
+    [SerializeField] private float disasterDuration;
+    [SerializeField] private float disasterCooldown;
 
     private bool isParticleSystemActive = false;
 
@@ -26,26 +31,33 @@ public class ParticleSystemController : MonoBehaviour
         // Disable the random deletion script at start
         randomDeletionScript.enabled = false;
 
+        // Set chance
+        chanceToStart = baseChanceToStart;
+
         // Start the check loop
-        StartCoroutine(CheckEveryThreeMinutes());
+        StartCoroutine(CheckStartDisaster());
     }
 
-    private IEnumerator CheckEveryThreeMinutes()
+    private IEnumerator CheckStartDisaster()
     {
         while (true)
         {
-            // Wait for 3 minutes
-            yield return new WaitForSeconds(20f);
+            // Check every x seconds
+            yield return new WaitForSeconds(disasterCheckDelay);
 
             // Check if a particle system is already active
             if (isParticleSystemActive)
                 continue;  // Skip this iteration if true
 
             // Randomly decide whether to start a particle system
-            if (Random.value < chanceToStart)
+            float startCheck = Random.value;
+            print("Attempting disaster: " + startCheck + " < " + chanceToStart);
+
+            if (startCheck < chanceToStart)
             {
                 // Decide which particle system to play
-                if (Random.value < 0.10f) // Adjust as needed
+                float chooseSystem = Random.value;
+                if (chooseSystem < 0.50f) // Adjust as needed
                 {
                     StartParticleSystemAndDeletion(acidRainSystem);
                 }
@@ -54,11 +66,16 @@ public class ParticleSystemController : MonoBehaviour
                     StartParticleSystemAndDeletion(blizzardSystem);
                 }
             }
+            else {
+                // Increase disaster chance by % every successive failure
+                chanceToStart += disasterFailureBoost;
+            }
         }
     }
 
     private void StartParticleSystemAndDeletion(ParticleSystem systemToStart)
     {
+        Debug.Log("Started disaster!");
         // Set the lock
         isParticleSystemActive = true;
 
@@ -71,9 +88,10 @@ public class ParticleSystemController : MonoBehaviour
 
         // Activate the random deletion process
         randomDeletionScript.enabled = true;
+        randomDeletionScript.StartCoroutine(randomDeletionScript.StartWeedDestruction());
 
-        // Stop the particle system after 2 minutes
-        StartCoroutine(StopParticleSystemAfterDelay(systemToStart, 120f));
+        // Stop the particle system after x seconds
+        StartCoroutine(StopParticleSystemAfterDelay(systemToStart, disasterDuration));
     }
 
     private IEnumerator StopParticleSystemAfterDelay(ParticleSystem systemToStop, float delay)
@@ -86,7 +104,14 @@ public class ParticleSystemController : MonoBehaviour
         // Deactivate the random deletion process
         randomDeletionScript.enabled = false;
 
+        // Initiate cooldown
+        yield return new WaitForSeconds(disasterCooldown);
+
+        // Reset start chance if changed
+        chanceToStart = baseChanceToStart;
+
         // Release the lock
         isParticleSystemActive = false;
+
     }
 }

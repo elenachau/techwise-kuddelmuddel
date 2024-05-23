@@ -14,6 +14,8 @@ public class PlayerData : MonoBehaviour
     [SerializeField] public int minYBounds;
     [SerializeField] private TextUpdater weedText;
     [SerializeField] private TextUpdater seedText;
+    [SerializeField] private TextUpdater seedEarningsText;
+    [SerializeField] private GameObject levelWinScreen;
     public int numObstaclesRemoved = 1;
     public int xBounds;
     public int yBounds;
@@ -32,7 +34,7 @@ public class PlayerData : MonoBehaviour
         else {
             Destroy(gameObject);
         }
-        seedCount = startingSeedCount;
+        AddSeeds(startingSeedCount);
         xBounds = minXBounds;
         yBounds = minYBounds;
     }
@@ -51,6 +53,8 @@ public class PlayerData : MonoBehaviour
     public void SetNextProgression() {
         progression *= 3;
         AddSeeds(progression);
+        levelWinScreen.SetActive(true);
+        seedEarningsText.UpdateText(seedEarningsText.GetShortenedNumber(progression));
         SetBounds();
         tm.GetComponent<PinchZoom>().UpdateCamera();
     }

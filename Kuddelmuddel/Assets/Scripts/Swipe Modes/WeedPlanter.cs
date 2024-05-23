@@ -8,9 +8,9 @@ public class WeedPlanter : MonoBehaviour
     [SerializeField] public GameObject weedPrefab;
 
     public void PlanterUpdate() {
-        if (Input.touchCount > 0){
-            TileGetter.Instance.TouchUpdate(Input.GetTouch(0).position);
-            bool firstTouch = (Input.GetTouch(0).phase == TouchPhase.Began);
+        if (Input.GetMouseButton(0)){
+            TileGetter.Instance.TouchUpdate(Input.mousePosition);
+            bool firstTouch = (Input.GetMouseButtonDown(0));
 
             if (!(WeedLocationManager.Instance.weedLocations.ContainsKey(TileGetter.Instance.lastCell))){ // object exists on this tile
                 if (WeedLocationManager.Instance.tileLocations.ContainsKey(TileGetter.Instance.lastCell)){ // tile doesn't exist

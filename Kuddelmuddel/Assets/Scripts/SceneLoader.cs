@@ -7,26 +7,27 @@ public class SceneLoader : MonoBehaviour
 {
     public void PauseGame()
     { 
-        AudioManager.Instance.PlayUI();
+        //AudioManager.Instance.PlayUI();
         SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
     }
     
     public void OpenItemShop()
     {
-        AudioManager.Instance.PlayUI();
+        //AudioManager.Instance.PlayUI();
         SceneManager.LoadScene("ShopSystem", LoadSceneMode.Additive);
+        
     }
 
     public void CloseItemShop()
     {
-        AudioManager.Instance.PlayUI();
+        //AudioManager.Instance.PlayUI();
         SceneManager.UnloadSceneAsync("ShopSystem");
     }
 
     public void PlayGame()
     {
-        AudioManager.Instance.PlayUI();
         if (PlayerData.Instance == null){ // game has not started yet
+            AudioManager.Instance.PlayUI();
             SceneManager.LoadScene("Map1");
         }
         else {

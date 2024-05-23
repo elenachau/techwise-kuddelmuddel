@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioClip> sfxs_plantingSounds;
     [SerializeField] public AudioClip sfx_removedObstacle;
     [SerializeField] private AudioClip sfx_volumeTestSound;
-    [SerializeField] private AudioClip music_baseBackground;
+    [SerializeField] public AudioClip music_baseBackground;
     [SerializeField] private AudioClip music_danceParty;
 
     void Awake() {
@@ -44,6 +44,27 @@ public class AudioManager : MonoBehaviour
     public void PlayHarvestSFX() {
         int choice = Random.Range(0, sfxs_harvestSounds.Count);
         effectsSource.PlayOneShot(sfxs_harvestSounds[choice]);
+    }
+
+    public void PlayDanceParty() {
+        musicSource.clip = music_danceParty;
+        musicSource.Play();
+        StartCoroutine(WaitReturnFromDanceParty());
+    }
+
+    private IEnumerator WaitReturnFromDanceParty() {
+        yield return new WaitForSeconds(14f);
+        PlayBackgroundMusic();
+    }
+
+    public void PlayBackgroundMusic() {
+        musicSource.clip = music_baseBackground;
+        musicSource.Play();
+    }
+
+    public void PlayMusicDelayed(AudioClip clip, float duration) {
+        musicSource.clip = clip;
+        musicSource.PlayDelayed(duration);
     }
 
     public void ChangeMusicVolume() {

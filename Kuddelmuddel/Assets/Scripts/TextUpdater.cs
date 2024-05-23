@@ -17,7 +17,7 @@ public class TextUpdater : MonoBehaviour
         UpdateText(GetShortenedNumber(PlayerData.Instance.weedCount));
     }
 
-    private string GetShortenedNumber(int count) {
+    public string GetShortenedNumber(int count) {
         if (count < 1000){
             return count.ToString();
         }
@@ -36,7 +36,6 @@ public class TextUpdater : MonoBehaviour
             return count.ToString("E2"); // scientific exponential format
         }
 
-        print(newCount + ", " + unit);
         return count.ToString("N2").Substring(0,3) + unitStr[unit-1]; // 2 decimal places
 
     }
